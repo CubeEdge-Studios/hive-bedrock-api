@@ -1,0 +1,12 @@
+{
+    "name": "hive-bedrock-api",
+    "version": "0.0.4",
+    "description": "An API wrapper for the Hive Minecraft Bedrock Edition server.",
+    "main": "index.js",
+    "license": "MIT",
+    "author": "Cubeedge Studios",
+    "private": false,
+    "dependencies": {
+        "axios": "^0.26.0"
+    }
+}
