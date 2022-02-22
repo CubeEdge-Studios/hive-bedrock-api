@@ -2,22 +2,22 @@
     "name": "hive-bedrock-api",
     "version": "0.0.6",
     "description": "An API wrapper for the Hive Minecraft Bedrock Edition server.",
-    "main": "index.js",
+    "main": "lib/index.js",
+    "types": "lib/index.d.ts",
     "repository": {
         "type": "git",
         "url": "git+https://github.com/CubeEdge-Studios/hive-bedrock-api.git"
     },
     "license": "MIT",
     "author": "Cubeedge Studios",
-    "private": false,
     "dependencies": {
         "axios": "^0.26.0",
-        "ts-node": "^10.5.0"
-    },
-    "publishConfig": {
-        "access": "public"
+        "typescript": "^4.5.5"
     },
     "scripts": {
         "build": "tsc"
-    }
+    },
+    "files": [
+        "lib/**/*"
+    ]
 }
