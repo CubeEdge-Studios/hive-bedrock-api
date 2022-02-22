@@ -16,8 +16,11 @@ jobs:
               uses: actions/setup-node@v2.5.1
               with:
                   node-version: "14"
+            - name: Build Dist
+              run: |
+                  npm run build
             - name: 🚀 publish
               run: npm publish --access public
-              working-directory: my-package
+              working-directory: dist
               env:
                   NODE_AUTH_TOKEN: ${{secrets.NPM_AUTH_TOKEN}}
