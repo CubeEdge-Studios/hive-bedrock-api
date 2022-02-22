@@ -1,5 +1,5 @@
 import axios from "axios";
-import { API_ENDPOINT } from "../../config";
+import { API_ENDPOINT } from "../config";
 
 type Game = "sky" | "wars" | "hide" | "sg" | "dr" | "murder";
 type APIPath =

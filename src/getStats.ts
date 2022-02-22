@@ -1,4 +1,4 @@
-import { API_GAMES, Game, Mode } from "../config";
+import { API_GAMES, Game, Mode } from "./config";
 
 export default async function getStats(
     playerIdentifier: string,

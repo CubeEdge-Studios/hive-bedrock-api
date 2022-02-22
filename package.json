@@ -11,9 +11,13 @@
     "author": "Cubeedge Studios",
     "private": false,
     "dependencies": {
-        "axios": "^0.26.0"
+        "axios": "^0.26.0",
+        "ts-node": "^10.5.0"
     },
     "publishConfig": {
         "access": "public"
+    },
+    "scripts": {
+        "build": "tsc"
     }
 }

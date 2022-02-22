@@ -1,4 +1,4 @@
-import { PlayerIdentifier } from "../../config";
+import { PlayerIdentifier } from "../config";
 
 export default async function getAllTimeStats(
     playerIdentifier: PlayerIdentifier
