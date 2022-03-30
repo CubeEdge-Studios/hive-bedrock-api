@@ -6,6 +6,7 @@ interface ResponseType {
     hasFailed: boolean;
     status: number;
     message: string;
+    response: AxiosResponse;
 }
 interface RatelimitsType {
     limit: number;
@@ -25,6 +26,7 @@ export default class Response {
             hasFailed: apiResponse.status == 200 ? false : true,
             status: apiResponse.status,
             message: apiResponse.statusText,
+            response: apiResponse,
         };
 
         this.ratelimits = {
@@ -34,5 +36,8 @@ export default class Response {
         };
 
         this.data = new ResponseData(this.apiPath, apiResponse.data);
+    }
+    getStats() {
+        return this.data;
     }
 }
