@@ -2,11 +2,11 @@ import { Game } from "../config";
 
 export interface GameOutput {
     key: Game;
-    name: String;
-    maxLevel: Number;
-    maxPrestige: Number;
-    xpCap: Number;
-    xpIncrement: Number;
+    name: string;
+    maxLevel: number;
+    maxPrestige: number;
+    xpCap: number;
+    xpIncrement: number;
 }
 
 export default function getGame(game: Game): GameOutput {

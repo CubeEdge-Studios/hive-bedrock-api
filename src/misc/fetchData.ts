@@ -1,7 +1,6 @@
 import axios from "axios";
 import { API_ENDPOINT, Game } from "../config";
 import Response from "./Response";
-import ResponseData from "./ResponseData";
 
 export type APIPath =
     | `/game/all/${Game}/${string}`

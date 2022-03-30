@@ -1,6 +1,7 @@
 import { API_GAMES, Game } from "../config";
 import { APIPath } from "./fetchData";
 import getGame, { GameOutput } from "./getGame";
+import { XP } from "./XP";
 
 interface PlayerResponseData {
     // Player Info
@@ -67,11 +68,20 @@ interface CustomPlayerValues {
     copr?: number; // Cows per round
 }
 
+interface XPObject {
+    level: number;
+    xpToNextLevel: number;
+    xpToMaxLevel: number;
+    percentageToNextLevel: number;
+    percentageToMaxLevel: number;
+}
+
 var _rawData: PlayerResponseData = {};
 export default class ResponseData {
     apiPath: APIPath;
     data: PlayerResponseData;
     game: GameOutput;
+    xp: XPObject;
 
     constructor(apiPath: APIPath, responseData: PlayerResponseData) {
         this.apiPath = apiPath;
@@ -80,6 +90,25 @@ export default class ResponseData {
 
         this._saveRaw(responseData);
         this._addCustomValues();
+
+        if (this.data.xp) {
+            var xpClass = new XP(this.game.key, this.data.xp);
+            this.xp = {
+                level: xpClass.getLevel(),
+                xpToNextLevel: xpClass.getXPToNextLevel(),
+                xpToMaxLevel: xpClass.getXPToMaxLevel(),
+                percentageToNextLevel: xpClass.getPercentageToNextLevel(),
+                percentageToMaxLevel: xpClass.getPercentageToMaxLevel(),
+            };
+        } else {
+            this.xp = {
+                level: 0,
+                xpToNextLevel: 0,
+                xpToMaxLevel: 0,
+                percentageToNextLevel: 0,
+                percentageToMaxLevel: 0,
+            };
+        }
     }
     private _saveRaw(responseData: PlayerResponseData) {
         _rawData = responseData;

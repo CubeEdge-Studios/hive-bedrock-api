@@ -1,4 +1,4 @@
-export type Game = String | "sky" | "wars" | "hide" | "sg" | "dr" | "murder";
+export type Game = string | "sky" | "wars" | "hide" | "sg" | "dr" | "murder";
 export type GameWithArray =
     | "sky"
     | "wars"
