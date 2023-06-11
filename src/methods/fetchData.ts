@@ -97,7 +97,11 @@ export default async function fetchData<G extends GAME>(
         if (!request.ok)
             return {
                 data: null,
-                error: request.statusText,
+                error: {
+                    message: request.statusText,
+                    status: request.status,
+                    endpoint: API_ROOT + endpoint,
+                },
             };
 
         const response = await request.json();
@@ -109,7 +113,7 @@ export default async function fetchData<G extends GAME>(
     } catch (error) {
         return {
             data: null,
-            error: "Failed to fetch data.",
+            error: { message: "Failed to fetch data." },
         };
     }
 }

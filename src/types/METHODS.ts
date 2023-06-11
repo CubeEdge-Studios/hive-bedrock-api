@@ -1,4 +1,8 @@
 export type MethodResponse<R> = {
     data: R | null;
-    error: string | null;
+    error: {
+        message: string;
+        status?: number;
+        endpoint?: string;
+    } | null;
 };

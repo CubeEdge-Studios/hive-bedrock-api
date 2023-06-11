@@ -8,7 +8,7 @@ const {
 } = require("./lib");
 
 async function main() {
-    const { data, error } = await getMonthlyStats("jackamacc");
+    const { data, error } = await getAllTimeStats("e", [GAME.BlockDrop]);
     console.log(data, error);
 }
 main();

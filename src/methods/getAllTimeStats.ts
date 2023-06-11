@@ -1,10 +1,5 @@
 import gameFormat from "../format/gameFormat";
 import {
-    API_BASE_GAME_ALL,
-    API_GAME_STATS,
-    API_GAME_STATS_ALL,
-} from "../types/API";
-import {
     BASE_GAME_ALL,
     GAME,
     GAME_STATS,
@@ -46,7 +41,7 @@ export default async function getAllTimeStats<G extends GAME>(
             if (error || !data)
                 return {
                     data: null,
-                    error: error ?? "Failed to fetch data.",
+                    error: { message: "Failed to fetch data.", ...error },
                 };
 
             const gameData = gameFormat(data) as REQUEST_ALL;
@@ -61,7 +56,7 @@ export default async function getAllTimeStats<G extends GAME>(
 
             return { data: filteredGames, error: null };
         } catch (err) {
-            return { data: null, error: err as any };
+            return { data: null, error: { message: "Failed to fetch data." } };
         }
     }
 
@@ -73,12 +68,12 @@ export default async function getAllTimeStats<G extends GAME>(
             if (error || !data)
                 return {
                     data: null,
-                    error: error ?? "Failed to fetch data.",
+                    error: { message: "Failed to fetch data.", ...error },
                 };
             const gameData = gameFormat({ [game]: data }) as REQUEST_ALL;
             return { data: gameData[game], error: null };
         } catch (err) {
-            return { data: null, error: err as any };
+            return { data: null, error: { message: "Failed to fetch data." } };
         }
     }
 
@@ -90,7 +85,7 @@ export default async function getAllTimeStats<G extends GAME>(
             if (error || !data)
                 return {
                     data: null,
-                    error: error ?? "Failed to fetch data.",
+                    error: { message: "Failed to fetch data.", ...error },
                 };
 
             const gameData = gameFormat(data) as REQUEST_ALL;
@@ -106,9 +101,9 @@ export default async function getAllTimeStats<G extends GAME>(
 
             return { data: filteredGames, error: null };
         } catch (err) {
-            return { data: null, error: err as any };
+            return { data: null, error: { message: "Failed to fetch data." } };
         }
     }
 
-    return { data: null, error: "Failed to detect game type." };
+    return { data: null, error: { message: "Failed to detect game type." } };
 }

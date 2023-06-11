@@ -32,14 +32,14 @@ export default async function getMonthlyLeaderboard<G extends GAME>(
             if (error || !data)
                 return {
                     data: null,
-                    error: error ?? "Failed to fetch data.",
+                    error: { message: "Failed to fetch data.", ...error },
                 };
 
             const gameData = gameFormatArray(game, data) as REQUEST_LB<G>;
 
             return { data: gameData, error: null };
         } catch (err) {
-            return { data: null, error: err as any };
+            return { data: null, error: { message: "Failed to fetch data." } };
         }
     } else {
         let year = options.year ?? new Date().getFullYear();
@@ -48,20 +48,22 @@ export default async function getMonthlyLeaderboard<G extends GAME>(
         let skip = options.skip ?? 0;
 
         try {
-            const { data, error } = await fetchData(
+            let { data, error } = await fetchData(
                 `/game/monthly/${game}/${year}/${month}/${amount}/${skip}`
             );
             if (error || !data)
                 return {
                     data: null,
-                    error: error ?? "Failed to fetch data.",
+                    error: { message: "Failed to fetch data.", ...error },
                 };
+
+            if (!Array.isArray(data)) data = Object.values(data);
 
             const gameData = gameFormatArray(game, data) as REQUEST_LB<G>;
 
             return { data: gameData, error: null };
         } catch (err) {
-            return { data: null, error: err as any };
+            return { data: null, error: { message: "Failed to fetch data." } };
         }
     }
 }
