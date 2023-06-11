@@ -16,7 +16,7 @@ import {
     PLAYER_LB_SPECIFIC_MONTHLY_ENDPOINT,
     PLAYER_MONTHLY_ENDPOINT,
 } from "../types/ENDPOINTS";
-import { GAME } from "../types/GAMES";
+import { GAME } from "../types/GAME_INFO";
 import { MethodResponse } from "../types/METHODS";
 
 export const API_ROOT = "https://api.playhive.com/v0";

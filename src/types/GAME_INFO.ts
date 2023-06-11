@@ -1,4 +1,16 @@
-import { GAME } from "../types/GAMES";
+export enum GAME {
+    HideAndSeek = "hide",
+    DeathRun = "dr",
+    TreasureWars = "wars",
+    MurderMystery = "murder",
+    SurvivalGames = "sg",
+    Skywars = "sky",
+    CaptureTheFlag = "ctf",
+    BlockDrop = "drop",
+    GroundWars = "ground",
+    JustBuild = "build",
+    BlockParty = "party",
+}
 
 interface GAME_INFO_TYPE {
     maxLevel: number;

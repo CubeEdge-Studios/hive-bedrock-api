@@ -1,5 +1,5 @@
 import calculateLevel from "../methods/calculateLevel";
-import { GAME } from "../types/GAMES";
+import { GAME } from "../types/GAME_INFO";
 
 interface SingleGameFormat {
     [key: string]: any;

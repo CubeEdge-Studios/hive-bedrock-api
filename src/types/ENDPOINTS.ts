@@ -1,4 +1,4 @@
-import { GAME } from "./GAMES";
+import { GAME } from "./GAME_INFO";
 
 export type PLAYER_ALLTIME_ENDPOINT<
     G extends GAME | "all",

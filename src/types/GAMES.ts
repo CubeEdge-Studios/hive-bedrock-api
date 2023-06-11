@@ -15,20 +15,7 @@ import {
     API_GAME_WARS,
     API_USER_MAIN,
 } from "./API";
-
-export enum GAME {
-    HideAndSeek = "hide",
-    DeathRun = "dr",
-    TreasureWars = "wars",
-    MurderMystery = "murder",
-    SurvivalGames = "sg",
-    Skywars = "sky",
-    CaptureTheFlag = "ctf",
-    BlockDrop = "drop",
-    GroundWars = "ground",
-    JustBuild = "build",
-    BlockParty = "party",
-}
+import { GAME } from "./GAME_INFO";
 
 export type REQUEST_ALL = {
     [G in GAME]: GAME_STATS_ALL<G>;

@@ -1,5 +1,6 @@
 import { gameFormatArray } from "../format/gameFormat";
-import { GAME, LB_STATS, REQUEST_LB } from "../types/GAMES";
+import { LB_STATS, REQUEST_LB } from "../types/GAMES";
+import { GAME } from "../types/GAME_INFO";
 import { MethodResponse } from "../types/METHODS";
 import fetchData from "./fetchData";
 

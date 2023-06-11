@@ -1,12 +1,12 @@
 import gameFormat from "../format/gameFormat";
 import {
     BASE_GAME_MONTHLY,
-    GAME,
     GAME_STATS,
     GAME_STATS_ALL,
     GAME_STATS_MONTHLY,
     REQUEST_MONTHLY,
 } from "../types/GAMES";
+import { GAME } from "../types/GAME_INFO";
 import { MethodResponse } from "../types/METHODS";
 import fetchData from "./fetchData";
 

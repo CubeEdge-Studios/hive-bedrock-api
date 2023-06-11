@@ -1,5 +1,4 @@
-import { GAME } from "../types/GAMES";
-import { GAME_INFO } from "./GAME_INFO";
+import { GAME, GAME_INFO } from "../types/GAME_INFO";
 
 export default function calculateLevel(xp: number, game: GAME): number {
     let gameInfo = GAME_INFO[game];

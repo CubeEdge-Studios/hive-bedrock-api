@@ -1,4 +1,4 @@
-import { GAME } from "./GAMES";
+import { GAME } from "./GAME_INFO";
 
 export interface API_ERROR {
     request?: {
