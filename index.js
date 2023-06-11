@@ -1,5 +1,14 @@
-const { getStats, fetchData, getGame, getAllGames } = require("./lib/index");
+const {
+    getMonthlyStats,
+    GAME,
+    getAllTimeStats,
+    getAllTimeLeaderboard,
+    getMonthlyLeaderboard,
+    getGlobalStatistics,
+} = require("./lib");
 
-getStats("ucdfiddes", "sky", "all").then((x) =>
-    console.log(x.map((y) => y.data))
-);
+async function main() {
+    const { data, error } = await getMonthlyStats("jackamacc");
+    console.log(data, error);
+}
+main();

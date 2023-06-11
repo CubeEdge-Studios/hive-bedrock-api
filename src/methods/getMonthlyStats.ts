@@ -1,0 +1,142 @@
+import gameFormat from "../format/gameFormat";
+import {
+    BASE_GAME_MONTHLY,
+    GAME,
+    GAME_STATS,
+    GAME_STATS_ALL,
+    GAME_STATS_MONTHLY,
+    REQUEST_MONTHLY,
+} from "../types/GAMES";
+import { MethodResponse } from "../types/METHODS";
+import fetchData from "./fetchData";
+
+export default async function getMonthlyStats(
+    playerIndentifier: string
+): Promise<MethodResponse<Omit<REQUEST_MONTHLY, "main">>>;
+
+export default async function getMonthlyStats<G extends GAME>(
+    playerIdentifier: string,
+    game: G
+): Promise<MethodResponse<GAME_STATS<BASE_GAME_MONTHLY>[G]>>;
+
+export default async function getMonthlyStats<G extends GAME>(
+    playerIdentifier: string,
+    game: G,
+    options: {
+        year?: number;
+        month?: number;
+    }
+): Promise<MethodResponse<GAME_STATS<BASE_GAME_MONTHLY>[G]>>;
+
+export default async function getMonthlyStats<G extends GAME>(
+    playerIdentifier: string,
+    game: G[]
+): Promise<MethodResponse<{ [M in G]: GAME_STATS_ALL<M> }>>;
+
+export default async function getMonthlyStats<G extends GAME>(
+    playerIdentifier: string,
+    game?: G | G[],
+    options?: {
+        year?: number;
+        month?: number;
+        skip?: number;
+        amount?: number;
+    }
+): Promise<
+    MethodResponse<
+        | GAME_STATS<BASE_GAME_MONTHLY>
+        | GAME_STATS<BASE_GAME_MONTHLY>[G]
+        | { [M in G]: GAME_STATS_MONTHLY<M> }
+    >
+> {
+    if (!game) {
+        try {
+            const { data, error } = await fetchData(
+                `/game/monthly/player/all/${playerIdentifier}`
+            );
+            if (error || !data)
+                return {
+                    data: null,
+                    error: error ?? "Failed to fetch data.",
+                };
+
+            const gameData = gameFormat(data) as REQUEST_MONTHLY;
+
+            let filteredGamesEntries = Object.entries(gameData).filter(
+                ([key]) => Object.values(GAME).includes(key as GAME)
+            );
+
+            let filteredGames = Object.fromEntries(
+                filteredGamesEntries
+            ) as GAME_STATS<BASE_GAME_MONTHLY>;
+
+            return { data: filteredGames, error: null };
+        } catch (err) {
+            return { data: null, error: err as any };
+        }
+    }
+
+    if (options && typeof game === "string") {
+        let year = options.year ?? new Date().getFullYear();
+        let month = options.month ?? new Date().getMonth() + 1;
+
+        try {
+            const { data, error } = await fetchData<G>(
+                `/game/monthly/player/${game}/${playerIdentifier}/${year}/${month}`
+            );
+            if (error || !data)
+                return {
+                    data: null,
+                    error: error ?? "Failed to fetch data.",
+                };
+            return { data, error: null };
+        } catch (err) {
+            return { data: null, error: err as any };
+        }
+    }
+
+    if (typeof game === "string") {
+        try {
+            const { data, error } = await fetchData<G>(
+                `/game/monthly/player/${game}/${playerIdentifier}`
+            );
+            if (error || !data)
+                return {
+                    data: null,
+                    error: error ?? "Failed to fetch data.",
+                };
+            return { data, error: null };
+        } catch (err) {
+            return { data: null, error: err as any };
+        }
+    }
+
+    if (Array.isArray(game)) {
+        try {
+            const { data, error } = await fetchData(
+                `/game/monthly/player/all/${playerIdentifier}`
+            );
+            if (error || !data)
+                return {
+                    data: null,
+                    error: error ?? "Failed to fetch data.",
+                };
+
+            const FILTER_GAMES = game as GAME[];
+
+            let filteredGamesEntries = Object.entries(data).filter(([key]) =>
+                FILTER_GAMES.includes(key as GAME)
+            );
+
+            let filteredGames = Object.fromEntries(filteredGamesEntries) as {
+                [M in G]: GAME_STATS_MONTHLY<M>;
+            };
+
+            return { data: filteredGames, error: null };
+        } catch (err) {
+            return { data: null, error: err as any };
+        }
+    }
+
+    return { data: null, error: "Failed to detect game type." };
+}
