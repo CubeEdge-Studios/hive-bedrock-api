@@ -11,8 +11,6 @@ $ yarn add hive-bedrock-api
 
 ## Usage
 
----
-
 ### Fetch All-Time Player Statistics
 
 ```ts
