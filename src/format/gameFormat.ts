@@ -1,4 +1,6 @@
 import calculateLevel from "../methods/calculateLevel";
+import { API_USER_MAIN } from "../types/API";
+import { USER_MAIN } from "../types/GAMES";
 import { GAME } from "../types/GAME_INFO";
 
 interface SingleGameFormat {
@@ -9,6 +11,12 @@ interface GameFormat {
 }
 
 export const formats = {
+    main: (player: SingleGameFormat) => {
+        if ("first_played" in player)
+            player.first_played = new Date(player.first_played * 1000);
+
+        return player;
+    },
     default: (gameType: GAME, game: SingleGameFormat) => {
         if ("index" in game && game.index == 2147483646) return null;
 
@@ -25,7 +33,7 @@ export const formats = {
         if ("kills" in game && "deaths" in game)
             game.kdr = parseFloat((game.kills / game.deaths).toFixed(2));
 
-        return game;
+        return { id: gameType, ...game };
     },
     [GAME.BlockDrop]: (game: SingleGameFormat | null) => {
         return game;

@@ -88,15 +88,29 @@ export interface API_BASE_GAME_MONTHLY {
     username: string;
 }
 
+export type AVATAR = { url: string; name: string };
+
 export interface API_USER_MAIN {
     UUID: string;
-    xuid: number;
+    xuid: string;
     username: string;
     username_cc: string;
     rank: RANK;
     first_played: number;
     daily_login_streak: number;
     longest_daily_login_streak: number;
+    hub_title_count: number;
+    hub_title_unlocked: string[];
+    costume_count: number;
+    costume_unlocked: string[];
+    avatar_count: number;
+    avatar_unlocked: AVATAR[];
+    friend_count: number;
+    equipped_hub_title: string | null;
+    equipped_costume: string | null;
+    equipped_avatar: AVATAR | null;
+    quest_count: number;
+    paid_ranks: RANK[];
 }
 
 export interface API_GAME_HIDE {

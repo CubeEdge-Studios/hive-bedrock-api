@@ -51,10 +51,13 @@ export type GAME_STATS_MONTHLY<G extends GAME> =
 
 export interface BASE_LB extends API_BASE_LB {}
 export interface BASE_GAME_ALL extends Omit<API_BASE_GAME_ALL, "first_played"> {
+    id: GAME;
     first_played: Date;
 }
 export interface BASE_GAME_MONTHLY extends API_BASE_GAME_MONTHLY {}
-export interface USER_MAIN extends API_USER_MAIN {}
+export interface USER_MAIN extends Omit<API_USER_MAIN, "first_played"> {
+    first_played: Date;
+}
 
 export interface GAME_HIDE extends API_GAME_HIDE {}
 export interface GAME_DR extends API_GAME_DR {}

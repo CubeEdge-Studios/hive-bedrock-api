@@ -1,9 +1,10 @@
-import gameFormat from "../format/gameFormat";
+import gameFormat, { formats } from "../format/gameFormat";
 import {
     BASE_GAME_ALL,
     GAME_STATS,
     GAME_STATS_ALL,
     REQUEST_ALL,
+    USER_MAIN,
 } from "../types/GAMES";
 import { GAME } from "../types/GAME_INFO";
 import { MethodResponse } from "../types/METHODS";
@@ -11,7 +12,7 @@ import fetchData from "./fetchData";
 
 export default async function getAllTimeStats(
     playerIndentifier: string
-): Promise<MethodResponse<Omit<REQUEST_ALL, "main">>>;
+): Promise<MethodResponse<Omit<REQUEST_ALL, "main">> & { player: USER_MAIN }>;
 
 export default async function getAllTimeStats<G extends GAME>(
     playerIdentifier: string,
@@ -21,17 +22,18 @@ export default async function getAllTimeStats<G extends GAME>(
 export default async function getAllTimeStats<G extends GAME>(
     playerIdentifier: string,
     game: G[]
-): Promise<MethodResponse<{ [M in G]: GAME_STATS_ALL<M> }>>;
+): Promise<
+    MethodResponse<{ [M in G]: GAME_STATS_ALL<M> }> & { player: USER_MAIN }
+>;
 
 export default async function getAllTimeStats<G extends GAME>(
     playerIdentifier: string,
     game?: G | G[]
 ): Promise<
-    MethodResponse<
-        | GAME_STATS<BASE_GAME_ALL>
-        | GAME_STATS<BASE_GAME_ALL>[G]
-        | { [M in G]: GAME_STATS_ALL<M> }
-    >
+    | MethodResponse<GAME_STATS<BASE_GAME_ALL>[G]>
+    | (MethodResponse<
+          GAME_STATS<BASE_GAME_ALL> | { [M in G]: GAME_STATS_ALL<M> }
+      > & { player: USER_MAIN })
 > {
     if (!game) {
         try {
@@ -54,7 +56,11 @@ export default async function getAllTimeStats<G extends GAME>(
                 filteredGamesEntries
             ) as GAME_STATS<BASE_GAME_ALL>;
 
-            return { data: filteredGames, error: null };
+            return {
+                data: filteredGames,
+                error: null,
+                player: formats.main(data.main) as USER_MAIN,
+            };
         } catch (err) {
             console.error(err);
             return { data: null, error: { message: "Failed to fetch data." } };
@@ -101,7 +107,11 @@ export default async function getAllTimeStats<G extends GAME>(
                 [M in G]: GAME_STATS_ALL<M>;
             };
 
-            return { data: filteredGames, error: null };
+            return {
+                data: filteredGames,
+                error: null,
+                player: formats.main(data.main) as USER_MAIN,
+            };
         } catch (err) {
             console.error(err);
             return { data: null, error: { message: "Failed to fetch data." } };
