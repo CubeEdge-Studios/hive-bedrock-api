@@ -19,6 +19,7 @@ export default async function getGlobalStatistics(): Promise<
 
         return { data, error: null };
     } catch (err) {
+        console.error(err);
         return { data: null, error: { message: "Failed to fetch data." } };
     }
 }

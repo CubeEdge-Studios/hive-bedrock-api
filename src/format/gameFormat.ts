@@ -9,9 +9,12 @@ interface GameFormat {
 }
 
 export const formats = {
-    default: (game: SingleGameFormat) => {
+    default: (gameType: GAME, game: SingleGameFormat) => {
         if ("index" in game && game.index == 2147483646) return null;
-        if (!("xp" in game)) return null;
+
+        if ("xp" in game!) {
+            game.level = calculateLevel(game.xp, GAME.CaptureTheFlag);
+        } else return null;
 
         if ("first_played" in game)
             game.first_played = new Date(game.first_played * 1000);
@@ -25,54 +28,39 @@ export const formats = {
         return game;
     },
     [GAME.BlockDrop]: (game: SingleGameFormat | null) => {
-        if ("xp" in game!) game.level = calculateLevel(game.xp, GAME.BlockDrop);
         return game;
     },
     [GAME.BlockParty]: (game: SingleGameFormat | null) => {
-        if ("xp" in game!)
-            game.level = calculateLevel(game.xp, GAME.BlockParty);
         return game;
     },
     [GAME.CaptureTheFlag]: (game: SingleGameFormat | null) => {
-        if ("xp" in game!)
-            game.level = calculateLevel(game.xp, GAME.CaptureTheFlag);
         return game;
     },
     [GAME.DeathRun]: (game: SingleGameFormat | null) => {
-        if ("xp" in game!) game.level = calculateLevel(game.xp, GAME.DeathRun);
         return game;
     },
     [GAME.GroundWars]: (game: SingleGameFormat | null) => {
-        if ("xp" in game!)
-            game.level = calculateLevel(game.xp, GAME.GroundWars);
         return game;
     },
     [GAME.HideAndSeek]: (game: SingleGameFormat | null) => {
-        if ("xp" in game!)
-            game.level = calculateLevel(game.xp, GAME.HideAndSeek);
         return game;
     },
     [GAME.JustBuild]: (game: SingleGameFormat | null) => {
-        if ("xp" in game!) game.level = calculateLevel(game.xp, GAME.JustBuild);
         return game;
     },
     [GAME.MurderMystery]: (game: SingleGameFormat | null) => {
-        if ("xp" in game!)
-            game.level = calculateLevel(game.xp, GAME.MurderMystery);
         return game;
     },
     [GAME.Skywars]: (game: SingleGameFormat | null) => {
-        if ("xp" in game!) game.level = calculateLevel(game.xp, GAME.Skywars);
         return game;
     },
     [GAME.SurvivalGames]: (game: SingleGameFormat | null) => {
-        if ("xp" in game!)
-            game.level = calculateLevel(game.xp, GAME.SurvivalGames);
         return game;
     },
     [GAME.TreasureWars]: (game: SingleGameFormat | null) => {
-        if ("xp" in game!)
-            game.level = calculateLevel(game.xp, GAME.TreasureWars);
+        return game;
+    },
+    [GAME.TheBridge]: (game: SingleGameFormat | null) => {
         return game;
     },
 };
@@ -104,7 +92,7 @@ export default function gameFormat(
     const formatted = Object.fromEntries(
         Object.entries(games).map(([key, data]) => {
             if (!data) return [key, null];
-            let defaultFormat = formats.default(data!);
+            let defaultFormat = formats.default(key as GAME, data!);
 
             if (!defaultFormat) return [key, null];
             let gameFormat = formats[key as GAME](defaultFormat);

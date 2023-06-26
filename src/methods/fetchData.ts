@@ -110,7 +110,8 @@ export default async function fetchData<G extends GAME>(
             data: response,
             error: null,
         };
-    } catch (error) {
+    } catch (err) {
+        console.error(err);
         return {
             data: null,
             error: { message: "Failed to fetch data." },

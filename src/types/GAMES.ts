@@ -2,6 +2,7 @@ import {
     API_BASE_GAME_ALL,
     API_BASE_GAME_MONTHLY,
     API_BASE_LB,
+    API_GAME_BRIDGE,
     API_GAME_BUILD,
     API_GAME_CTF,
     API_GAME_DR,
@@ -40,6 +41,7 @@ export type GAME_STATS<M extends BASE_GAME_ALL | BASE_GAME_MONTHLY | BASE_LB> =
         [GAME.GroundWars]: M & GAME_GROUND;
         [GAME.JustBuild]: M & GAME_BUILD;
         [GAME.BlockParty]: M & GAME_PARTY;
+        [GAME.TheBridge]: M & GAME_BRIDGE;
     };
 
 export type LB_STATS<G extends GAME> = GAME_STATS<BASE_LB>[G];
@@ -65,3 +67,4 @@ export interface GAME_DROP extends API_GAME_DROP {}
 export interface GAME_GROUND extends API_GAME_GROUND {}
 export interface GAME_BUILD extends API_GAME_BUILD {}
 export interface GAME_PARTY extends API_GAME_PARTY {}
+export interface GAME_BRIDGE extends API_GAME_BRIDGE {}

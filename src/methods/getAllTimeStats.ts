@@ -56,6 +56,7 @@ export default async function getAllTimeStats<G extends GAME>(
 
             return { data: filteredGames, error: null };
         } catch (err) {
+            console.error(err);
             return { data: null, error: { message: "Failed to fetch data." } };
         }
     }
@@ -73,6 +74,7 @@ export default async function getAllTimeStats<G extends GAME>(
             const gameData = gameFormat({ [game]: data }) as REQUEST_ALL;
             return { data: gameData[game], error: null };
         } catch (err) {
+            console.error(err);
             return { data: null, error: { message: "Failed to fetch data." } };
         }
     }
@@ -101,6 +103,7 @@ export default async function getAllTimeStats<G extends GAME>(
 
             return { data: filteredGames, error: null };
         } catch (err) {
+            console.error(err);
             return { data: null, error: { message: "Failed to fetch data." } };
         }
     }

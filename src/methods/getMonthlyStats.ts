@@ -72,6 +72,7 @@ export default async function getMonthlyStats<G extends GAME>(
 
             return { data: filteredGames, error: null };
         } catch (err) {
+            console.error(err);
             return { data: null, error: { message: "Failed to fetch data." } };
         }
     }
@@ -91,6 +92,7 @@ export default async function getMonthlyStats<G extends GAME>(
                 };
             return { data, error: null };
         } catch (err) {
+            console.error(err);
             return { data: null, error: { message: "Failed to fetch data." } };
         }
     }
@@ -107,6 +109,7 @@ export default async function getMonthlyStats<G extends GAME>(
                 };
             return { data, error: null };
         } catch (err) {
+            console.error(err);
             return { data: null, error: { message: "Failed to fetch data." } };
         }
     }
@@ -134,6 +137,7 @@ export default async function getMonthlyStats<G extends GAME>(
 
             return { data: filteredGames, error: null };
         } catch (err) {
+            console.error(err);
             return { data: null, error: { message: "Failed to fetch data." } };
         }
     }

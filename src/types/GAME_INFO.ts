@@ -10,6 +10,7 @@ export enum GAME {
     GroundWars = "ground",
     JustBuild = "build",
     BlockParty = "party",
+    TheBridge = "bridge",
 }
 
 interface GAME_INFO_TYPE {
@@ -83,6 +84,12 @@ export const GAME_INFO: { [key in GAME]: GAME_INFO_TYPE } = {
     party: {
         maxLevel: 25,
         increment: 150,
+        incrementCap: null,
+        prestige: false,
+    },
+    bridge: {
+        maxLevel: 20,
+        increment: 0,
         incrementCap: null,
         prestige: false,
     },

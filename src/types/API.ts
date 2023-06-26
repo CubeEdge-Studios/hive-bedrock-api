@@ -13,18 +13,18 @@ export interface API_ERROR {
 }
 
 export type RANK =
-    | "OWNER"
     | "REGULAR"
     | "PLUS"
-    | "MODERATOR"
-    | "HIVE_TEAM"
-    | "STAFF_MANAGER"
-    | "COMMUNITY_MANAGER"
     | "YOUTUBER"
     | "STREAMER"
     | "TIKTOK"
     | "VIP"
-    | "HELPER";
+    | "HELPER"
+    | "MODERATOR"
+    | "HIVE_TEAM"
+    | "STAFF_MANAGER"
+    | "COMMUNITY_MANAGER"
+    | "OWNER";
 
 export type API_REQUEST_ALL = {
     [G in GAME]: API_GAME_STATS_ALL<G>;
@@ -52,6 +52,7 @@ export type API_GAME_STATS<
     [GAME.GroundWars]: M & API_GAME_GROUND;
     [GAME.JustBuild]: M & API_GAME_BUILD;
     [GAME.BlockParty]: M & API_GAME_PARTY;
+    [GAME.TheBridge]: M & API_GAME_BRIDGE;
 };
 
 export type API_LB_STATS<G extends GAME> = API_GAME_STATS<API_BASE_LB>[G];
@@ -177,4 +178,10 @@ export interface API_GAME_BUILD {
 export interface API_GAME_PARTY {
     powerups_collected: number;
     rounds_survived: number;
+}
+
+export interface API_GAME_BRIDGE {
+    deaths: number;
+    goals: number;
+    kills: number;
 }

@@ -40,6 +40,7 @@ export default async function getMonthlyLeaderboard<G extends GAME>(
 
             return { data: gameData, error: null };
         } catch (err) {
+            console.error(err);
             return { data: null, error: { message: "Failed to fetch data." } };
         }
     } else {
@@ -64,6 +65,7 @@ export default async function getMonthlyLeaderboard<G extends GAME>(
 
             return { data: gameData, error: null };
         } catch (err) {
+            console.error(err);
             return { data: null, error: { message: "Failed to fetch data." } };
         }
     }

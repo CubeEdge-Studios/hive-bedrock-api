@@ -23,6 +23,7 @@ export default async function getAllTimeLeaderboard<G extends GAME>(
 
         return { data: gameData, error: null };
     } catch (err) {
+        console.error(err);
         return { data: null, error: { message: "Failed to fetch data." } };
     }
 }
