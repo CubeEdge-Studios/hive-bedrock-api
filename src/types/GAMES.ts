@@ -18,8 +18,6 @@ import {
 } from "./API";
 import { GAME } from "./GAME_INFO";
 
-const test = 2;
-
 export type REQUEST_ALL = {
     [G in GAME]: GAME_STATS_ALL<G>;
 } & {
