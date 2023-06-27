@@ -90,7 +90,10 @@ export default async function getMonthlyStats<G extends GAME>(
                     data: null,
                     error: { message: "Failed to fetch data.", ...error },
                 };
-            return { data, error: null };
+            return {
+                data: data as GAME_STATS<BASE_GAME_MONTHLY>[G],
+                error: null,
+            };
         } catch (err) {
             console.error(err);
             return { data: null, error: { message: "Failed to fetch data." } };
@@ -107,7 +110,10 @@ export default async function getMonthlyStats<G extends GAME>(
                     data: null,
                     error: { message: "Failed to fetch data.", ...error },
                 };
-            return { data, error: null };
+            return {
+                data: data as GAME_STATS<BASE_GAME_MONTHLY>[G],
+                error: null,
+            };
         } catch (err) {
             console.error(err);
             return { data: null, error: { message: "Failed to fetch data." } };

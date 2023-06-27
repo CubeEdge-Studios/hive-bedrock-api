@@ -6,7 +6,7 @@ import fetchData from "./fetchData";
 
 export default async function getAllTimeLeaderboard<G extends GAME>(
     game: G
-): Promise<MethodResponse<LB_STATS<G>>>;
+): Promise<MethodResponse<LB_STATS<G>[]>>;
 
 export default async function getAllTimeLeaderboard<G extends GAME>(
     game: G
