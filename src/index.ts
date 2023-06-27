@@ -3,7 +3,7 @@ import getMonthlyLeaderboard from "./methods/getMonthlyLeaderboard";
 import getAllTimeStats from "./methods/getAllTimeStats";
 import getAllTimeLeaderboard from "./methods/getAllTimeLeaderboard";
 import getGlobalStatistics from "./methods/getGlobalStatistics";
-import { GAME as GAMES } from "./types/GAME_INFO";
+import { AVATAR, RANK } from "./types/API";
 
 export {
     getAllTimeStats,
@@ -11,5 +11,8 @@ export {
     getMonthlyStats,
     getMonthlyLeaderboard,
     getGlobalStatistics,
-    GAMES,
+    AVATAR,
+    RANK,
 };
+export * from "./types/GAME_INFO";
+export * from "./types/GAMES";

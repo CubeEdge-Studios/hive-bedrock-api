@@ -6,6 +6,7 @@
             "es2020",
             "DOM"
         ] /* Specify library files to be included in the compilation. */,
+        "rootDir": "./src",
         "downlevelIteration": true,
         "declaration": true /* Generates corresponding '.d.ts' file. */,
         "outDir": "./lib" /* Redirect output structure to the directory. */,
@@ -14,5 +15,5 @@
         "skipLibCheck": true /* Skip type checking of declaration files. */,
         "forceConsistentCasingInFileNames": true /* Disallow inconsistently-cased references to the same file. */
     },
-    "exclude": ["node_modules", "**/*.test.ts", "lib"]
+    "exclude": ["node_modules", "**/*.test.ts", "index.ts"]
 }
