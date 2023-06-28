@@ -32,4 +32,14 @@ describe("monthly leaderboard", () => {
         expect(data?.length).toBe(50);
         expect(error).toBe(null);
     });
+
+    test.concurrent("fetch single game with date", async () => {
+        const { data, error } = await getMonthlyLeaderboard(GAME.BlockDrop, {
+            date: new Date(2023, 0),
+        });
+
+        expect(data![0].id).toBe(GAME.BlockDrop);
+        expect(data?.length).toBe(100);
+        expect(error).toBe(null);
+    });
 });
