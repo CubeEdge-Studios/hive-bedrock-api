@@ -35,4 +35,26 @@ describe("monthly statistics", () => {
         ]);
         expect(error).toBe(null);
     });
+
+    test.concurrent("fetch single game with month and year", async () => {
+        const { data, error } = await getMonthlyStats(
+            "ucdfiddes",
+            GAME.TreasureWars,
+            { year: 2023, month: 6 }
+        );
+
+        expect(data?.id).toEqual(GAME.TreasureWars);
+        expect(error).toBe(null);
+    });
+
+    test.concurrent("fetch single game with date", async () => {
+        const { data, error } = await getMonthlyStats(
+            "ucdfiddes",
+            GAME.TreasureWars,
+            { date: new Date(2023, 5) }
+        );
+
+        expect(data?.id).toEqual(GAME.TreasureWars);
+        expect(error).toBe(null);
+    });
 });

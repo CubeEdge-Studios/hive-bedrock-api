@@ -13,6 +13,7 @@ export default async function getMonthlyLeaderboard<G extends GAME>(
     options: {
         year?: number;
         month?: number;
+        date?: Date;
         skip?: number;
         amount?: number;
     }
@@ -23,6 +24,7 @@ export default async function getMonthlyLeaderboard<G extends GAME>(
     options?: {
         year?: number;
         month?: number;
+        date?: Date;
         skip?: number;
         amount?: number;
     }
@@ -48,6 +50,11 @@ export default async function getMonthlyLeaderboard<G extends GAME>(
         let month = options.month ?? new Date().getMonth() + 1;
         let amount = options.amount ?? 100;
         let skip = options.skip ?? 0;
+
+        if (options.date) {
+            year = options.date.getFullYear();
+            month = options.date.getMonth() + 1;
+        }
 
         try {
             let { data, error } = await fetchData(
