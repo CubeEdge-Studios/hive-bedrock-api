@@ -16,6 +16,7 @@ import {
     PLAYER_LB_SPECIFIC_MONTHLY_ENDPOINT,
     PLAYER_MONTHLY_ENDPOINT,
 } from "../types/ENDPOINTS";
+import { USER_MAIN } from "../types/GAMES";
 import { GAME } from "../types/GAME_INFO";
 import { MethodResponse } from "../types/METHODS";
 
@@ -24,6 +25,14 @@ export const API_ROOT = "https://api.playhive.com/v0";
 export default async function fetchData(
     endpoint: PLAYER_ALLTIME_ENDPOINT<"all", string>
 ): Promise<MethodResponse<API_REQUEST_ALL>>;
+
+export default async function fetchData(
+    endpoint: PLAYER_ALLTIME_ENDPOINT<"main", string>
+): Promise<
+    MethodResponse<{
+        main: USER_MAIN;
+    }>
+>;
 
 export default async function fetchData<G extends GAME>(
     endpoint: PLAYER_ALLTIME_ENDPOINT<G, string>
