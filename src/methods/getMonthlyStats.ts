@@ -25,6 +25,7 @@ export default async function getMonthlyStats<G extends GAME>(
     options: {
         year?: number;
         month?: number;
+        date?: Date;
     }
 ): Promise<MethodResponse<GAME_STATS<BASE_GAME_MONTHLY>[G]>>;
 
@@ -39,6 +40,7 @@ export default async function getMonthlyStats<G extends GAME>(
     options?: {
         year?: number;
         month?: number;
+        date?: Date;
         skip?: number;
         amount?: number;
     }
@@ -80,6 +82,11 @@ export default async function getMonthlyStats<G extends GAME>(
     if (options && typeof game === "string") {
         let year = options.year ?? new Date().getFullYear();
         let month = options.month ?? new Date().getMonth() + 1;
+
+        if (options.date) {
+            year = options.date.getFullYear();
+            month = options.date.getMonth() + 1;
+        }
 
         try {
             const { data, error } = await fetchData<G>(
