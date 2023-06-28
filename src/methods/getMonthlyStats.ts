@@ -11,7 +11,7 @@ import { MethodResponse } from "../types/METHODS";
 import fetchData from "./fetchData";
 
 export default async function getMonthlyStats(
-    playerIndentifier: string
+    playerIdentifier: string
 ): Promise<MethodResponse<Omit<REQUEST_MONTHLY, "main">>>;
 
 export default async function getMonthlyStats<G extends GAME>(
