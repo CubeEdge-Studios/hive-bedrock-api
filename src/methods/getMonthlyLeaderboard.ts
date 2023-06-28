@@ -6,7 +6,7 @@ import fetchData from "./fetchData";
 
 export default async function getMonthlyLeaderboard<G extends GAME>(
     game: G
-): Promise<MethodResponse<LB_STATS<G>>>;
+): Promise<MethodResponse<LB_STATS<G>[]>>;
 
 export default async function getMonthlyLeaderboard<G extends GAME>(
     game: G,
@@ -16,7 +16,7 @@ export default async function getMonthlyLeaderboard<G extends GAME>(
         skip?: number;
         amount?: number;
     }
-): Promise<MethodResponse<LB_STATS<G>>>;
+): Promise<MethodResponse<LB_STATS<G>[]>>;
 
 export default async function getMonthlyLeaderboard<G extends GAME>(
     game: G,

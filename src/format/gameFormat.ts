@@ -17,7 +17,8 @@ export const formats = {
 
         return player;
     },
-    default: (gameType: GAME, game: SingleGameFormat) => {
+    default: (gameType: GAME, game: SingleGameFormat | null) => {
+        if (!game) return null;
         if ("index" in game && game.index == 2147483646) return null;
 
         if ("xp" in game!) {
@@ -27,8 +28,12 @@ export const formats = {
         if ("first_played" in game)
             game.first_played = new Date(game.first_played * 1000);
 
-        if ("played" in game && "victories" in game)
+        if ("played" in game && "victories" in game) {
             game.losses = game.played - game.victories;
+            game.win_percentage = parseFloat(
+                (game.victories / game.played).toFixed(2)
+            );
+        }
 
         if ("kills" in game && "deaths" in game)
             game.kdr = parseFloat((game.kills / game.deaths).toFixed(2));
@@ -51,12 +56,19 @@ export const formats = {
         return game;
     },
     [GAME.HideAndSeek]: (game: SingleGameFormat | null) => {
+        if (!game) return null;
+        if ("hider_kills" in game && "deaths" in game)
+            game.kdr = parseFloat((game.hider_kills / game.deaths).toFixed(2));
+
         return game;
     },
     [GAME.JustBuild]: (game: SingleGameFormat | null) => {
         return game;
     },
     [GAME.MurderMystery]: (game: SingleGameFormat | null) => {
+        if (!game) return null;
+        if ("murders" in game && "deaths" in game)
+            game.kdr = parseFloat((game.murders / game.deaths).toFixed(2));
         return game;
     },
     [GAME.Skywars]: (game: SingleGameFormat | null) => {

@@ -14,6 +14,7 @@ export enum GAME {
 }
 
 interface GAME_INFO_TYPE {
+    id: string;
     maxLevel: number;
     increment: number;
     incrementCap: number | null;
@@ -21,73 +22,85 @@ interface GAME_INFO_TYPE {
 }
 
 export const GAME_INFO: { [key in GAME]: GAME_INFO_TYPE } = {
-    wars: {
+    [GAME.TreasureWars]: {
+        id: GAME.TreasureWars,
         maxLevel: 100,
         increment: 150,
         incrementCap: 52,
         prestige: true,
     },
-    dr: {
+    [GAME.DeathRun]: {
+        id: GAME.DeathRun,
         maxLevel: 75,
         increment: 200,
         incrementCap: 42,
         prestige: false,
     },
-    hide: {
+    [GAME.HideAndSeek]: {
+        id: GAME.HideAndSeek,
         maxLevel: 50,
         increment: 100,
         incrementCap: null,
         prestige: false,
     },
-    murder: {
+    [GAME.MurderMystery]: {
+        id: GAME.MurderMystery,
         maxLevel: 100,
         increment: 100,
         incrementCap: 82,
         prestige: true,
     },
-    sg: {
+    [GAME.SurvivalGames]: {
+        id: GAME.SurvivalGames,
         maxLevel: 30,
         increment: 150,
         incrementCap: null,
         prestige: false,
     },
-    sky: {
+    [GAME.Skywars]: {
+        id: GAME.Skywars,
         maxLevel: 75,
         increment: 150,
         incrementCap: 52,
         prestige: false,
     },
-    build: {
+    [GAME.JustBuild]: {
+        id: GAME.JustBuild,
         maxLevel: 20,
         increment: 100,
         incrementCap: null,
         prestige: false,
     },
-    ground: {
+    [GAME.GroundWars]: {
+        id: GAME.GroundWars,
         maxLevel: 20,
         increment: 150,
         incrementCap: null,
         prestige: false,
     },
-    drop: {
+    [GAME.BlockDrop]: {
+        id: GAME.BlockDrop,
         maxLevel: 25,
         increment: 150,
         incrementCap: 22,
         prestige: false,
     },
-    ctf: {
+    [GAME.CaptureTheFlag]: {
+        id: GAME.CaptureTheFlag,
         maxLevel: 20,
         increment: 150,
         incrementCap: null,
         prestige: false,
     },
-    party: {
+    [GAME.BlockParty]: {
+        id: GAME.BlockParty,
         maxLevel: 25,
         increment: 150,
         incrementCap: null,
         prestige: false,
     },
-    bridge: {
+    [GAME.TheBridge]: {
+        id: GAME.TheBridge,
         maxLevel: 20,
         increment: 0,
         incrementCap: null,

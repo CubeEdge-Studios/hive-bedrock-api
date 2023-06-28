@@ -90,7 +90,18 @@ export default async function getMonthlyStats<G extends GAME>(
                     data: null,
                     error: { message: "Failed to fetch data.", ...error },
                 };
-            return { data, error: null };
+
+            const gameData = gameFormat(
+                {
+                    [game]: data,
+                },
+                true
+            ) as GAME_STATS<BASE_GAME_MONTHLY>[G];
+
+            return {
+                data: gameData as GAME_STATS<BASE_GAME_MONTHLY>[G],
+                error: null,
+            };
         } catch (err) {
             console.error(err);
             return { data: null, error: { message: "Failed to fetch data." } };
@@ -107,7 +118,18 @@ export default async function getMonthlyStats<G extends GAME>(
                     data: null,
                     error: { message: "Failed to fetch data.", ...error },
                 };
-            return { data, error: null };
+
+            const gameData = gameFormat(
+                {
+                    [game]: data,
+                },
+                true
+            ) as GAME_STATS<BASE_GAME_MONTHLY>[G];
+
+            return {
+                data: gameData as GAME_STATS<BASE_GAME_MONTHLY>[G],
+                error: null,
+            };
         } catch (err) {
             console.error(err);
             return { data: null, error: { message: "Failed to fetch data." } };
@@ -135,7 +157,11 @@ export default async function getMonthlyStats<G extends GAME>(
                 [M in G]: GAME_STATS_MONTHLY<M>;
             };
 
-            return { data: filteredGames, error: null };
+            const gameData = gameFormat(filteredGames) as {
+                [M in G]: GAME_STATS_MONTHLY<M>;
+            };
+
+            return { data: gameData, error: null };
         } catch (err) {
             console.error(err);
             return { data: null, error: { message: "Failed to fetch data." } };

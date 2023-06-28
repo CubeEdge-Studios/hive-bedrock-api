@@ -49,25 +49,54 @@ export type GAME_STATS_ALL<G extends GAME> = GAME_STATS<BASE_GAME_ALL>[G];
 export type GAME_STATS_MONTHLY<G extends GAME> =
     GAME_STATS<BASE_GAME_MONTHLY>[G];
 
-export interface BASE_LB extends API_BASE_LB {}
+export interface BASE_LB extends API_BASE_LB {
+    id: GAME;
+    level: number;
+    losses: number;
+    win_percentage: number;
+}
 export interface BASE_GAME_ALL extends Omit<API_BASE_GAME_ALL, "first_played"> {
     id: GAME;
+    level: number;
+    losses: number;
     first_played: Date;
+    win_percentage: number;
 }
-export interface BASE_GAME_MONTHLY extends API_BASE_GAME_MONTHLY {}
+export interface BASE_GAME_MONTHLY extends API_BASE_GAME_MONTHLY {
+    id: GAME;
+    level: number;
+    losses: number;
+    win_percentage: number;
+}
 export interface USER_MAIN extends Omit<API_USER_MAIN, "first_played"> {
     first_played: Date;
 }
 
 export interface GAME_HIDE extends API_GAME_HIDE {}
-export interface GAME_DR extends API_GAME_DR {}
-export interface GAME_WARS extends API_GAME_WARS {}
-export interface GAME_MURDER extends API_GAME_MURDER {}
-export interface GAME_SG extends API_GAME_SG {}
-export interface GAME_SKY extends API_GAME_SKY {}
-export interface GAME_CTF extends API_GAME_CTF {}
+export interface GAME_DR extends API_GAME_DR {
+    kdr: number;
+}
+export interface GAME_WARS extends API_GAME_WARS {
+    kdr: number;
+}
+export interface GAME_MURDER extends API_GAME_MURDER {
+    kdr: number;
+}
+export interface GAME_SG extends API_GAME_SG {
+    kdr: number;
+}
+export interface GAME_SKY extends API_GAME_SKY {
+    kdr: number;
+}
+export interface GAME_CTF extends API_GAME_CTF {
+    kdr: number;
+}
 export interface GAME_DROP extends API_GAME_DROP {}
-export interface GAME_GROUND extends API_GAME_GROUND {}
+export interface GAME_GROUND extends API_GAME_GROUND {
+    kdr: number;
+}
 export interface GAME_BUILD extends API_GAME_BUILD {}
 export interface GAME_PARTY extends API_GAME_PARTY {}
-export interface GAME_BRIDGE extends API_GAME_BRIDGE {}
+export interface GAME_BRIDGE extends API_GAME_BRIDGE {
+    kdr: number;
+}
