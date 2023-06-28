@@ -11,6 +11,15 @@ $ yarn add hive-bedrock-api
 
 ## Usage
 
+### Fetch Player Infomation
+
+```ts
+import { getPlayerInfo } from "hive-bedrock-api";
+
+// Returns player, cosmetics, server statistics and profile infomation
+const { data, error } = await getPlayerInfo("ucdfiddes");
+```
+
 ### Fetch All-Time Player Statistics
 
 ```ts

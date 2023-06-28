@@ -1,7 +1,7 @@
 import { GAME } from "./GAME_INFO";
 
 export type PLAYER_ALLTIME_ENDPOINT<
-    G extends GAME | "all",
+    G extends GAME | "all" | "main",
     ID extends string
 > = `/game/all/${G}/${ID}`;
 

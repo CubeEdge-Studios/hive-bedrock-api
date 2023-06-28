@@ -11,7 +11,7 @@ import { MethodResponse } from "../types/METHODS";
 import fetchData from "./fetchData";
 
 export default async function getAllTimeStats(
-    playerIndentifier: string
+    playerIdentifier: string
 ): Promise<MethodResponse<Omit<REQUEST_ALL, "main">> & { player: USER_MAIN }>;
 
 export default async function getAllTimeStats<G extends GAME>(
