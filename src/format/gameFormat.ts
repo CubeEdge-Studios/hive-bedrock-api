@@ -85,6 +85,9 @@ export const formats = {
     [GAME.TheBridge]: (game: SingleGameFormat | null) => {
         return game;
     },
+    [GAME.Gravity]: (game: SingleGameFormat | null) => {
+        return game;
+    },
 };
 
 export function gameFormatArray(
