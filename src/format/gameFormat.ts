@@ -21,9 +21,11 @@ export const formats = {
         if (!game) return null;
         if ("index" in game && game.index == 2147483646) return null;
 
-        if ("xp" in game!) {
-            game.level = calculateLevel(game.xp, GAME.CaptureTheFlag);
-        } else return null;
+        if (!("index" in game)) {
+            if ("xp" in game!) {
+                game.level = calculateLevel(game.xp, GAME.CaptureTheFlag);
+            } else return null;
+        }
 
         if ("first_played" in game)
             game.first_played = new Date(game.first_played * 1000);
