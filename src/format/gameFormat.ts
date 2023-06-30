@@ -32,9 +32,7 @@ export const formats = {
 
         if ("played" in game && "victories" in game) {
             game.losses = game.played ?? 0 - game.victories ?? 0;
-            game.win_percentage = parseFloat(
-                (game.victories ?? 0 / game.played ?? 0).toFixed(2)
-            );
+            game.win_percentage = game.victories / game.played;
         }
 
         if ("kills" in game && "deaths" in game)
