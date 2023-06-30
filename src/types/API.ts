@@ -202,5 +202,6 @@ export interface API_GAME_BRIDGE {
 }
 
 export interface API_GAME_GRAV {
+    deaths: number;
     maps_completed: number;
 }
