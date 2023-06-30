@@ -21,22 +21,26 @@ export const formats = {
         if (!game) return null;
         if ("index" in game && game.index == 2147483646) return null;
 
-        if ("xp" in game!) {
-            game.level = calculateLevel(game.xp, GAME.CaptureTheFlag);
-        } else return null;
+        if (!("index" in game)) {
+            if ("xp" in game!) {
+                game.level = calculateLevel(game.xp, gameType);
+            } else return null;
+        }
 
         if ("first_played" in game)
             game.first_played = new Date(game.first_played * 1000);
 
         if ("played" in game && "victories" in game) {
-            game.losses = game.played - game.victories;
+            game.losses = game.played ?? 0 - game.victories ?? 0;
             game.win_percentage = parseFloat(
-                (game.victories / game.played).toFixed(2)
+                (game.victories ?? 0 / game.played ?? 0).toFixed(2)
             );
         }
 
         if ("kills" in game && "deaths" in game)
-            game.kdr = parseFloat((game.kills / game.deaths).toFixed(2));
+            game.kdr = parseFloat(
+                (game.kills ?? 0 / game.deaths ?? 0).toFixed(2)
+            );
 
         return { id: gameType, ...game };
     },
