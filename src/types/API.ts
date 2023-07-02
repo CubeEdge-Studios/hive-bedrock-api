@@ -86,6 +86,9 @@ export interface API_BASE_GAME_MONTHLY {
     index: number;
     human_index: number;
     username: string;
+    xp: number;
+    played: number;
+    victories: number;
 }
 
 export type AVATAR = { url: string; name: string };
