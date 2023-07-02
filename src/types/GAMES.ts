@@ -7,7 +7,6 @@ import {
     API_GAME_CTF,
     API_GAME_DR,
     API_GAME_DROP,
-    API_GAME_GRAV,
     API_GAME_GROUND,
     API_GAME_HIDE,
     API_GAME_MURDER,
@@ -43,7 +42,6 @@ export type GAME_STATS<M extends BASE_GAME_ALL | BASE_GAME_MONTHLY | BASE_LB> =
         [GAME.JustBuild]: M & GAME_BUILD;
         [GAME.BlockParty]: M & GAME_PARTY;
         [GAME.TheBridge]: M & GAME_BRIDGE;
-        [GAME.Gravity]: M & GAME_GRAV;
     };
 
 export type LB_STATS<G extends GAME> = GAME_STATS<BASE_LB>[G];
@@ -102,4 +100,3 @@ export interface GAME_PARTY extends API_GAME_PARTY {}
 export interface GAME_BRIDGE extends API_GAME_BRIDGE {
     kdr: number;
 }
-export interface GAME_GRAV extends API_GAME_GRAV {}

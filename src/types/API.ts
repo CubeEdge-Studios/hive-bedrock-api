@@ -53,7 +53,6 @@ export type API_GAME_STATS<
     [GAME.JustBuild]: M & API_GAME_BUILD;
     [GAME.BlockParty]: M & API_GAME_PARTY;
     [GAME.TheBridge]: M & API_GAME_BRIDGE;
-    [GAME.Gravity]: M & API_GAME_GRAV;
 };
 
 export type API_LB_STATS<G extends GAME> = API_GAME_STATS<API_BASE_LB>[G];
@@ -202,9 +201,4 @@ export interface API_GAME_BRIDGE {
     deaths: number;
     goals: number;
     kills: number;
-}
-
-export interface API_GAME_GRAV {
-    deaths: number;
-    maps_completed: number;
 }
