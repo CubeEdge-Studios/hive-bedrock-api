@@ -64,9 +64,6 @@ export type API_GAME_STATS_MONTHLY<G extends GAME> =
 
 export interface API_BASE_LB extends API_BASE_GAME_MONTHLY {
     UUID: string;
-    xp: number;
-    played: number;
-    victories: number;
 }
 
 export interface API_GLOBAL_STATISTICS {
@@ -90,6 +87,9 @@ export interface API_BASE_GAME_MONTHLY {
     index: number;
     human_index: number;
     username: string;
+    xp: number;
+    played: number;
+    victories: number;
 }
 
 export type AVATAR = { url: string; name: string };
