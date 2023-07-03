@@ -1,3 +1,4 @@
+import { FetchOptions } from "../methods/fetchData";
 import { GAME } from "./GAME_INFO";
 
 export interface API_ERROR {
@@ -10,6 +11,10 @@ export interface API_ERROR {
         remaining: string | null;
     };
     error?: any;
+}
+
+export interface Options {
+    fetch?: FetchOptions;
 }
 
 export type RANK =

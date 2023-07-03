@@ -20,14 +20,22 @@ import { USER_MAIN } from "../types/GAMES";
 import { GAME } from "../types/GAME_INFO";
 import { MethodResponse } from "../types/METHODS";
 
+export interface FetchOptions {
+    headers: {
+        [key: string]: string;
+    };
+}
+
 export const API_ROOT = "https://api.playhive.com/v0";
 
 export default async function fetchData(
-    endpoint: PLAYER_ALLTIME_ENDPOINT<"all", string>
+    endpoint: PLAYER_ALLTIME_ENDPOINT<"all", string>,
+    options?: FetchOptions
 ): Promise<MethodResponse<API_REQUEST_ALL>>;
 
 export default async function fetchData(
-    endpoint: PLAYER_ALLTIME_ENDPOINT<"main", string>
+    endpoint: PLAYER_ALLTIME_ENDPOINT<"main", string>,
+    options?: FetchOptions
 ): Promise<
     MethodResponse<{
         main: USER_MAIN;
@@ -35,23 +43,28 @@ export default async function fetchData(
 >;
 
 export default async function fetchData<G extends GAME>(
-    endpoint: PLAYER_ALLTIME_ENDPOINT<G, string>
+    endpoint: PLAYER_ALLTIME_ENDPOINT<G, string>,
+    options?: FetchOptions
 ): Promise<MethodResponse<API_GAME_STATS<API_BASE_GAME_ALL>[G]>>;
 
 export default async function fetchData(
-    endpoint: PLAYER_MONTHLY_ENDPOINT<"all", string>
+    endpoint: PLAYER_MONTHLY_ENDPOINT<"all", string>,
+    options?: FetchOptions
 ): Promise<MethodResponse<API_GAME_STATS<API_BASE_GAME_MONTHLY>>>;
 
 export default async function fetchData<G extends GAME>(
-    endpoint: PLAYER_MONTHLY_ENDPOINT<G, string>
+    endpoint: PLAYER_MONTHLY_ENDPOINT<G, string>,
+    options?: FetchOptions
 ): Promise<MethodResponse<API_GAME_STATS<API_BASE_GAME_MONTHLY>[G]>>;
 
 export default async function fetchData<G extends GAME>(
-    endpoint: GAME_LB_ALLTIME_ENDPOINT<G>
+    endpoint: GAME_LB_ALLTIME_ENDPOINT<G>,
+    options?: FetchOptions
 ): Promise<MethodResponse<API_REQUEST_LB<G>>>;
 
 export default async function fetchData<G extends GAME>(
-    endpoint: GAME_LB_MONTHLY_ENDPOINT<G>
+    endpoint: GAME_LB_MONTHLY_ENDPOINT<G>,
+    options?: FetchOptions
 ): Promise<MethodResponse<API_REQUEST_LB<G>>>;
 
 export default async function fetchData<G extends GAME>(
@@ -62,7 +75,8 @@ export default async function fetchData<G extends GAME>(
         number,
         number,
         number
-    >
+    >,
+    options?: FetchOptions
 ): Promise<MethodResponse<API_REQUEST_LB<G>>>;
 
 export default async function fetchData<G extends GAME>(
@@ -72,15 +86,18 @@ export default async function fetchData<G extends GAME>(
         number,
         number,
         number
-    >
+    >,
+    options?: FetchOptions
 ): Promise<MethodResponse<API_REQUEST_LB<G>>>;
 
 export default async function fetchData(
-    endpoint: GLOBAL_STATISTICS_ENDPOINT
+    endpoint: GLOBAL_STATISTICS_ENDPOINT,
+    options?: FetchOptions
 ): Promise<MethodResponse<API_GLOBAL_STATISTICS>>;
 
 export default async function fetchData<G extends GAME>(
-    endpoint: ENDPOINTS<G>
+    endpoint: ENDPOINTS<G>,
+    options?: FetchOptions
 ): Promise<
     MethodResponse<
         | API_GLOBAL_STATISTICS
@@ -101,7 +118,7 @@ export default async function fetchData<G extends GAME>(
     >
 > {
     try {
-        const request = await fetch(API_ROOT + endpoint);
+        const request = await fetch(API_ROOT + endpoint, options);
 
         if (!request.ok)
             return {

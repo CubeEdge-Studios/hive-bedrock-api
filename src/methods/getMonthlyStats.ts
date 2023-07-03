@@ -1,4 +1,5 @@
 import gameFormat from "../format/gameFormat";
+import { Options } from "../types/API";
 import {
     BASE_GAME_MONTHLY,
     GAME_STATS,
@@ -9,6 +10,12 @@ import {
 import { GAME } from "../types/GAME_INFO";
 import { MethodResponse } from "../types/METHODS";
 import fetchData from "./fetchData";
+
+interface OptionsType extends Options {
+    year?: number;
+    month?: number;
+    date?: Date;
+}
 
 export default async function getMonthlyStats(
     playerIdentifier: string
@@ -22,11 +29,7 @@ export default async function getMonthlyStats<G extends GAME>(
 export default async function getMonthlyStats<G extends GAME>(
     playerIdentifier: string,
     game: G,
-    options: {
-        year?: number;
-        month?: number;
-        date?: Date;
-    }
+    options: OptionsType
 ): Promise<MethodResponse<GAME_STATS<BASE_GAME_MONTHLY>[G]>>;
 
 export default async function getMonthlyStats<G extends GAME>(
@@ -37,13 +40,7 @@ export default async function getMonthlyStats<G extends GAME>(
 export default async function getMonthlyStats<G extends GAME>(
     playerIdentifier: string,
     game?: G | G[],
-    options?: {
-        year?: number;
-        month?: number;
-        date?: Date;
-        skip?: number;
-        amount?: number;
-    }
+    options?: OptionsType
 ): Promise<
     MethodResponse<
         | GAME_STATS<BASE_GAME_MONTHLY>
@@ -54,7 +51,8 @@ export default async function getMonthlyStats<G extends GAME>(
     if (!game) {
         try {
             const { data, error } = await fetchData(
-                `/game/monthly/player/all/${playerIdentifier}`
+                `/game/monthly/player/all/${playerIdentifier}`,
+                options?.fetch
             );
             if (error || !data)
                 return {
@@ -79,7 +77,10 @@ export default async function getMonthlyStats<G extends GAME>(
         }
     }
 
-    if (options && typeof game === "string") {
+    if (
+        (options?.year || options?.month || options?.date) &&
+        typeof game === "string"
+    ) {
         let year = options.year ?? new Date().getFullYear();
         let month = options.month ?? new Date().getMonth() + 1;
 
@@ -90,7 +91,8 @@ export default async function getMonthlyStats<G extends GAME>(
 
         try {
             const { data, error } = await fetchData<G>(
-                `/game/monthly/player/${game}/${playerIdentifier}/${year}/${month}`
+                `/game/monthly/player/${game}/${playerIdentifier}/${year}/${month}`,
+                options?.fetch
             );
             if (error || !data)
                 return {
@@ -118,7 +120,8 @@ export default async function getMonthlyStats<G extends GAME>(
     if (typeof game === "string") {
         try {
             const { data, error } = await fetchData<G>(
-                `/game/monthly/player/${game}/${playerIdentifier}`
+                `/game/monthly/player/${game}/${playerIdentifier}`,
+                options?.fetch
             );
             if (error || !data)
                 return {
@@ -146,7 +149,8 @@ export default async function getMonthlyStats<G extends GAME>(
     if (Array.isArray(game)) {
         try {
             const { data, error } = await fetchData(
-                `/game/monthly/player/all/${playerIdentifier}`
+                `/game/monthly/player/all/${playerIdentifier}`,
+                options?.fetch
             );
             if (error || !data)
                 return {
