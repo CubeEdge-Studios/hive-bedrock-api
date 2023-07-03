@@ -164,12 +164,15 @@ const { data, error } = await getPlayerInfo("GAMERTAG");
 
   | Field              | Type     | Description |
   | ------------------ | -------- | ----------- |
-  | UUID               | `string` | The UUID of the player |
+  | UUID               | `string` | *Only when getting all-time stats* The UUID of the player |
+  | index              | `number` | *Only when getting monthly stats* The index |
+  | human_index        | `number` | *Only when getting monthly stats* The human index |
+  | username           | `string` | *Only when getting monthly stats* The player's correctly capitalised username |
   | id                 | `string` | The ID of the game (`wars` in this case) |
   | xp                 | `number` | Total XP of the player |
   | level              | `number` | Current level (calculated by the wrapper) |
   | played             | `number` | How many times the player has played this game |
-  | first_played       | `Date`   | The time the player first played this game |
+  | first_played       | `Date`   | *Only when getting all-time stats* The time the player first played this game |
   | victories          | `number` | The number of times the player has won this game |
   | losses             | `number` | The number of times the player has lost this game |
   | win_percentage     | `number` | The percentage of wins to total amount of games played |
@@ -179,6 +182,7 @@ const { data, error } = await getPlayerInfo("GAMERTAG");
   | final_kills        | `number` | How many other players the player has final killed in this game |
   | treasure_destroyed | `number` | How many treasures the player has destroyed |
   | prestige           | `number` | The prestige of the player |
+
 </details>
 
 <details>
@@ -188,12 +192,15 @@ const { data, error } = await getPlayerInfo("GAMERTAG");
 
   | Field              | Type     | Description |
   | ------------------ | -------- | ----------- |
-  | UUID               | `string` | The UUID of the player |
+  | UUID               | `string` | *Only when getting all-time stats* The UUID of the player |
+  | index              | `number` | *Only when getting monthly stats* The index |
+  | human_index        | `number` | *Only when getting monthly stats* The human index |
+  | username           | `string` | *Only when getting monthly stats* The player's correctly capitalised username |
   | id                 | `string` | The ID of the game (`dr` in this case) |
   | xp                 | `number` | Total XP of the player |
   | level              | `number` | Current level (calculated by the wrapper) |
   | played             | `number` | How many times the player has played this game |
-  | first_played       | `Date`   | The time the player first played this game |
+  | first_played       | `Date`   | *Only when getting all-time stats* The time the player first played this game |
   | victories          | `number` | The number of times the player has won this game |
   | losses             | `number` | The number of times the player has lost this game |
   | win_percentage     | `number` | The percentage of wins to total amount of games played |
@@ -212,12 +219,15 @@ const { data, error } = await getPlayerInfo("GAMERTAG");
 
   | Field              | Type     | Description |
   | ------------------ | -------- | ----------- |
-  | UUID               | `string` | The UUID of the player |
+  | UUID               | `string` | *Only when getting all-time stats* The UUID of the player |
+  | index              | `number` | *Only when getting monthly stats* The index |
+  | human_index        | `number` | *Only when getting monthly stats* The human index |
+  | username           | `string` | *Only when getting monthly stats* The player's correctly capitalised username |
   | id                 | `string` | The ID of the game (`hide` in this case) |
   | xp                 | `number` | Total XP of the player |
   | level              | `number` | Current level (calculated by the wrapper) |
   | played             | `number` | How many times the player has played this game |
-  | first_played       | `Date`   | The time the player first played this game |
+  | first_played       | `Date`   | *Only when getting all-time stats* The time the player first played this game |
   | victories          | `number` | The number of times the player has won this game |
   | losses             | `number` | The number of times the player has lost this game |
   | win_percentage     | `number` | The percentage of wins to total amount of games played |
@@ -235,12 +245,15 @@ const { data, error } = await getPlayerInfo("GAMERTAG");
 
   | Field                 | Type     | Description |
   | --------------------- | -------- | ----------- |
-  | UUID                  | `string` | The UUID of the player |
+  | UUID                  | `string` | *Only when getting all-time stats* The UUID of the player |
+  | index                 | `number` | *Only when getting monthly stats* The index |
+  | human_index           | `number` | *Only when getting monthly stats* The human index |
+  | username              | `string` | *Only when getting monthly stats* The player's correctly capitalised username |
   | id                    | `string` | The ID of the game (`murder` in this case) |
   | xp                    | `number` | Total XP of the player |
   | level                 | `number` | Current level (calculated by the wrapper) |
   | played                | `number` | How many times the player has played this game |
-  | first_played          | `Date`   | The time the player first played this game |
+  | first_played          | `Date`   | *Only when getting all-time stats* The time the player first played this game |
   | victories             | `number` | The number of times the player has won this game |
   | losses                | `number` | The number of times the player has lost this game |
   | win_percentage        | `number` | The percentage of wins to total amount of games played |
@@ -261,12 +274,15 @@ const { data, error } = await getPlayerInfo("GAMERTAG");
 
   | Field                 | Type     | Description |
   | --------------------- | -------- | ----------- |
-  | UUID                  | `string` | The UUID of the player |
+  | UUID                  | `string` | *Only when getting all-time stats* The UUID of the player |
+  | index                 | `number` | *Only when getting monthly stats* The index |
+  | human_index           | `number` | *Only when getting monthly stats* The human index |
+  | username              | `string` | *Only when getting monthly stats* The player's correctly capitalised username |
   | id                    | `string` | The ID of the game (`sg` in this case) |
   | xp                    | `number` | Total XP of the player |
   | level                 | `number` | Current level (calculated by the wrapper) |
   | played                | `number` | How many times the player has played this game |
-  | first_played          | `Date`   | The time the player first played this game |
+  | first_played          | `Date`   | *Only when getting all-time stats* The time the player first played this game |
   | victories             | `number` | The number of times the player has won this game |
   | losses                | `number` | The number of times the player has lost this game |
   | win_percentage        | `number` | The percentage of wins to total amount of games played |
@@ -287,12 +303,15 @@ const { data, error } = await getPlayerInfo("GAMERTAG");
 
   | Field                    | Type     | Description |
   | ------------------------ | -------- | ----------- |
-  | UUID                     | `string` | The UUID of the player |
+  | UUID                     | `string` | *Only when getting all-time stats* The UUID of the player |
+  | index                    | `number` | *Only when getting monthly stats* The index |
+  | human_index              | `number` | *Only when getting monthly stats* The human index |
+  | username                 | `string` | *Only when getting monthly stats* The player's correctly capitalised username |
   | id                       | `string` | The ID of the game (`sky` in this case) |
   | xp                       | `number` | Total XP of the player |
   | level                    | `number` | Current level (calculated by the wrapper) |
   | played                   | `number` | How many times the player has played this game |
-  | first_played             | `Date`   | The time the player first played this game |
+  | first_played             | `Date`   | *Only when getting all-time stats* The time the player first played this game |
   | victories                | `number` | The number of times the player has won this game |
   | losses                   | `number` | The number of times the player has lost this game |
   | win_percentage           | `number` | The percentage of wins to total amount of games played |
@@ -313,12 +332,15 @@ const { data, error } = await getPlayerInfo("GAMERTAG");
 
   | Field                    | Type     | Description |
   | ------------------------ | -------- | ----------- |
-  | UUID                     | `string` | The UUID of the player |
+  | UUID                     | `string` | *Only when getting all-time stats* The UUID of the player |
+  | index                    | `number` | *Only when getting monthly stats* The index |
+  | human_index              | `number` | *Only when getting monthly stats* The human index |
+  | username                 | `string` | *Only when getting monthly stats* The player's correctly capitalised username |
   | id                       | `string` | The ID of the game (`build` in this case) |
   | xp                       | `number` | Total XP of the player |
   | level                    | `number` | Current level (calculated by the wrapper) |
   | played                   | `number` | How many times the player has played this game |
-  | first_played             | `Date`   | The time the player first played this game |
+  | first_played             | `Date`   | *Only when getting all-time stats* The time the player first played this game |
   | victories                | `number` | The number of times the player has won this game |
   | losses                   | `number` | The number of times the player has lost this game |
   | win_percentage           | `number` | The percentage of wins to total amount of games played |
@@ -338,12 +360,15 @@ const { data, error } = await getPlayerInfo("GAMERTAG");
 
   | Field                 | Type     | Description |
   | --------------------- | -------- | ----------- |
-  | UUID                  | `string` | The UUID of the player |
+  | UUID                  | `string` | *Only when getting all-time stats* The UUID of the player |
+  | index                 | `number` | *Only when getting monthly stats* The index |
+  | human_index           | `number` | *Only when getting monthly stats* The human index |
+  | username              | `string` | *Only when getting monthly stats* The player's correctly capitalised username |
   | id                    | `string` | The ID of the game (`ground` in this case) |
   | xp                    | `number` | Total XP of the player |
   | level                 | `number` | Current level (calculated by the wrapper) |
   | played                | `number` | How many times the player has played this game |
-  | first_played          | `Date`   | The time the player first played this game |
+  | first_played          | `Date`   | *Only when getting all-time stats* The time the player first played this game |
   | victories             | `number` | The number of times the player has won this game |
   | losses                | `number` | The number of times the player has lost this game |
   | win_percentage        | `number` | The percentage of wins to total amount of games played |
@@ -364,12 +389,15 @@ const { data, error } = await getPlayerInfo("GAMERTAG");
 
   | Field                 | Type     | Description |
   | --------------------- | -------- | ----------- |
-  | UUID                  | `string` | The UUID of the player |
+  | UUID                  | `string` | *Only when getting all-time stats* The UUID of the player |
+  | index                 | `number` | *Only when getting monthly stats* The index |
+  | human_index           | `number` | *Only when getting monthly stats* The human index |
+  | username              | `string` | *Only when getting monthly stats* The player's correctly capitalised username |
   | id                    | `string` | The ID of the game (`drop` in this case) |
   | xp                    | `number` | Total XP of the player |
   | level                 | `number` | Current level (calculated by the wrapper) |
   | played                | `number` | How many times the player has played this game |
-  | first_played          | `Date`   | The time the player first played this game |
+  | first_played          | `Date`   | *Only when getting all-time stats* The time the player first played this game |
   | victories             | `number` | The number of times the player has won this game |
   | losses                | `number` | The number of times the player has lost this game |
   | win_percentage        | `number` | The percentage of wins to total amount of games played |
@@ -388,12 +416,15 @@ const { data, error } = await getPlayerInfo("GAMERTAG");
 
   | Field                 | Type     | Description |
   | --------------------- | -------- | ----------- |
-  | UUID                  | `string` | The UUID of the player |
+  | UUID                  | `string` | *Only when getting all-time stats* The UUID of the player |
+  | index                 | `number` | *Only when getting monthly stats* The index |
+  | human_index           | `number` | *Only when getting monthly stats* The human index |
+  | username              | `string` | *Only when getting monthly stats* The player's correctly capitalised username |
   | id                    | `string` | The ID of the game (`ctf` in this case) |
   | xp                    | `number` | Total XP of the player |
   | level                 | `number` | Current level (calculated by the wrapper) |
   | played                | `number` | How many times the player has played this game |
-  | first_played          | `Date`   | The time the player first played this game |
+  | first_played          | `Date`   | *Only when getting all-time stats* The time the player first played this game |
   | victories             | `number` | The number of times the player has won this game |
   | losses                | `number` | The number of times the player has lost this game |
   | win_percentage        | `number` | The percentage of wins to total amount of games played |
@@ -414,12 +445,15 @@ const { data, error } = await getPlayerInfo("GAMERTAG");
 
   | Field                 | Type     | Description |
   | --------------------- | -------- | ----------- |
-  | UUID                  | `string` | The UUID of the player |
-  | id                    | `string` | The ID of the game (`drop` in this case) |
+  | UUID                  | `string` | *Only when getting all-time stats* The UUID of the player |
+  | index                 | `number` | *Only when getting monthly stats* The index |
+  | human_index           | `number` | *Only when getting monthly stats* The human index |
+  | username              | `string` | *Only when getting monthly stats* The player's correctly capitalised username |
+  | id                    | `string` | The ID of the game (`party` in this case) |
   | xp                    | `number` | Total XP of the player |
   | level                 | `number` | Current level (calculated by the wrapper) |
   | played                | `number` | How many times the player has played this game |
-  | first_played          | `Date`   | The time the player first played this game |
+  | first_played          | `Date`   | *Only when getting all-time stats* The time the player first played this game |
   | victories             | `number` | The number of times the player has won this game |
   | losses                | `number` | The number of times the player has lost this game |
   | win_percentage        | `number` | The percentage of wins to total amount of games played |
@@ -436,12 +470,15 @@ const { data, error } = await getPlayerInfo("GAMERTAG");
 
   | Field                 | Type     | Description |
   | --------------------- | -------- | ----------- |
-  | UUID                  | `string` | The UUID of the player |
-  | id                    | `string` | The ID of the game (`ctf` in this case) |
+  | UUID                  | `string` | *Only when getting all-time stats* The UUID of the player |
+  | index                 | `number` | *Only when getting monthly stats* The index |
+  | human_index           | `number` | *Only when getting monthly stats* The human index |
+  | username              | `string` | *Only when getting monthly stats* The player's correctly capitalised username |
+  | id                    | `string` | The ID of the game (`bridge` in this case) |
   | xp                    | `number` | Total XP of the player |
   | level                 | `number` | Current level (calculated by the wrapper) |
   | played                | `number` | How many times the player has played this game |
-  | first_played          | `Date`   | The time the player first played this game |
+  | first_played          | `Date`   | *Only when getting all-time stats* The time the player first played this game |
   | victories             | `number` | The number of times the player has won this game |
   | losses                | `number` | The number of times the player has lost this game |
   | win_percentage        | `number` | The percentage of wins to total amount of games played |
