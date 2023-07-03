@@ -489,50 +489,59 @@ const { data, error } = await getPlayerInfo("GAMERTAG");
 
 </details>
 
-### Response fields
+## Response fields
 
 | Game                     | TreasureWars | DeathRun | HideAndSeek | MurderMystery | SurvivalGames | Skywars | JustBuild | GroundWars | BlockDrop | CaptureTheFlag | BlockParty | TheBridge |
 | ------------------------ | ------------ | -------- | ----------- | ------------- | ------------- | ------- | --------- | ---------- | --------- | -------------- | ---------- | --------- |
-| UUID                     | *✓*          | *✓*     | *✓*         | *✓*           | *✓*          | *✓*     | *✓*      | *✓*        | *✓*       | *✓*            | *✓*        | *✓*       |
-| id                       | *✓*          | *✓*     | *✓*         | *✓*           | *✓*          | *✓*     | *✓*      | *✓*        | *✓*       | *✓*            | *✓*        | *✓*       |
-| xp                       | *✓*          | *✓*     | *✓*         | *✓*           | *✓*          | *✓*     | *✓*      | *✓*        | *✓*       | *✓*            | *✓*        | *✓*       |
-| level                    | *✓*          | *✓*     | *✓*         | *✓*           | *✓*          | *✓*     | *✓*      | *✓*        | *✓*       | *✓*            | *✓*        | *✓*       |
-| played                   | *✓*          | *✓*     | *✓*         | *✓*           | *✓*          | *✓*     | *✓*      | *✓*        | *✓*       | *✓*            | *✓*        | *✓*       |
-| first_played             | *✓*          | *✓*     | *✓*         | *✓*           | *✓*          | *✓*     | *✓*      | *✓*        | *✓*       | *✓*            | *✓*        | *✓*       |
-| victories                | *✓*          | *✓*     | *✓*         | *✓*           | *✓*          | *✓*     | *✓*      | *✓*        | *✓*       | *✓*            | *✓*        | *✓*       |
-| losses                   | *✓*          | *✓*     | *✓*         | *✓*           | *✓*          | *✓*     | *✓*      | *✓*        | *✓*       | *✓*            | *✓*        | *✓*       |
-| win_percentage           | *✓*          | *✓*     | *✓*         | *✓*           | *✓*          | *✓*     | *✓*      | *✓*        | *✓*       | *✓*            | *✓*        | *✓*       |
+| UUID                     | *✓*          | *✓*     | *✓*         | *✓*           | *✓*          | *✓*     | *✓*      | *✓*        | *✓*       | *✓*            | *✓*       | *✓*       |
+| index                    | *✓*          | *✓*     | *✓*         | *✓*           | *✓*          | *✓*     | *✓*      | *✓*        | *✓*       | *✓*            | *✓*       | *✓*       |
+| human_index              | *✓*          | *✓*     | *✓*         | *✓*           | *✓*          | *✓*     | *✓*      | *✓*        | *✓*       | *✓*            | *✓*       | *✓*       |
+| username                 | *✓*          | *✓*     | *✓*         | *✓*           | *✓*          | *✓*     | *✓*      | *✓*        | *✓*       | *✓*            | *✓*       | *✓*       |
+| id                       | *✓*          | *✓*     | *✓*         | *✓*           | *✓*          | *✓*     | *✓*      | *✓*        | *✓*       | *✓*            | *✓*       | *✓*       |
+| xp                       | *✓*          | *✓*     | *✓*         | *✓*           | *✓*          | *✓*     | *✓*      | *✓*        | *✓*       | *✓*            | *✓*       | *✓*       |
+| level                    | *✓*          | *✓*     | *✓*         | *✓*           | *✓*          | *✓*     | *✓*      | *✓*        | *✓*       | *✓*            | *✓*       | *✓*       |
+| played                   | *✓*          | *✓*     | *✓*         | *✓*           | *✓*          | *✓*     | *✓*      | *✓*        | *✓*       | *✓*            | *✓*       | *✓*       |
+| first_played             | *✓*          | *✓*     | *✓*         | *✓*           | *✓*          | *✓*     | *✓*      | *✓*        | *✓*       | *✓*            | *✓*       | *✓*       |
+| victories                | *✓*          | *✓*     | *✓*         | *✓*           | *✓*          | *✓*     | *✓*      | *✓*        | *✓*       | *✓*            | *✓*       | *✓*       |
+| losses                   | *✓*          | *✓*     | *✓*         | *✓*           | *✓*          | *✓*     | *✓*      | *✓*        | *✓*       | *✓*            | *✓*       | *✓*       |
+| win_percentage           | *✓*          | *✓*     | *✓*         | *✓*           | *✓*          | *✓*     | *✓*      | *✓*        | *✓*       | *✓*            | *✓*       | *✓*       |
 | kdr                      | *✓*          | *✓*     | *X*         | *✓*           | *✓*          | *✓*     | *X*       | *✓*        | *X*       | *✓*            | *X*        | *✓*       |
-| deaths                   | *✓*          | *✓*     | *✓*         | *✓*           | *✓*          | *✓*     | *X*       | *✓*        | *✓*       | *✓*            | *X*        | *✓*       |
+| deaths                   | *✓*          | *✓*     | *✓*         | *✓*           | *✓*          | *✓*     | *X*       | *✓*        | *✓*      | *✓*            | *X*        | *✓*       |
 | kills                    | *✓*          | *✓*     | *X*         | *X*           | *✓*           | *✓*    | *X*       | *✓*        | *X*       | *✓*            | *X*        | *✓*       |
-| final_kills              | *✓*          | *X*      | *X*         | *X*           | *X*          | *X*     | *X*       | *X*        | *X*       | *X*            | *X*        | *X*       |
-| hider_kills              | *X*          | *X*      | *✓*         | *X*           | *X*          | *X*     | *X*       | *X*        | *X*       | *X*            | *X*        | *X*       |
-| seeker_kills             | *X*          | *X*      | *✓*         | *X*           | *X*          | *X*     | *X*       | *X*        | *X*       | *X*            | *X*        | *X*       |
-| checkpoints              | *X*          | *✓*     | *X*          | *X*           | *X*          | *X*     | *X*       | *X*        | *X*       | *X*            | *X*        | *X*       |
-| activated                | *X*          | *✓*     | *X*          | *X*           | *X*          | *X*     | *X*       | *X*        | *X*       | *X*            | *X*        | *X*       |
-| treasure_destroyed       | *✓*          | *X*     | *X*          | *X*           | *X*          | *X*     | *X*       | *X*        | *X*       | *X*            | *X*        | *X*       |
-| prestige                 | *✓*          | *X*     | *X*          | *✓*          | *X*           | *X*     | *X*       | *X*        | *X*       | *X*            | *X*        | *X*       |
-| coins                    | *X*          | *X*      | *X*         | *✓*           | *X*          | *X*     | *X*       | *X*        | *X*       | *X*            | *X*        | *X*       |
-| murders                  | *X*          | *X*      | *X*         | *✓*           | *X*          | *X*     | *X*       | *X*        | *X*       | *X*            | *X*        | *X*       |
-| murderer_eliminations    | *X*          | *X*      | *X*         | *✓*           | *X*          | *X*     | *X*       | *X*        | *X*       | *X*            | *X*        | *X*       |
-| crates                   | *X*          | *X*      | *X*         | *X*           | *✓*          | *X*     | *X*       | *X*        | *X*       | *X*            | *X*        | *X*       |
-| deathmatches             | *X*          | *X*      | *X*         | *X*           | *✓*          | *X*     | *X*       | *X*        | *X*       | *X*            | *X*        | *X*       |
-| cows                     | *X*          | *X*      | *X*         | *X*           | *✓*          | *X*     | *X*       | *X*        | *X*       | *X*            | *X*        | *X*       |
-| mystery_chests_destroyed | *X*          | *X*      | *X*         | *X*           | *X*           | *✓*    | *X*       | *X*        | *X*       | *X*            | *X*        | *X*       |
-| ores_mined               | *X*          | *X*      | *X*         | *X*           | *X*           | *✓*    | *X*       | *X*        | *X*       | *X*            | *X*        | *X*       |
-| spells_used              | *X*          | *X*      | *X*         | *X*           | *X*           | *✓*    | *X*       | *X*        | *X*       | *X*            | *X*        | *X*       |
-| assists                  | *X*          | *X*      | *X*         | *X*           | *X*           | *X*     | *X*       | *X*        | *X*       | *✓*            | *X*        | *X*       |
-| flags_captured           | *X*          | *X*      | *X*         | *X*           | *X*           | *X*     | *X*       | *X*        | *X*       | *✓*            | *X*        | *X*       |
-| flags_returned           | *X*          | *X*      | *X*         | *X*           | *X*           | *X*     | *X*       | *X*        | *X*       | *✓*            | *X*        | *X*       |
-| blocks_destroyed         | *X*          | *X*      | *X*         | *X*           | *X*           | *X*     | *X*       | *✓*        | *✓*       | *X*            | *X*        | *X*       |
-| powerups_collected       | *X*          | *X*      | *X*         | *X*           | *X*           | *X*     | *X*       | *X*        | *✓*       | *X*            | *✓*        | *X*       |
-| vaults_used              | *X*          | *X*      | *X*         | *X*           | *X*           | *X*     | *X*       | *X*        | *✓*       | *X*            | *X*        | *X*       |
-| blocks_placed            | *X*          | *X*      | *X*         | *X*           | *X*           | *X*     | *X*       | *✓*        | *X*       | *X*            | *X*        | *X*       |
-| projectiles_fired        | *X*          | *X*      | *X*         | *X*           | *X*           | *X*     | *X*       | *✓*        | *X*       | *X*            | *X*        | *X*       |
-| rating_good_received     | *X*          | *X*      | *X*         | *X*           | *X*           | *X*     | *✓*      | *X*        | *X*       | *X*            | *X*        | *X*       |
-| rating_love_received     | *X*          | *X*      | *X*         | *X*           | *X*           | *X*     | *✓*      | *X*        | *X*       | *X*            | *X*        | *X*       |
-| rating_meh_received      | *X*          | *X*      | *X*         | *X*           | *X*           | *X*     | *✓*      | *X*        | *X*       | *X*            | *X*        | *X*       |
-| rating_okay_received     | *X*          | *X*      | *X*         | *X*           | *X*           | *X*     | *✓*      | *X*        | *X*       | *X*            | *X*        | *X*       |
-| rating_great_received    | *X*          | *X*      | *X*         | *X*           | *X*           | *X*     | *✓*      | *X*        | *X*       | *X*            | *X*        | *X*       |
-| rounds_survived          | *X*          | *X*      | *X*         | *X*           | *X*           | *X*     | *X*       | *X*        | *X*       | *X*            | *✓*        | *X*       |
-| goals                    | *X*          | *X*      | *X*         | *X*           | *X*           | *X*     | *X*       | *X*        | *X*       | *X*            | *X*        | *✓*       |
+| final_kills              | *✓*          | *X*      | *X*         | *X*           | *X*          | *X*     | *X*       | *X*        | *X*       | *X*            | *X*         | *X*       |
+| hider_kills              | *X*          | *X*      | *✓*         | *X*           | *X*          | *X*     | *X*       | *X*        | *X*       | *X*            | *X*         | *X*       |
+| seeker_kills             | *X*          | *X*      | *✓*         | *X*           | *X*          | *X*     | *X*       | *X*        | *X*       | *X*            | *X*         | *X*       |
+| checkpoints              | *X*          | *✓*     | *X*          | *X*           | *X*          | *X*     | *X*       | *X*        | *X*       | *X*            | *X*         | *X*       |
+| activated                | *X*          | *✓*     | *X*          | *X*           | *X*          | *X*     | *X*       | *X*        | *X*       | *X*            | *X*         | *X*       |
+| treasure_destroyed       | *✓*          | *X*     | *X*          | *X*           | *X*          | *X*     | *X*       | *X*        | *X*       | *X*            | *X*         | *X*       |
+| prestige                 | *✓*          | *X*     | *X*          | *✓*          | *X*           | *X*     | *X*       | *X*        | *X*       | *X*            | *X*        | *X*        |
+| coins                    | *X*          | *X*      | *X*         | *✓*           | *X*          | *X*     | *X*       | *X*        | *X*       | *X*            | *X*        | *X*        |
+| murders                  | *X*          | *X*      | *X*         | *✓*           | *X*          | *X*     | *X*       | *X*        | *X*       | *X*            | *X*        | *X*        |
+| murderer_eliminations    | *X*          | *X*      | *X*         | *✓*           | *X*          | *X*     | *X*       | *X*        | *X*       | *X*            | *X*        | *X*        |
+| crates                   | *X*          | *X*      | *X*         | *X*           | *✓*          | *X*     | *X*       | *X*        | *X*       | *X*            | *X*        | *X*        |
+| deathmatches             | *X*          | *X*      | *X*         | *X*           | *✓*          | *X*     | *X*       | *X*        | *X*       | *X*            | *X*        | *X*        |
+| cows                     | *X*          | *X*      | *X*         | *X*           | *✓*          | *X*     | *X*       | *X*        | *X*       | *X*            | *X*        | *X*        |
+| mystery_chests_destroyed | *X*          | *X*      | *X*         | *X*           | *X*           | *✓*    | *X*       | *X*        | *X*       | *X*            | *X*        | *X*        |
+| ores_mined               | *X*          | *X*      | *X*         | *X*           | *X*           | *✓*    | *X*       | *X*        | *X*       | *X*            | *X*        | *X*        |
+| spells_used              | *X*          | *X*      | *X*         | *X*           | *X*           | *✓*    | *X*       | *X*        | *X*       | *X*            | *X*        | *X*        |
+| assists                  | *X*          | *X*      | *X*         | *X*           | *X*           | *X*     | *X*       | *X*        | *X*       | *✓*           | *X*        | *X*        |
+| flags_captured           | *X*          | *X*      | *X*         | *X*           | *X*           | *X*     | *X*       | *X*        | *X*       | *✓*           | *X*        | *X*        |
+| flags_returned           | *X*          | *X*      | *X*         | *X*           | *X*           | *X*     | *X*       | *X*        | *X*       | *✓*           | *X*        | *X*        |
+| blocks_destroyed         | *X*          | *X*      | *X*         | *X*           | *X*           | *X*     | *X*       | *✓*        | *✓*       | *X*           | *X*        | *X*        |
+| powerups_collected       | *X*          | *X*      | *X*         | *X*           | *X*           | *X*     | *X*       | *X*        | *✓*       | *X*           | *✓*        | *X*        |
+| vaults_used              | *X*          | *X*      | *X*         | *X*           | *X*           | *X*     | *X*       | *X*        | *✓*       | *X*           | *X*        | *X*        |
+| blocks_placed            | *X*          | *X*      | *X*         | *X*           | *X*           | *X*     | *X*       | *✓*        | *X*       | *X*           | *X*        | *X*        |
+| projectiles_fired        | *X*          | *X*      | *X*         | *X*           | *X*           | *X*     | *X*       | *✓*        | *X*       | *X*           | *X*        | *X*        |
+| rating_good_received     | *X*          | *X*      | *X*         | *X*           | *X*           | *X*     | *✓*      | *X*        | *X*       | *X*            | *X*        | *X*        |
+| rating_love_received     | *X*          | *X*      | *X*         | *X*           | *X*           | *X*     | *✓*      | *X*        | *X*       | *X*            | *X*        | *X*        |
+| rating_meh_received      | *X*          | *X*      | *X*         | *X*           | *X*           | *X*     | *✓*      | *X*        | *X*       | *X*            | *X*        | *X*        |
+| rating_okay_received     | *X*          | *X*      | *X*         | *X*           | *X*           | *X*     | *✓*      | *X*        | *X*       | *X*            | *X*        | *X*        |
+| rating_great_received    | *X*          | *X*      | *X*         | *X*           | *X*           | *X*     | *✓*      | *X*        | *X*       | *X*            | *X*        | *X*        |
+| rounds_survived          | *X*          | *X*      | *X*         | *X*           | *X*           | *X*     | *X*       | *X*        | *X*       | *X*           | *✓*        | *X*        |
+| goals                    | *X*          | *X*      | *X*         | *X*           | *X*           | *X*     | *X*       | *X*        | *X*       | *X*           | *X*        | *✓*        |
+
+
+## Leaderboard response
+
+| Field | Type     | Description |
+| UUID  | `string` | The UUID of the leaderboard |
