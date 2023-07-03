@@ -136,3 +136,4 @@ yarn.lock
 # Custom
 /lib
 index.js
+docs/response-fields.xlsx
