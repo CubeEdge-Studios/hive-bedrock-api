@@ -118,7 +118,11 @@ export default async function fetchData<G extends GAME>(
     >
 > {
     try {
-        const request = await fetch(API_ROOT + endpoint, options);
+        const request = await fetch(API_ROOT + endpoint, {
+            headers: options?.headers
+                ? new Headers(options?.headers)
+                : undefined,
+        });
 
         if (!request.ok)
             return {
