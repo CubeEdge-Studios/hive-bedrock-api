@@ -1,18 +1,21 @@
-import { API_GLOBAL_STATISTICS } from "../types/API";
+import { Options } from "../types/API";
 import { USER_MAIN } from "../types/GAMES";
 import { MethodResponse } from "../types/METHODS";
 import fetchData from "./fetchData";
 
 export default async function getPlayerInfo(
-    playerIdentifier: string
+    playerIdentifier: string,
+    options?: Options
 ): Promise<MethodResponse<USER_MAIN>>;
 
 export default async function getPlayerInfo(
-    playerIdentifier: string
+    playerIdentifier: string,
+    options?: Options
 ): Promise<MethodResponse<USER_MAIN>> {
     try {
         const { data, error } = await fetchData(
-            `/game/all/main/${playerIdentifier}`
+            `/game/all/main/${playerIdentifier}`,
+            options?.fetch
         );
         if (error || !data)
             return {

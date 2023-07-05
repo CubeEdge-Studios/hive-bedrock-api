@@ -1,3 +1,4 @@
+import { FetchOptions } from "../methods/fetchData";
 import { GAME } from "./GAME_INFO";
 
 export interface API_ERROR {
@@ -10,6 +11,10 @@ export interface API_ERROR {
         remaining: string | null;
     };
     error?: any;
+}
+
+export interface Options {
+    fetch?: FetchOptions;
 }
 
 export type RANK =
@@ -86,6 +91,9 @@ export interface API_BASE_GAME_MONTHLY {
     index: number;
     human_index: number;
     username: string;
+    xp: number;
+    played: number;
+    victories: number;
 }
 
 export type AVATAR = { url: string; name: string };

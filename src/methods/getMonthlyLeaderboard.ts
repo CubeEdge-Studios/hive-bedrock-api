@@ -1,37 +1,44 @@
 import { gameFormatArray } from "../format/gameFormat";
+import { Options } from "../types/API";
 import { LB_STATS, REQUEST_LB } from "../types/GAMES";
 import { GAME } from "../types/GAME_INFO";
 import { MethodResponse } from "../types/METHODS";
 import fetchData from "./fetchData";
 
+interface OptionsType extends Options {
+    year?: number;
+    month?: number;
+    date?: Date;
+    skip?: number;
+    amount?: number;
+}
+
 export default async function getMonthlyLeaderboard<G extends GAME>(
-    game: G
+    game: G,
+    options?: Options
 ): Promise<MethodResponse<LB_STATS<G>[]>>;
 
 export default async function getMonthlyLeaderboard<G extends GAME>(
     game: G,
-    options: {
-        year?: number;
-        month?: number;
-        date?: Date;
-        skip?: number;
-        amount?: number;
-    }
+    options: OptionsType
 ): Promise<MethodResponse<LB_STATS<G>[]>>;
 
 export default async function getMonthlyLeaderboard<G extends GAME>(
     game: G,
-    options?: {
-        year?: number;
-        month?: number;
-        date?: Date;
-        skip?: number;
-        amount?: number;
-    }
+    options?: OptionsType
 ): Promise<MethodResponse<REQUEST_LB<G>>> {
-    if (!options) {
+    if (
+        !options?.year &&
+        !options?.amount &&
+        !options?.month &&
+        !options?.skip &&
+        !options?.date
+    ) {
         try {
-            const { data, error } = await fetchData(`/game/monthly/${game}`);
+            const { data, error } = await fetchData(
+                `/game/monthly/${game}`,
+                options?.fetch
+            );
             if (error || !data)
                 return {
                     data: null,
@@ -58,7 +65,8 @@ export default async function getMonthlyLeaderboard<G extends GAME>(
 
         try {
             let { data, error } = await fetchData(
-                `/game/monthly/${game}/${year}/${month}/${amount}/${skip}`
+                `/game/monthly/${game}/${year}/${month}/${amount}/${skip}`,
+                options?.fetch
             );
             if (error || !data)
                 return {
