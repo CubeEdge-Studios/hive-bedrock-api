@@ -1,16 +1,23 @@
 # Documentation
 
-## getMonthlyStats(playerIdentifier, game[, options]): Promise\<[Response](API.md#game-statistics-types)>
+## getMonthlyStats(playerIdentifier[, game, options])
 Get a player's monthly statistics.
 
 | Parameter        | Type             | Required     | Description |
 | ---------------- | ---------------- | ------------ | ----------- |
 | playerIdentifier | `string`         | **Required** | The player's gamertag or UUID of which to get stats for |
-| game             | `GAME \| GAME[]` | **Required** | The game identifier - see [GAME](API.md#enum-game). When specifying multiple games in an array, will return array of results for each game |
+| game             | `GAME \| GAME[]` | *optional*   | The game identifier - see [GAME](API.md#enum-game). When specifying multiple games in an array, will return array of results for each game. When not specified, will return all games |
 | options          | `object`         | *optional*   | Options is an object with the fields below: |
 | options.year     | `number`         | *optional*   | The year from which to get stats |
 | options.month    | `number`         | *optional*   | The month from which to get stats |
 | options.date     | `Date`           | *optional*   | An instance of `Date` from which to get stats (can be used interchangably with `year` + `month`) |
+
+Returns a Promise which resolves to the following object:
+
+| Field  | Type                                               | Description       |
+| ------ | -------------------------------------------------- | ----------------- |
+| data   | [Response](API.md#game-statistics-types) `\| null` | The response data |
+| error  | `{ message: string } \| null`                      | Error data        |
 
 ### Usage
 
@@ -22,7 +29,7 @@ const { data, error } = await getMonthlyStats("GAMERTAG", GAME.TreasureWars, { y
 ```
 
 
-## getMonthlyLeaderboard(game[, options]): Promise\<[Response](API.md#game-statistics-types)[]>
+## getMonthlyLeaderboard(game[, options])
 Get the monthly leaderboard for a specific month.
 
 | Parameter         | Type             | Required     | Description |
@@ -31,9 +38,16 @@ Get the monthly leaderboard for a specific month.
 | options           | `object`         | *optional*   | Options is an object with the fields below: |
 | options.year      | `number`         | *optional*   | The year from which to get the leaderboard |
 | options.month     | `number`         | *optional*   | The month from which to get the leaderboard |
-| options.date      | `Date`           | *optional*   | An instance of `Date` from which to get the leaderboard (can be used interchangably with `year` + `month`) |
+| options.date      | `Date`           | *optional*   | An instance of `Date` from which to get the leaderboard (can be used interchangably with `year` + `month`; if both are present, `date` will override `year` and `month`) |
 | options.skip      | `number`         | *optional*   | How many players to skip in the leaderboard |
 | options.amount    | `number`         | *optional*   | How many players to return in the leaderboard
+
+Returns a Promise which resolves to the following object:
+
+| Field  | Type                                                 | Description       |
+| ------ | ---------------------------------------------------- | ----------------- |
+| data   | [Response](API.md#game-statistics-types)[] `\| null` | The response data |
+| error  | `{ message: string } \| null`                        | Error data        |
 
 ### Usage
 
@@ -46,13 +60,21 @@ const { data, error } = await getMonthlyLeaderboard(GAME.SkyWars, { amount: 3, d
 ```
 
 
-## getAllTimeStats(playerIdentifier[, game]): Promise\<{ data: [Response](API.md#game-statistics-types) }>
+## getAllTimeStats(playerIdentifier[, game])
 Get a player's all-time statistics.
 
 | Parameter        | Type             | Required     | Description |
 | ---------------- | ---------------- | ------------ | ----------- |
 | playerIdentifier | `string`         | **Required** | The player's gamertag or UUID of which to get stats for |
-| game             | `GAME \| GAME[]` | **Required** | The game identifier - see [GAME](API.md#enum-game). When specifying multiple games in an array, will return array of results for each game |
+| game             | `GAME \| GAME[]` | *optional*   | The game identifier - see [GAME](API.md#enum-game). When specifying multiple games in an array, will return array of results for each game. When not specified, will return all games |
+
+Returns a Promise which resolves to the following object:
+
+| Field  | Type                                                 | Description            |
+| ------ | ---------------------------------------------------- | ---------------------- |
+| data   | [Response](API.md#game-statistics-types) `\| null` | The response data      |
+| error  | `{ message: string } \| null`                        | Error data             |
+| player | [PlayerInfo](API.md#playerinfo)                      | Additional player info |
 
 ### Usage
 
@@ -64,12 +86,19 @@ const { data, error } = await getAllTimeStats("GAMERTAG", GAME.HideAndSeek);
 ```
 
 
-## getAllTimeLeaderboard([game]): Promise\<[Response](API.md#game-statistics-types)[]>
+## getAllTimeLeaderboard(game)
 Get the all-time leaderboard for a game or games.
 
 | Parameter | Type             | Required     | Description |
 | --------- | ---------------- | ------------ | ----------- |
 | game      | `GAME \| GAME[]` | **Required** | The game identifier - see [GAME](API.md#enum-game). When specifying multiple games in an array, will return array of results for each game |
+
+Returns a Promise which resolves to the following object:
+
+| Field  | Type                                                 | Description       |
+| ------ | ---------------------------------------------------- | ----------------- |
+| data   | [Response](API.md#game-statistics-types)[] `\| null` | The response data |
+| error  | `{ message: string } \| null`                        | Error data        |
 
 ### Usage
 
@@ -80,8 +109,15 @@ import { getAllTimeLeaderboard, GAME } from "hive-bedrock-api";
 const { data, error } = await getAllTimeLeaderboard(GAME.SurvivalGames);
 ```
 
-## getGlobalStatistics(): Promise\<[GlobalStatistics](API.md#global-statistics)>
+## getGlobalStatistics()
 Get special data such as each game's all-time player count.
+
+Returns a Promise which resolves to the following object:
+
+| Field  | Type                                             | Description       |
+| ------ | ------------------------------------------------ | ----------------- |
+| data   | [Response](API.md#global-statistics)[] `\| null` | The response data |
+| error  | `{ message: string } \| null`                    | Error data        |
 
 ### Usage
 
@@ -92,12 +128,19 @@ import { getGlobalStatistics } from "hive-bedrock-api";
 const { data, error } = await getGlobalStatistics();
 ```
 
-## getPlayerInfo(playerIdentifier): Promise\<[PlayerInfo](API.md#playerinfo)>
+## getPlayerInfo(playerIdentifier)
 Get a player's information, such as current/longest login streak, currently equipped and all unlocked cosmetics, and number of quests completed.
 
 | Parameter        | Type     | Required     | Description |
 | ---------------- | -------- | ------------ | ----------- |
 | playerIdentifier | `string` | **Required** | The player's gamertag or UUID of which to get info |
+
+Returns a Promise which resolves to the following object
+
+| Field  | Type                                      | Description       |
+| ------ | ----------------------------------------- | ----------------- |
+| data   | [PlayerInfo](API.md#playerinfo) `\| null` | The response data |
+| error  | `{ message: string } \| null`             | Error data        |
 
 ### Usage
 
@@ -526,7 +569,7 @@ Constant with [GAME](API.md#games) as keys, and `GAME_INFO_TYPE` as properties:
 | id           | `string`         | The ID of the game, as in [GAME](API.md#enum-game). |
 | maxLevel     | `number`         | The maximum level you can reach in this game. |
 | increment    | `number`         | How much the XP requirement increases with each level gained. |
-| incrementCap | `number | null`  | The level above which the increment no longer applies. |
+| incrementCap | `number \| null` | The level above which the increment no longer applies. |
 | prestige     | `boolean`        | Wether or not this game supports prestigeing. |
 
 ## Global statistics
