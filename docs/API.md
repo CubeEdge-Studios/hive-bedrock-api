@@ -1,4 +1,5 @@
 # Documentation
+
 ## getMonthlyStats(playerIdentifier, game[, options]): Promise\<[Response](API.md#game-statistics-types)>
 Get a player's monthly statistics.
 
@@ -6,6 +7,7 @@ Get a player's monthly statistics.
 | ---------------- | ---------------- | ------------ | ----------- |
 | playerIdentifier | `string`         | **Required** | The player's gamertag or UUID of which to get stats for |
 | game             | `GAME \| GAME[]` | **Required** | The game identifier - see [GAME](API.md#enum-game). When specifying multiple games in an array, will return array of results for each game |
+| options          | `object`         | *optional*   | Options is an object with the fields below: |
 | options.year     | `number`         | *optional*   | The year from which to get stats |
 | options.month    | `number`         | *optional*   | The month from which to get stats |
 | options.date     | `Date`           | *optional*   | An instance of `Date` from which to get stats (can be used interchangably with `year` + `month`) |
@@ -20,12 +22,13 @@ const { data, error } = await getMonthlyStats("GAMERTAG", GAME.TreasureWars, { y
 ```
 
 
-## getMonthlyLeaderboard(game[, options]): Promise\<TODO>
+## getMonthlyLeaderboard(game[, options]): Promise\<[Response](API.md#game-statistics-types)[]>
 Get the monthly leaderboard for a specific month.
 
 | Parameter         | Type             | Required     | Description |
 | ----------------- | ---------------- | ------------ | ----------- |
 | game              | `GAME \| GAME[]` | **Required** | The game identifier - see [GAME](API.md#enum-game). When specifying multiple games in an array, will return array of results for each game |
+| options           | `object`         | *optional*   | Options is an object with the fields below: |
 | options.year      | `number`         | *optional*   | The year from which to get the leaderboard |
 | options.month     | `number`         | *optional*   | The month from which to get the leaderboard |
 | options.date      | `Date`           | *optional*   | An instance of `Date` from which to get the leaderboard (can be used interchangably with `year` + `month`) |
@@ -43,7 +46,7 @@ const { data, error } = await getMonthlyLeaderboard(GAME.SkyWars, { amount: 3, d
 ```
 
 
-## getAllTimeStats(playerIdentifier[, game]): Promise\<[Response](API.md#game-statistics-types)>
+## getAllTimeStats(playerIdentifier[, game]): Promise\<{ data: [Response](API.md#game-statistics-types) }>
 Get a player's all-time statistics.
 
 | Parameter        | Type             | Required     | Description |
@@ -61,7 +64,7 @@ const { data, error } = await getAllTimeStats("GAMERTAG", GAME.HideAndSeek);
 ```
 
 
-## getAllTimeLeaderboard([game]): Promise\<TODO>
+## getAllTimeLeaderboard([game]): Promise\<[Response](API.md#game-statistics-types)[]>
 Get the all-time leaderboard for a game or games.
 
 | Parameter | Type             | Required     | Description |
@@ -77,7 +80,7 @@ import { getAllTimeLeaderboard, GAME } from "hive-bedrock-api";
 const { data, error } = await getAllTimeLeaderboard(GAME.SurvivalGames);
 ```
 
-## getGlobalStatistics(): Promise\<TODO>
+## getGlobalStatistics(): Promise\<[GlobalStatistics](API.md#global-statistics)>
 Get special data such as each game's all-time player count.
 
 ### Usage
@@ -89,10 +92,12 @@ import { getGlobalStatistics } from "hive-bedrock-api";
 const { data, error } = await getGlobalStatistics();
 ```
 
-## getPlayerInfo(playerIdentifier): Promise\<TODO>
+## getPlayerInfo(playerIdentifier): Promise\<[PlayerInfo](API.md#playerinfo)>
 Get a player's information, such as current/longest login streak, currently equipped and all unlocked cosmetics, and number of quests completed.
 
-- `playerIdentifier: string` - The player's gamertag or UUID of which to get info.
+| Parameter        | Type     | Required     | Description |
+| ---------------- | -------- | ------------ | ----------- |
+| playerIdentifier | `string` | **Required** | The player's gamertag or UUID of which to get info |
 
 ### Usage
 
@@ -103,14 +108,43 @@ import { getPlayerInfo } from "hive-bedrock-api";
 const { data, error } = await getPlayerInfo("GAMERTAG");
 ```
 
-## type AVATAR
+## PlayerInfo
+PlayerInfo object structure
+
+| Field                      | Type             | Description |
+| -------------------------- | ---------------- | ----------- |
+| UUID                       | `string`         | The player's UUID |
+| xuid                       | `string`         | The player's XUID (Xbox User ID) |
+| username                   | `string`         | The player's username |
+| username_cc                | `string`         | The player's correctly capitalised username |
+| rank                       | `RANK`           | The player's [rank](API.md#player-ranks) |
+| first_played               | `Date`           | The date when the player first played on The Hive |
+| daily_login_streak         | `number`         | The player's current daily login streak |
+| longest_daily_login_streak | `number`         | The player's longest daily login streak |
+| hub_title_count            | `number`         | How many hub titles the player currently owns |
+| hub_title_unlocked         | `string[]`       | All of the player's owned hub titles |
+| costume_count              | `number`         | How many costumes the player currently owns |
+| costume_unlocked           | `string[]`       | All of the player's owned costumes' names |
+| avatar_count               | `number`         | How many avatars the player currently owns |
+| avatar_unlocked            | `AVATAR[]`       | All of the player's owned [avatars](API.md#avatar) |
+| friend_count               | `number`         | How many friends the player has got on the server |
+| equipped_hub_title         | `string \| null` | The player's currently equipped hub title |
+| equipped_costume           | `string \| null` | The player's currently equipped costume's name |
+| equipped_avatar            | `AVATAR \| null` | The player's currently equipped [avatar](API.md#avatar) |
+| quest_count                | `number`         | How many quests the player has ever completed |
+| paid_ranks                 | `RANK[]`         | All of the player's paid [ranks](API.md#player-ranks) |
+
+## Avatar
+The structure of the avatar object.
 
 | Field | Type     | Description                   |
 | ----- | -------- | ----------------------------- |
 | name  | `string` | The name of the avatar        |
 | url   | `string` | The URL of the avatar's image |
 
-## type RANK
+
+## Player ranks
+All possible player ranks.
 
 | Value               | Description                      |
 | ------------------- | -------------------------------- |
@@ -127,35 +161,11 @@ const { data, error } = await getPlayerInfo("GAMERTAG");
 | `COMMUNITY_MANAGER` | Community Manager for The Hive.  |
 | `OWNER`             | Owner of The Hive.               |
 
-## enum GAME
-
-| Key            | Value    |
-| -------------- | -------- |
-| HideAndSeek    | `hide`   |
-| DeathRun       | `dr`     |
-| TreasureWars   | `wars`   |
-| MurderMystery  | `murder` |
-| SurvivalGames  | `sg`     |
-| Skywars        | `sky`    |
-| CaptureTheFlag | `ctf`    |
-| BlockDrop      | `drop`   |
-| GroundWars     | `ground` |
-| JustBuild      | `build`  |
-| BlockParty     | `party`  |
-| TheBridge      | `bridge` |
-
-## const GAME_INFO
-- Const with [GAME](API.md#enum-game) as keys, and `GAME_INFO_TYPE` as properties:
-
-| Key          | Type             | Description |
-| ------------ | ---------------- | ----------- |
-| id           | `string`         | The ID of the game, as in [GAME](API.md#enum-game). |
-| maxLevel     | `number`         | The maximum level you can reach in this game. |
-| increment    | `number`         | How much the XP requirement increases with each level gained. |
-| incrementCap | `number \| null` | The level above which the increment no longer applies. |
-| prestige     | `boolean`        | Wether or not this game supports prestigeing. |
-
 ## Game statistics types
+
+When fetching a monthly or all-time leaderboards or statistics, the returned objects will have the below structures per game.
+When fetching a specific player's statistics, one object will be returned for each game statistics were fetched for; when fetching a leaderboard, one object for each player, all with the same structure (as they belong to the same game).
+Fields which are only present in *All-Time statistics*, *Monthly statistics*, or *Leaderboards* are marked as such.
 
 <details>
   <summary>Treasure wars</summary>
@@ -164,10 +174,10 @@ const { data, error } = await getPlayerInfo("GAMERTAG");
 
   | Field              | Type     | Description |
   | ------------------ | -------- | ----------- |
-  | UUID               | `string` | *Only when getting all-time stats* The UUID of the player |
-  | index              | `number` | *Only when getting monthly stats* The index |
-  | human_index        | `number` | *Only when getting monthly stats* The human index |
-  | username           | `string` | *Only when getting monthly stats* The player's correctly capitalised username |
+  | UUID               | `string` | *Only when getting all-time stats or leaderboards* - The UUID of the player |
+  | index              | `number` | *Only when getting monthly stats or leaderboards* - The index |
+  | human_index        | `number` | *Only when getting monthly stats or leaderboards* - The human index |
+  | username           | `string` | *Only when getting monthly stats or leaderboards* - The player's correctly capitalised username |
   | id                 | `string` | The ID of the game (`wars` in this case) |
   | xp                 | `number` | Total XP of the player |
   | level              | `number` | Current level (calculated by the wrapper) |
@@ -192,10 +202,10 @@ const { data, error } = await getPlayerInfo("GAMERTAG");
 
   | Field              | Type     | Description |
   | ------------------ | -------- | ----------- |
-  | UUID               | `string` | *Only when getting all-time stats* The UUID of the player |
-  | index              | `number` | *Only when getting monthly stats* The index |
-  | human_index        | `number` | *Only when getting monthly stats* The human index |
-  | username           | `string` | *Only when getting monthly stats* The player's correctly capitalised username |
+  | UUID               | `string` | *Only when getting all-time stats or leaderboards* - The UUID of the player |
+  | index              | `number` | *Only when getting monthly stats or leaderboards* - The index |
+  | human_index        | `number` | *Only when getting monthly stats or leaderboards* - The human index |
+  | username           | `string` | *Only when getting monthly stats or leaderboards* - The player's correctly capitalised username |
   | id                 | `string` | The ID of the game (`dr` in this case) |
   | xp                 | `number` | Total XP of the player |
   | level              | `number` | Current level (calculated by the wrapper) |
@@ -219,10 +229,10 @@ const { data, error } = await getPlayerInfo("GAMERTAG");
 
   | Field              | Type     | Description |
   | ------------------ | -------- | ----------- |
-  | UUID               | `string` | *Only when getting all-time stats* The UUID of the player |
-  | index              | `number` | *Only when getting monthly stats* The index |
-  | human_index        | `number` | *Only when getting monthly stats* The human index |
-  | username           | `string` | *Only when getting monthly stats* The player's correctly capitalised username |
+  | UUID               | `string` | *Only when getting all-time stats or leaderboards* - The UUID of the player |
+  | index              | `number` | *Only when getting monthly stats or leaderboards* - The index |
+  | human_index        | `number` | *Only when getting monthly stats or leaderboards* - The human index |
+  | username           | `string` | *Only when getting monthly stats or leaderboards* - The player's correctly capitalised username |
   | id                 | `string` | The ID of the game (`hide` in this case) |
   | xp                 | `number` | Total XP of the player |
   | level              | `number` | Current level (calculated by the wrapper) |
@@ -245,10 +255,10 @@ const { data, error } = await getPlayerInfo("GAMERTAG");
 
   | Field                 | Type     | Description |
   | --------------------- | -------- | ----------- |
-  | UUID                  | `string` | *Only when getting all-time stats* The UUID of the player |
-  | index                 | `number` | *Only when getting monthly stats* The index |
-  | human_index           | `number` | *Only when getting monthly stats* The human index |
-  | username              | `string` | *Only when getting monthly stats* The player's correctly capitalised username |
+  | UUID                  | `string` | *Only when getting all-time stats or leaderboards* - The UUID of the player |
+  | index                 | `number` | *Only when getting monthly stats or leaderboards* - The index |
+  | human_index           | `number` | *Only when getting monthly stats or leaderboards* - The human index |
+  | username              | `string` | *Only when getting monthly stats or leaderboards* - The player's correctly capitalised username |
   | id                    | `string` | The ID of the game (`murder` in this case) |
   | xp                    | `number` | Total XP of the player |
   | level                 | `number` | Current level (calculated by the wrapper) |
@@ -274,10 +284,10 @@ const { data, error } = await getPlayerInfo("GAMERTAG");
 
   | Field                 | Type     | Description |
   | --------------------- | -------- | ----------- |
-  | UUID                  | `string` | *Only when getting all-time stats* The UUID of the player |
-  | index                 | `number` | *Only when getting monthly stats* The index |
-  | human_index           | `number` | *Only when getting monthly stats* The human index |
-  | username              | `string` | *Only when getting monthly stats* The player's correctly capitalised username |
+  | UUID                  | `string` | *Only when getting all-time stats or leaderboards* - The UUID of the player |
+  | index                 | `number` | *Only when getting monthly stats or leaderboards* - The index |
+  | human_index           | `number` | *Only when getting monthly stats or leaderboards* - The human index |
+  | username              | `string` | *Only when getting monthly stats or leaderboards* - The player's correctly capitalised username |
   | id                    | `string` | The ID of the game (`sg` in this case) |
   | xp                    | `number` | Total XP of the player |
   | level                 | `number` | Current level (calculated by the wrapper) |
@@ -303,10 +313,10 @@ const { data, error } = await getPlayerInfo("GAMERTAG");
 
   | Field                    | Type     | Description |
   | ------------------------ | -------- | ----------- |
-  | UUID                     | `string` | *Only when getting all-time stats* The UUID of the player |
-  | index                    | `number` | *Only when getting monthly stats* The index |
-  | human_index              | `number` | *Only when getting monthly stats* The human index |
-  | username                 | `string` | *Only when getting monthly stats* The player's correctly capitalised username |
+  | UUID                     | `string` | *Only when getting all-time stats or leaderboards* - The UUID of the player |
+  | index                    | `number` | *Only when getting monthly stats or leaderboards* - The index |
+  | human_index              | `number` | *Only when getting monthly stats or leaderboards* - The human index |
+  | username                 | `string` | *Only when getting monthly stats or leaderboards* - The player's correctly capitalised username |
   | id                       | `string` | The ID of the game (`sky` in this case) |
   | xp                       | `number` | Total XP of the player |
   | level                    | `number` | Current level (calculated by the wrapper) |
@@ -332,10 +342,10 @@ const { data, error } = await getPlayerInfo("GAMERTAG");
 
   | Field                    | Type     | Description |
   | ------------------------ | -------- | ----------- |
-  | UUID                     | `string` | *Only when getting all-time stats* The UUID of the player |
-  | index                    | `number` | *Only when getting monthly stats* The index |
-  | human_index              | `number` | *Only when getting monthly stats* The human index |
-  | username                 | `string` | *Only when getting monthly stats* The player's correctly capitalised username |
+  | UUID                     | `string` | *Only when getting all-time stats or leaderboards* - The UUID of the player |
+  | index                    | `number` | *Only when getting monthly stats or leaderboards* - The index |
+  | human_index              | `number` | *Only when getting monthly stats or leaderboards* - The human index |
+  | username                 | `string` | *Only when getting monthly stats or leaderboards* - The player's correctly capitalised username |
   | id                       | `string` | The ID of the game (`build` in this case) |
   | xp                       | `number` | Total XP of the player |
   | level                    | `number` | Current level (calculated by the wrapper) |
@@ -360,10 +370,10 @@ const { data, error } = await getPlayerInfo("GAMERTAG");
 
   | Field                 | Type     | Description |
   | --------------------- | -------- | ----------- |
-  | UUID                  | `string` | *Only when getting all-time stats* The UUID of the player |
-  | index                 | `number` | *Only when getting monthly stats* The index |
-  | human_index           | `number` | *Only when getting monthly stats* The human index |
-  | username              | `string` | *Only when getting monthly stats* The player's correctly capitalised username |
+  | UUID                  | `string` | *Only when getting all-time stats or leaderboards* - The UUID of the player |
+  | index                 | `number` | *Only when getting monthly stats or leaderboards* - The index |
+  | human_index           | `number` | *Only when getting monthly stats or leaderboards* - The human index |
+  | username              | `string` | *Only when getting monthly stats or leaderboards* - The player's correctly capitalised username |
   | id                    | `string` | The ID of the game (`ground` in this case) |
   | xp                    | `number` | Total XP of the player |
   | level                 | `number` | Current level (calculated by the wrapper) |
@@ -389,10 +399,10 @@ const { data, error } = await getPlayerInfo("GAMERTAG");
 
   | Field                 | Type     | Description |
   | --------------------- | -------- | ----------- |
-  | UUID                  | `string` | *Only when getting all-time stats* The UUID of the player |
-  | index                 | `number` | *Only when getting monthly stats* The index |
-  | human_index           | `number` | *Only when getting monthly stats* The human index |
-  | username              | `string` | *Only when getting monthly stats* The player's correctly capitalised username |
+  | UUID                  | `string` | *Only when getting all-time stats or leaderboards* - The UUID of the player |
+  | index                 | `number` | *Only when getting monthly stats or leaderboards* - The index |
+  | human_index           | `number` | *Only when getting monthly stats or leaderboards* - The human index |
+  | username              | `string` | *Only when getting monthly stats or leaderboards* - The player's correctly capitalised username |
   | id                    | `string` | The ID of the game (`drop` in this case) |
   | xp                    | `number` | Total XP of the player |
   | level                 | `number` | Current level (calculated by the wrapper) |
@@ -416,10 +426,10 @@ const { data, error } = await getPlayerInfo("GAMERTAG");
 
   | Field                 | Type     | Description |
   | --------------------- | -------- | ----------- |
-  | UUID                  | `string` | *Only when getting all-time stats* The UUID of the player |
-  | index                 | `number` | *Only when getting monthly stats* The index |
-  | human_index           | `number` | *Only when getting monthly stats* The human index |
-  | username              | `string` | *Only when getting monthly stats* The player's correctly capitalised username |
+  | UUID                  | `string` | *Only when getting all-time stats or leaderboards* - The UUID of the player |
+  | index                 | `number` | *Only when getting monthly stats or leaderboards* - The index |
+  | human_index           | `number` | *Only when getting monthly stats or leaderboards* - The human index |
+  | username              | `string` | *Only when getting monthly stats or leaderboards* - The player's correctly capitalised username |
   | id                    | `string` | The ID of the game (`ctf` in this case) |
   | xp                    | `number` | Total XP of the player |
   | level                 | `number` | Current level (calculated by the wrapper) |
@@ -445,10 +455,10 @@ const { data, error } = await getPlayerInfo("GAMERTAG");
 
   | Field                 | Type     | Description |
   | --------------------- | -------- | ----------- |
-  | UUID                  | `string` | *Only when getting all-time stats* The UUID of the player |
-  | index                 | `number` | *Only when getting monthly stats* The index |
-  | human_index           | `number` | *Only when getting monthly stats* The human index |
-  | username              | `string` | *Only when getting monthly stats* The player's correctly capitalised username |
+  | UUID                  | `string` | *Only when getting all-time stats or leaderboards* - The UUID of the player |
+  | index                 | `number` | *Only when getting monthly stats or leaderboards* - The index |
+  | human_index           | `number` | *Only when getting monthly stats or leaderboards* - The human index |
+  | username              | `string` | *Only when getting monthly stats or leaderboards* - The player's correctly capitalised username |
   | id                    | `string` | The ID of the game (`party` in this case) |
   | xp                    | `number` | Total XP of the player |
   | level                 | `number` | Current level (calculated by the wrapper) |
@@ -470,10 +480,10 @@ const { data, error } = await getPlayerInfo("GAMERTAG");
 
   | Field                 | Type     | Description |
   | --------------------- | -------- | ----------- |
-  | UUID                  | `string` | *Only when getting all-time stats* The UUID of the player |
-  | index                 | `number` | *Only when getting monthly stats* The index |
-  | human_index           | `number` | *Only when getting monthly stats* The human index |
-  | username              | `string` | *Only when getting monthly stats* The player's correctly capitalised username |
+  | UUID                  | `string` | *Only when getting all-time stats or leaderboards* - The UUID of the player |
+  | index                 | `number` | *Only when getting monthly stats or leaderboards* - The index |
+  | human_index           | `number` | *Only when getting monthly stats or leaderboards* - The human index |
+  | username              | `string` | *Only when getting monthly stats or leaderboards* - The player's correctly capitalised username |
   | id                    | `string` | The ID of the game (`bridge` in this case) |
   | xp                    | `number` | Total XP of the player |
   | level                 | `number` | Current level (calculated by the wrapper) |
@@ -489,59 +499,41 @@ const { data, error } = await getPlayerInfo("GAMERTAG");
 
 </details>
 
-## Response fields
 
-| Game                     | TreasureWars | DeathRun | HideAndSeek | MurderMystery | SurvivalGames | Skywars | JustBuild | GroundWars | BlockDrop | CaptureTheFlag | BlockParty | TheBridge |
-| ------------------------ | ------------ | -------- | ----------- | ------------- | ------------- | ------- | --------- | ---------- | --------- | -------------- | ---------- | --------- |
-| UUID                     | *✓*          | *✓*     | *✓*         | *✓*           | *✓*          | *✓*     | *✓*      | *✓*        | *✓*       | *✓*            | *✓*       | *✓*       |
-| index                    | *✓*          | *✓*     | *✓*         | *✓*           | *✓*          | *✓*     | *✓*      | *✓*        | *✓*       | *✓*            | *✓*       | *✓*       |
-| human_index              | *✓*          | *✓*     | *✓*         | *✓*           | *✓*          | *✓*     | *✓*      | *✓*        | *✓*       | *✓*            | *✓*       | *✓*       |
-| username                 | *✓*          | *✓*     | *✓*         | *✓*           | *✓*          | *✓*     | *✓*      | *✓*        | *✓*       | *✓*            | *✓*       | *✓*       |
-| id                       | *✓*          | *✓*     | *✓*         | *✓*           | *✓*          | *✓*     | *✓*      | *✓*        | *✓*       | *✓*            | *✓*       | *✓*       |
-| xp                       | *✓*          | *✓*     | *✓*         | *✓*           | *✓*          | *✓*     | *✓*      | *✓*        | *✓*       | *✓*            | *✓*       | *✓*       |
-| level                    | *✓*          | *✓*     | *✓*         | *✓*           | *✓*          | *✓*     | *✓*      | *✓*        | *✓*       | *✓*            | *✓*       | *✓*       |
-| played                   | *✓*          | *✓*     | *✓*         | *✓*           | *✓*          | *✓*     | *✓*      | *✓*        | *✓*       | *✓*            | *✓*       | *✓*       |
-| first_played             | *✓*          | *✓*     | *✓*         | *✓*           | *✓*          | *✓*     | *✓*      | *✓*        | *✓*       | *✓*            | *✓*       | *✓*       |
-| victories                | *✓*          | *✓*     | *✓*         | *✓*           | *✓*          | *✓*     | *✓*      | *✓*        | *✓*       | *✓*            | *✓*       | *✓*       |
-| losses                   | *✓*          | *✓*     | *✓*         | *✓*           | *✓*          | *✓*     | *✓*      | *✓*        | *✓*       | *✓*            | *✓*       | *✓*       |
-| win_percentage           | *✓*          | *✓*     | *✓*         | *✓*           | *✓*          | *✓*     | *✓*      | *✓*        | *✓*       | *✓*            | *✓*       | *✓*       |
-| kdr                      | *✓*          | *✓*     | *X*         | *✓*           | *✓*          | *✓*     | *X*       | *✓*        | *X*       | *✓*            | *X*        | *✓*       |
-| deaths                   | *✓*          | *✓*     | *✓*         | *✓*           | *✓*          | *✓*     | *X*       | *✓*        | *✓*      | *✓*            | *X*        | *✓*       |
-| kills                    | *✓*          | *✓*     | *X*         | *X*           | *✓*           | *✓*    | *X*       | *✓*        | *X*       | *✓*            | *X*        | *✓*       |
-| final_kills              | *✓*          | *X*      | *X*         | *X*           | *X*          | *X*     | *X*       | *X*        | *X*       | *X*            | *X*         | *X*       |
-| hider_kills              | *X*          | *X*      | *✓*         | *X*           | *X*          | *X*     | *X*       | *X*        | *X*       | *X*            | *X*         | *X*       |
-| seeker_kills             | *X*          | *X*      | *✓*         | *X*           | *X*          | *X*     | *X*       | *X*        | *X*       | *X*            | *X*         | *X*       |
-| checkpoints              | *X*          | *✓*     | *X*          | *X*           | *X*          | *X*     | *X*       | *X*        | *X*       | *X*            | *X*         | *X*       |
-| activated                | *X*          | *✓*     | *X*          | *X*           | *X*          | *X*     | *X*       | *X*        | *X*       | *X*            | *X*         | *X*       |
-| treasure_destroyed       | *✓*          | *X*     | *X*          | *X*           | *X*          | *X*     | *X*       | *X*        | *X*       | *X*            | *X*         | *X*       |
-| prestige                 | *✓*          | *X*     | *X*          | *✓*          | *X*           | *X*     | *X*       | *X*        | *X*       | *X*            | *X*        | *X*        |
-| coins                    | *X*          | *X*      | *X*         | *✓*           | *X*          | *X*     | *X*       | *X*        | *X*       | *X*            | *X*        | *X*        |
-| murders                  | *X*          | *X*      | *X*         | *✓*           | *X*          | *X*     | *X*       | *X*        | *X*       | *X*            | *X*        | *X*        |
-| murderer_eliminations    | *X*          | *X*      | *X*         | *✓*           | *X*          | *X*     | *X*       | *X*        | *X*       | *X*            | *X*        | *X*        |
-| crates                   | *X*          | *X*      | *X*         | *X*           | *✓*          | *X*     | *X*       | *X*        | *X*       | *X*            | *X*        | *X*        |
-| deathmatches             | *X*          | *X*      | *X*         | *X*           | *✓*          | *X*     | *X*       | *X*        | *X*       | *X*            | *X*        | *X*        |
-| cows                     | *X*          | *X*      | *X*         | *X*           | *✓*          | *X*     | *X*       | *X*        | *X*       | *X*            | *X*        | *X*        |
-| mystery_chests_destroyed | *X*          | *X*      | *X*         | *X*           | *X*           | *✓*    | *X*       | *X*        | *X*       | *X*            | *X*        | *X*        |
-| ores_mined               | *X*          | *X*      | *X*         | *X*           | *X*           | *✓*    | *X*       | *X*        | *X*       | *X*            | *X*        | *X*        |
-| spells_used              | *X*          | *X*      | *X*         | *X*           | *X*           | *✓*    | *X*       | *X*        | *X*       | *X*            | *X*        | *X*        |
-| assists                  | *X*          | *X*      | *X*         | *X*           | *X*           | *X*     | *X*       | *X*        | *X*       | *✓*           | *X*        | *X*        |
-| flags_captured           | *X*          | *X*      | *X*         | *X*           | *X*           | *X*     | *X*       | *X*        | *X*       | *✓*           | *X*        | *X*        |
-| flags_returned           | *X*          | *X*      | *X*         | *X*           | *X*           | *X*     | *X*       | *X*        | *X*       | *✓*           | *X*        | *X*        |
-| blocks_destroyed         | *X*          | *X*      | *X*         | *X*           | *X*           | *X*     | *X*       | *✓*        | *✓*       | *X*           | *X*        | *X*        |
-| powerups_collected       | *X*          | *X*      | *X*         | *X*           | *X*           | *X*     | *X*       | *X*        | *✓*       | *X*           | *✓*        | *X*        |
-| vaults_used              | *X*          | *X*      | *X*         | *X*           | *X*           | *X*     | *X*       | *X*        | *✓*       | *X*           | *X*        | *X*        |
-| blocks_placed            | *X*          | *X*      | *X*         | *X*           | *X*           | *X*     | *X*       | *✓*        | *X*       | *X*           | *X*        | *X*        |
-| projectiles_fired        | *X*          | *X*      | *X*         | *X*           | *X*           | *X*     | *X*       | *✓*        | *X*       | *X*           | *X*        | *X*        |
-| rating_good_received     | *X*          | *X*      | *X*         | *X*           | *X*           | *X*     | *✓*      | *X*        | *X*       | *X*            | *X*        | *X*        |
-| rating_love_received     | *X*          | *X*      | *X*         | *X*           | *X*           | *X*     | *✓*      | *X*        | *X*       | *X*            | *X*        | *X*        |
-| rating_meh_received      | *X*          | *X*      | *X*         | *X*           | *X*           | *X*     | *✓*      | *X*        | *X*       | *X*            | *X*        | *X*        |
-| rating_okay_received     | *X*          | *X*      | *X*         | *X*           | *X*           | *X*     | *✓*      | *X*        | *X*       | *X*            | *X*        | *X*        |
-| rating_great_received    | *X*          | *X*      | *X*         | *X*           | *X*           | *X*     | *✓*      | *X*        | *X*       | *X*            | *X*        | *X*        |
-| rounds_survived          | *X*          | *X*      | *X*         | *X*           | *X*           | *X*     | *X*       | *X*        | *X*       | *X*           | *✓*        | *X*        |
-| goals                    | *X*          | *X*      | *X*         | *X*           | *X*           | *X*     | *X*       | *X*        | *X*       | *X*           | *X*        | *✓*        |
+## Games
+Each game, and its string ID
 
+| Key            | Value    |
+| -------------- | -------- |
+| HideAndSeek    | `hide`   |
+| DeathRun       | `dr`     |
+| TreasureWars   | `wars`   |
+| MurderMystery  | `murder` |
+| SurvivalGames  | `sg`     |
+| Skywars        | `sky`    |
+| CaptureTheFlag | `ctf`    |
+| BlockDrop      | `drop`   |
+| GroundWars     | `ground` |
+| JustBuild      | `build`  |
+| BlockParty     | `party`  |
+| TheBridge      | `bridge` |
 
-## Leaderboard response
+## Game info
+Constant with [GAME](API.md#games) as keys, and `GAME_INFO_TYPE` as properties:
 
-| Field | Type     | Description |
-| UUID  | `string` | The UUID of the leaderboard |
+| Key          | Type             | Description |
+| ------------ | ---------------- | ----------- |
+| id           | `string`         | The ID of the game, as in [GAME](API.md#enum-game). |
+| maxLevel     | `number`         | The maximum level you can reach in this game. |
+| increment    | `number`         | How much the XP requirement increases with each level gained. |
+| incrementCap | `number | null`  | The level above which the increment no longer applies. |
+| prestige     | `boolean`        | Wether or not this game supports prestigeing. |
+
+## Global statistics
+Total player count for each game
+
+| Key           | Type     | Description |
+| ------------- | -------- | ----------- |
+| global        | `number` | Total player count globally |
+| main          | `number` | Main player count |
+| `key in GAME` | `number` | Total player count for each specific game |
