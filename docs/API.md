@@ -3,14 +3,16 @@
 ## getMonthlyStats(playerIdentifier[, game, options])
 Get a player's monthly statistics.
 
-| Parameter        | Type             | Required     | Description |
-| ---------------- | ---------------- | ------------ | ----------- |
-| playerIdentifier | `string`         | **Required** | The player's gamertag or UUID of which to get stats for |
-| game             | `GAME \| GAME[]` | *optional*   | The game identifier - see [GAME](API.md#enum-game). When specifying multiple games in an array, will return array of results for each game. When not specified, will return all games |
-| options          | `object`         | *optional*   | Options is an object with the fields below: |
-| options.year     | `number`         | *optional*   | The year from which to get stats |
-| options.month    | `number`         | *optional*   | The month from which to get stats |
-| options.date     | `Date`           | *optional*   | An instance of `Date` from which to get stats (can be used interchangably with `year` + `month`) |
+| Parameter             | Type                        | Required     | Description |
+| --------------------- | --------------------------- | ------------ | ----------- |
+| playerIdentifier      | `string`                    | **Required** | The player's gamertag or UUID of which to get stats for |
+| game                  | `GAME \| GAME[]`            | *optional*   | The game identifier - see [GAME](API.md#enum-game). When specifying multiple games in an array, will return array of results for each game. When not specified, will return all games |
+| options               | `object`                    | *optional*   | Options is an object with the fields below: |
+| options.year          | `number`                    | *optional*   | The year from which to get stats |
+| options.month         | `number`                    | *optional*   | The month from which to get stats |
+| options.date          | `Date`                      | *optional*   | An instance of `Date` from which to get stats (can be used interchangably with `year` + `month`) |
+| options.fetch         | `object`                    | *optional*   | Fetch options: |
+| options.fetch.headers | `{ [key: string]: string }` | *optional*   | Any custom headers to apply to the fetch method |
 
 Returns a Promise which resolves to the following object:
 
@@ -32,15 +34,17 @@ const { data, error } = await getMonthlyStats("GAMERTAG", GAME.TreasureWars, { y
 ## getMonthlyLeaderboard(game[, options])
 Get the monthly leaderboard for a specific month.
 
-| Parameter         | Type             | Required     | Description |
-| ----------------- | ---------------- | ------------ | ----------- |
-| game              | `GAME \| GAME[]` | **Required** | The game identifier - see [GAME](API.md#enum-game). When specifying multiple games in an array, will return array of results for each game |
-| options           | `object`         | *optional*   | Options is an object with the fields below: |
-| options.year      | `number`         | *optional*   | The year from which to get the leaderboard |
-| options.month     | `number`         | *optional*   | The month from which to get the leaderboard |
-| options.date      | `Date`           | *optional*   | An instance of `Date` from which to get the leaderboard (can be used interchangably with `year` + `month`; if both are present, `date` will override `year` and `month`) |
-| options.skip      | `number`         | *optional*   | How many players to skip in the leaderboard |
-| options.amount    | `number`         | *optional*   | How many players to return in the leaderboard
+| Parameter             | Type                        | Required     | Description |
+| --------------------- | --------------------------- | ------------ | ----------- |
+| game                  | `GAME \| GAME[]`            | **Required** | The game identifier - see [GAME](API.md#enum-game). When specifying multiple games in an array, will return array of results for each game |
+| options               | `object`                    | *optional*   | Options is an object with the fields below: |
+| options.year          | `number`                    | *optional*   | The year from which to get the leaderboard |
+| options.month         | `number`                    | *optional*   | The month from which to get the leaderboard |
+| options.date          | `Date`                      | *optional*   | An instance of `Date` from which to get the leaderboard (can be used interchangably with `year` + `month`; if both are present, `date` will override `year` and `month`) |
+| options.skip          | `number`                    | *optional*   | How many players to skip in the leaderboard |
+| options.amount        | `number`                    | *optional*   | How many players to return in the leaderboard |
+| options.fetch         | `object`                    | *optional*   | Fetch options: |
+| options.fetch.headers | `{ [key: string]: string }` | *optional*   | Any custom headers to apply to the fetch method |
 
 Returns a Promise which resolves to the following object:
 
@@ -60,13 +64,17 @@ const { data, error } = await getMonthlyLeaderboard(GAME.SkyWars, { amount: 3, d
 ```
 
 
-## getAllTimeStats(playerIdentifier[, game])
+## getAllTimeStats(playerIdentifier[, game, options])
 Get a player's all-time statistics.
 
-| Parameter        | Type             | Required     | Description |
-| ---------------- | ---------------- | ------------ | ----------- |
-| playerIdentifier | `string`         | **Required** | The player's gamertag or UUID of which to get stats for |
-| game             | `GAME \| GAME[]` | *optional*   | The game identifier - see [GAME](API.md#enum-game). When specifying multiple games in an array, will return array of results for each game. When not specified, will return all games |
+| Parameter             | Type                        | Required     | Description |
+| --------------------- | --------------------------- | ------------ | ----------- |
+| playerIdentifier      | `string`                    | **Required** | The player's gamertag or UUID of which to get stats for |
+| game                  | `GAME \| GAME[]`            | *optional*   | The game identifier - see [GAME](API.md#enum-game). When specifying multiple games in an array, will return array of results for each game. When not specified, will return all games |
+| options               | `object`                    | *optional*   | Options is an object with the fields below: |
+| options.fetch         | `object`                    | *optional*   | Fetch options: |
+| options.fetch.headers | `{ [key: string]: string }` | *optional*   | Any custom headers to apply to the fetch method |
+
 
 Returns a Promise which resolves to the following object:
 
@@ -86,12 +94,16 @@ const { data, error } = await getAllTimeStats("GAMERTAG", GAME.HideAndSeek);
 ```
 
 
-## getAllTimeLeaderboard(game)
+## getAllTimeLeaderboard(game[, options])
 Get the all-time leaderboard for a game or games.
 
-| Parameter | Type             | Required     | Description |
-| --------- | ---------------- | ------------ | ----------- |
-| game      | `GAME \| GAME[]` | **Required** | The game identifier - see [GAME](API.md#enum-game). When specifying multiple games in an array, will return array of results for each game |
+| Parameter             | Type                        | Required     | Description |
+| --------------------- | --------------------------- | ------------ | ----------- |
+| game                  | `GAME \| GAME[]`            | **Required** | The game identifier - see [GAME](API.md#enum-game). When specifying multiple games in an array, will return array of results for each game |
+| options               | `object`                    | *optional*   | Options is an object with the fields below: |
+| options.fetch         | `object`                    | *optional*   | Fetch options: |
+| options.fetch.headers | `{ [key: string]: string }` | *optional*   | Any custom headers to apply to the fetch method |
+
 
 Returns a Promise which resolves to the following object:
 
@@ -109,8 +121,15 @@ import { getAllTimeLeaderboard, GAME } from "hive-bedrock-api";
 const { data, error } = await getAllTimeLeaderboard(GAME.SurvivalGames);
 ```
 
-## getGlobalStatistics()
+## getGlobalStatistics([options])
 Get special data such as each game's all-time player count.
+
+| Parameter             | Type                        | Required     | Description |
+| --------------------- | --------------------------- | ------------ | ----------- |
+| options               | `object`                    | *optional*   | Options is an object with the fields below: |
+| options.fetch         | `object`                    | *optional*   | Fetch options: |
+| options.fetch.headers | `{ [key: string]: string }` | *optional*   | Any custom headers to apply to the fetch method |
+
 
 Returns a Promise which resolves to the following object:
 
@@ -128,12 +147,15 @@ import { getGlobalStatistics } from "hive-bedrock-api";
 const { data, error } = await getGlobalStatistics();
 ```
 
-## getPlayerInfo(playerIdentifier)
+## getPlayerInfo(playerIdentifier[, options])
 Get a player's information, such as current/longest login streak, currently equipped and all unlocked cosmetics, and number of quests completed.
 
-| Parameter        | Type     | Required     | Description |
-| ---------------- | -------- | ------------ | ----------- |
-| playerIdentifier | `string` | **Required** | The player's gamertag or UUID of which to get info |
+| Parameter             | Type                        | Required     | Description |
+| --------------------- | --------------------------- | ------------ | ----------- |
+| playerIdentifier      | `string`                    | **Required** | The player's gamertag or UUID of which to get info |
+| options               | `object`                    | *optional*   | Options is an object with the fields below: |
+| options.fetch         | `object`                    | *optional*   | Fetch options: |
+| options.fetch.headers | `{ [key: string]: string }` | *optional*   | Any custom headers to apply to the fetch method |
 
 Returns a Promise which resolves to the following object
 
