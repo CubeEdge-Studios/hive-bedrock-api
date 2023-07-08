@@ -1,4 +1,5 @@
 import gameFormat, { formats } from "../format/gameFormat";
+import { Options } from "../types/API";
 import {
     BASE_GAME_ALL,
     GAME_STATS,
@@ -11,24 +12,28 @@ import { MethodResponse } from "../types/METHODS";
 import fetchData from "./fetchData";
 
 export default async function getAllTimeStats(
-    playerIdentifier: string
+    playerIdentifier: string,
+    options?: Options
 ): Promise<MethodResponse<Omit<REQUEST_ALL, "main">> & { player: USER_MAIN }>;
 
 export default async function getAllTimeStats<G extends GAME>(
     playerIdentifier: string,
-    game: G
+    game: G,
+    options?: Options
 ): Promise<MethodResponse<GAME_STATS<BASE_GAME_ALL>[G]>>;
 
 export default async function getAllTimeStats<G extends GAME>(
     playerIdentifier: string,
-    game: G[]
+    game: G[],
+    options?: Options
 ): Promise<
     MethodResponse<{ [M in G]: GAME_STATS_ALL<M> }> & { player: USER_MAIN }
 >;
 
 export default async function getAllTimeStats<G extends GAME>(
     playerIdentifier: string,
-    game?: G | G[]
+    game?: G | G[],
+    options?: Options
 ): Promise<
     | MethodResponse<GAME_STATS<BASE_GAME_ALL>[G]>
     | (MethodResponse<
@@ -38,7 +43,8 @@ export default async function getAllTimeStats<G extends GAME>(
     if (!game) {
         try {
             const { data, error } = await fetchData(
-                `/game/all/all/${playerIdentifier}`
+                `/game/all/all/${playerIdentifier}`,
+                options?.fetch
             );
             if (error || !data)
                 return {
@@ -70,7 +76,8 @@ export default async function getAllTimeStats<G extends GAME>(
     if (typeof game === "string") {
         try {
             const { data, error } = await fetchData<G>(
-                `/game/all/${game}/${playerIdentifier}`
+                `/game/all/${game}/${playerIdentifier}`,
+                options?.fetch
             );
             if (error || !data)
                 return {
@@ -88,7 +95,8 @@ export default async function getAllTimeStats<G extends GAME>(
     if (Array.isArray(game)) {
         try {
             const { data, error } = await fetchData(
-                `/game/all/all/${playerIdentifier}`
+                `/game/all/all/${playerIdentifier}`,
+                options?.fetch
             );
             if (error || !data)
                 return {

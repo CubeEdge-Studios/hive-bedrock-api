@@ -33,6 +33,8 @@ export const formats = {
         if ("played" in game && "victories" in game) {
             game.losses = (game.played ?? 0) - (game.victories ?? 0);
             game.win_percentage = game.victories / game.played;
+
+            if (isNaN(game.win_percentage)) game.win_percentage = 0;
         }
 
         if ("kills" in game && "deaths" in game)
@@ -83,9 +85,40 @@ export const formats = {
         return game;
     },
     [GAME.TheBridge]: (game: SingleGameFormat | null) => {
-        return game;
-    },
-    [GAME.Gravity]: (game: SingleGameFormat | null) => {
+        if (!game) return null;
+
+        if ("m_solo_deaths" in game) {
+            game.deaths = game.m_solo_deaths;
+            delete game.m_solo_deaths;
+        }
+
+        if ("m_solo_goals" in game) {
+            game.goals = game.m_solo_goals;
+            delete game.m_solo_goals;
+        }
+
+        if ("m_solo_kills" in game) {
+            game.kills = game.m_solo_kills;
+            delete game.m_solo_kills;
+        }
+
+        if ("m_solo_played" in game) {
+            game.played = game.m_solo_played;
+            delete game.m_solo_played;
+        }
+
+        if ("m_solo_victories" in game) {
+            game.victories = game.m_solo_victories;
+            delete game.m_solo_victories;
+        }
+      
+        if ("played" in game && "victories" in game) {
+            game.losses = game.played ?? 0 - game.victories ?? 0;
+            game.win_percentage = game.victories / game.played;
+
+            if (isNaN(game.win_percentage)) game.win_percentage = 0;
+        }
+      
         return game;
     },
 };

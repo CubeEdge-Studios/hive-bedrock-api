@@ -11,6 +11,8 @@ $ yarn add hive-bedrock-api
 
 ## Usage
 
+See [API.md](docs/API.md) for detailed documentation.
+
 ### Fetch Player Infomation
 
 ```ts
@@ -60,6 +62,13 @@ const { data, error } = await getMonthlyStats("ucdfiddes", GAME.BlockDrop, {
     year: 2023,
     month: 1, // January
 });
+
+// Same as before, but with a Date object
+const previousMonth = new Date();
+previousMonth.setMonth(0); // January
+const { data, error } = await getMonthlyStats("ucdfiddes", GAME.BlockDrop, {
+    date: previousMonth,
+});
 ```
 
 ### Fetch All-Time Leaderboard
@@ -67,7 +76,7 @@ const { data, error } = await getMonthlyStats("ucdfiddes", GAME.BlockDrop, {
 ```ts
 import { getAllTimeLeaderboard, GAME } from "hive-bedrock-api";
 
-// Returns asingle game
+// Returns a single game
 const { data, error } = await getAllTimeLeaderboard(GAME.TreasureWars);
 ```
 
@@ -76,7 +85,7 @@ const { data, error } = await getAllTimeLeaderboard(GAME.TreasureWars);
 ```ts
 import { getMonthlyLeaderboard, GAME } from "hive-bedrock-api";
 
-// Returns asingle game
+// Returns a single game
 const { data, error } = await getMonthlyLeaderboard(GAME.TreasureWars);
 
 // Returns a single game from a previous month
@@ -106,3 +115,5 @@ Different API responses are edited by the wrapper to provide more data:
 -   A new value for "losses" is provided
 -   A new value for "kdr" is provided
 -   "xp" is converted and a "level" is provided
+
+See [API.md](docs/API.md#game-statistics-types) for specific fields and their corresponding types per game.
