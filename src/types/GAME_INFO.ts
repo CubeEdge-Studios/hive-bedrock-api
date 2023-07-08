@@ -11,6 +11,7 @@ export enum GAME {
     JustBuild = "build",
     BlockParty = "party",
     TheBridge = "bridge",
+    Gravity = "grav",
 }
 
 interface GAME_INFO_TYPE {
@@ -103,6 +104,13 @@ export const GAME_INFO: { [key in GAME]: GAME_INFO_TYPE } = {
         id: GAME.TheBridge,
         maxLevel: 20,
         increment: 0,
+        incrementCap: null,
+        prestige: false,
+    },
+    [GAME.Gravity]: {
+        id: GAME.Gravity,
+        maxLevel: 25,
+        increment: 150,
         incrementCap: null,
         prestige: false,
     },

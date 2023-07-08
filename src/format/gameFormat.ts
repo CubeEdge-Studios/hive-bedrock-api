@@ -84,6 +84,9 @@ export const formats = {
     [GAME.TreasureWars]: (game: SingleGameFormat | null) => {
         return game;
     },
+    [GAME.Gravity]: (game: SingleGameFormat | null) => {
+        return game;
+    },
     [GAME.TheBridge]: (game: SingleGameFormat | null) => {
         if (!game) return null;
 
@@ -111,14 +114,14 @@ export const formats = {
             game.victories = game.m_solo_victories;
             delete game.m_solo_victories;
         }
-      
+
         if ("played" in game && "victories" in game) {
             game.losses = game.played ?? 0 - game.victories ?? 0;
             game.win_percentage = game.victories / game.played;
 
             if (isNaN(game.win_percentage)) game.win_percentage = 0;
         }
-      
+
         return game;
     },
 };
