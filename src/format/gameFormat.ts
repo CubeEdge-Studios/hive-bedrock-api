@@ -31,13 +31,13 @@ export const formats = {
             game.first_played = new Date(game.first_played * 1000);
 
         if ("played" in game && "victories" in game) {
-            game.losses = game.played ?? 0 - game.victories ?? 0;
+            game.losses = (game.played ?? 0) - (game.victories ?? 0);
             game.win_percentage = game.victories / game.played;
         }
 
         if ("kills" in game && "deaths" in game)
             game.kdr = parseFloat(
-                (game.kills ?? 0 / game.deaths ?? 0).toFixed(2)
+                ((game.kills ?? 0) / (game.deaths ?? 0)).toFixed(2)
             );
 
         return { id: gameType, ...game };
