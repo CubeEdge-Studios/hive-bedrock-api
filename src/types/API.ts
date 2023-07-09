@@ -17,19 +17,38 @@ export interface Options {
     fetch?: FetchOptions;
 }
 
-export type RANK =
-    | "REGULAR"
-    | "PLUS"
-    | "YOUTUBER"
-    | "STREAMER"
-    | "TIKTOK"
-    | "VIP"
-    | "HELPER"
-    | "MODERATOR"
-    | "HIVE_TEAM"
-    | "STAFF_MANAGER"
-    | "COMMUNITY_MANAGER"
-    | "OWNER";
+export enum MAP_SEASON {
+    None = "NO_SEASON",
+    Winter = "WINTERFEST",
+    Spring = "SPRING",
+    Summer = "SUMMER",
+    Halloween = "HALLOWEEN",
+    Autumn = "AUTUMN",
+}
+
+export enum MAP_VARIANT {
+    Regular = "REGULAR",
+    Duos = "DUOS",
+    Trios = "TRIOS",
+    Squads = "SQUADS",
+    Mega = "MEGA",
+    Royale = "ROYALE",
+}
+
+export enum RANK {
+    Regular = "REGULAR",
+    Plus = "PLUS",
+    Youtuber = "YOUTUBER",
+    Streamer = "STREAMER",
+    Tiktok = "TIKTOK",
+    VIP = "VIP",
+    Helper = "HELPER",
+    Moderator = "MODERATOR",
+    Hive = "HIVE_TEAM",
+    StaffManager = "STAFF_MANAGER",
+    CommunityManager = "COMMUNITY_MANAGER",
+    Owner = "OWNER",
+}
 
 export type API_REQUEST_ALL = {
     [G in GAME]: API_GAME_STATS_ALL<G>;
@@ -77,6 +96,13 @@ export interface API_GLOBAL_STATISTICS {
         global: number;
         main: number;
     };
+}
+
+export interface API_MAP {
+    name: string;
+    season: MAP_SEASON;
+    variant: MAP_VARIANT;
+    image: string;
 }
 
 export interface API_BASE_GAME_ALL {
