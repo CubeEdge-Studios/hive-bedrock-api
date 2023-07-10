@@ -1,3 +1,8 @@
+# Release 1.0.3
+
+- Implement getMaps() - @UCDFiddes
+- Update docs - @CreeperG16
+
 # Release 1.0.2
 
 - Gravity added to API - @UCDFiddes
