@@ -31,10 +31,7 @@ import { getAllTimeStats, GAME } from "hive-bedrock-api";
 const { data, player, error } = await getAllTimeStats("ucdfiddes");
 
 // Returns multiple specific games
-const { data, player, error } = await getAllTimeStats("ucdfiddes", [
-    GAME.Deathrun,
-    GAME.TheBridge,
-]);
+const { data, player, error } = await getAllTimeStats("ucdfiddes", [GAME.Deathrun, GAME.TheBridge]);
 
 // Returns a single game
 const { data, error } = await getAllTimeStats("ucdfiddes", GAME.HideAndSeek);
@@ -49,25 +46,22 @@ import { getMonthlyStats, GAME } from "hive-bedrock-api";
 const { data, error } = await getMonthlyStats("ucdfiddes");
 
 // Returns multiple specific games
-const { data, error } = await getMonthlyStats("ucdfiddes", [
-    GAME.Deathrun,
-    GAME.TheBridge,
-]);
+const { data, error } = await getMonthlyStats("ucdfiddes", [GAME.Deathrun, GAME.TheBridge]);
 
 // Returns a single game
 const { data, error } = await getMonthlyStats("ucdfiddes", GAME.BlockDrop);
 
 // Returns a single game in a previous month (can return muliple games)
 const { data, error } = await getMonthlyStats("ucdfiddes", GAME.BlockDrop, {
-    year: 2023,
-    month: 1, // January
+  year: 2023,
+  month: 1, // January
 });
 
 // Same as before, but with a Date object
 const previousMonth = new Date();
 previousMonth.setMonth(0); // January
 const { data, error } = await getMonthlyStats("ucdfiddes", GAME.BlockDrop, {
-    date: previousMonth,
+  date: previousMonth,
 });
 ```
 
@@ -90,10 +84,10 @@ const { data, error } = await getMonthlyLeaderboard(GAME.TreasureWars);
 
 // Returns a single game from a previous month
 const { data, error } = await getMonthlyLeaderboard(GAME.BlockParty, {
-    year: 2023,
-    month: 11, // November
-    amount: 50,
-    skip: 20, // Sum of skip and amount must be <=100
+  year: 2023,
+  month: 11, // November
+  amount: 50,
+  skip: 20, // Sum of skip and amount must be <=100
 });
 ```
 
@@ -106,14 +100,23 @@ import { getGlobalStatistics } from "hive-bedrock-api";
 const { data, error } = await getGlobalStatistics();
 ```
 
+### Fetch Maps
+
+```ts
+import { getMaps, GAME } from "hive-bedrock-api";
+
+// Returns data for a specific game's currently active maps
+const { data, error } = await getMaps(GAME.TreasureWars);
+```
+
 ## API Response Changes
 
 Different API responses are edited by the wrapper to provide more data:
 
--   Game responses have a new value "id" showing the parent game
--   "first_played" values are converted into a Date object
--   A new value for "losses" is provided
--   A new value for "kdr" is provided
--   "xp" is converted and a "level" is provided
+- Game responses have a new value "id" showing the parent game
+- "first_played" values are converted into a Date object
+- A new value for "losses" is provided
+- A new value for "kdr" is provided
+- "xp" is converted and a "level" is provided
 
 See [API.md](docs/API.md#game-statistics-types) for specific fields and their corresponding types per game.

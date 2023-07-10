@@ -4,7 +4,8 @@ import getAllTimeStats from "./methods/getAllTimeStats";
 import getAllTimeLeaderboard from "./methods/getAllTimeLeaderboard";
 import getGlobalStatistics from "./methods/getGlobalStatistics";
 import getPlayerInfo from "./methods/getPlayerInfo";
-import { AVATAR, RANK } from "./types/API";
+import getMaps from "./methods/getMaps";
+import { AVATAR, RANK, MAP_SEASON, MAP_VARIANT } from "./types/API";
 
 export {
     getAllTimeStats,
@@ -13,8 +14,11 @@ export {
     getMonthlyLeaderboard,
     getGlobalStatistics,
     getPlayerInfo,
+    getMaps,
     AVATAR,
     RANK,
+    MAP_SEASON,
+    MAP_VARIANT,
 };
 export * from "./types/GAME_INFO";
 export * from "./types/GAMES";

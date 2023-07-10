@@ -3,6 +3,7 @@ import {
     API_BASE_GAME_MONTHLY,
     API_GAME_STATS,
     API_GLOBAL_STATISTICS,
+    API_MAP,
     API_REQUEST_ALL,
     API_REQUEST_LB,
 } from "../types/API";
@@ -11,6 +12,7 @@ import {
     GAME_LB_ALLTIME_ENDPOINT,
     GAME_LB_MONTHLY_ENDPOINT,
     GAME_LB_SPECIFIC_MONTHLY_ENDPOINT,
+    GAME_MAPS_ENDPOINT,
     GLOBAL_STATISTICS_ENDPOINT,
     PLAYER_ALLTIME_ENDPOINT,
     PLAYER_LB_SPECIFIC_MONTHLY_ENDPOINT,
@@ -94,6 +96,11 @@ export default async function fetchData(
     endpoint: GLOBAL_STATISTICS_ENDPOINT,
     options?: FetchOptions
 ): Promise<MethodResponse<API_GLOBAL_STATISTICS>>;
+
+export default async function fetchData<G extends GAME>(
+    endpoint: GAME_MAPS_ENDPOINT<G>,
+    options?: FetchOptions
+): Promise<MethodResponse<API_MAP[]>>;
 
 export default async function fetchData<G extends GAME>(
     endpoint: ENDPOINTS<G>,
