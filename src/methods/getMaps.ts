@@ -3,7 +3,18 @@ import { GAME } from "../types/GAME_INFO";
 import { MethodResponse } from "../types/METHODS";
 import fetchData from "./fetchData";
 
-const INVALID_GAMES = [GAME.BlockParty, GAME.JustBuild, GAME.TheBridge];
+const VALID_GAMES = [
+    GAME.BlockDrop,
+    GAME.CaptureTheFlag,
+    GAME.DeathRun,
+    GAME.Gravity,
+    GAME.GroundWars,
+    GAME.HideAndSeek,
+    GAME.MurderMystery,
+    GAME.Skywars,
+    GAME.SurvivalGames,
+    GAME.TreasureWars,
+];
 
 export default async function getMaps(
     game: GAME,
@@ -14,7 +25,7 @@ export default async function getMaps(
     game: GAME,
     options?: Options
 ): Promise<MethodResponse<API_MAP[]>> {
-    if (INVALID_GAMES.includes(game))
+    if (!VALID_GAMES.includes(game))
         return {
             data: null,
             error: {
