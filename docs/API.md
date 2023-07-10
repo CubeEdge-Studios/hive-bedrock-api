@@ -29,8 +29,8 @@ import { getMonthlyStats, GAME } from "hive-bedrock-api";
 
 // Get GAMERTAG's Treasure Wars stats from June 2023
 const { data, error } = await getMonthlyStats("GAMERTAG", GAME.TreasureWars, {
-    year: 2023,
-    month: 6,
+  year: 2023,
+  month: 6,
 });
 ```
 
@@ -65,8 +65,8 @@ import { getMonthlyLeaderboard, GAME } from "hive-bedrock-api";
 // Get the top three Skywars players from this month
 const now = new Date();
 const { data, error } = await getMonthlyLeaderboard(GAME.SkyWars, {
-    amount: 3,
-    date: now,
+  amount: 3,
+  date: now,
 });
 ```
 
@@ -152,6 +152,40 @@ import { getGlobalStatistics } from "hive-bedrock-api";
 const { data, error } = await getGlobalStatistics();
 ```
 
+## getMaps(game[, options])
+
+Fetch data about a specific game's currently active maps.
+If the game has got only one map, returned data will be null and the error message will say so.
+
+| Parameter             | Type                        | Required     | Description                                     |
+| --------------------- | --------------------------- | ------------ | ----------------------------------------------- |
+| game                  | `GAME`                      | **Required** | The game identifier - see [GAME](API.md#games)  |
+| options               | `object`                    | _optional_   | Options is an object with the fields below:     |
+| options.fetch         | `object`                    | _optional_   | Fetch options:                                  |
+| options.fetch.headers | `{ [key: string]: string }` | _optional_   | Any custom headers to apply to the fetch method |
+
+Returns a Promise which resolves to the following object:
+
+| Field | Type                                   | Description       |
+| ----- | -------------------------------------- | ----------------- |
+| data  | [MapData](API.md#map-data)[] `\| null` | The response data |
+| error | `{ message: string } \| null`          | Error data        |
+
+Invalid games (games which have only one map):
+
+- BlockParty
+- JustBuild
+- TheBridge
+
+### Usage
+
+```ts
+import { getMaps, GAME } from "hive-bedrock-api";
+
+// Get all currently active Skywars maps' data.
+const { data, error } = await getMaps(GAME.Skywars);
+```
+
 ## getPlayerInfo(playerIdentifier[, options])
 
 Get a player's information, such as current/longest login streak, currently equipped and all unlocked cosmetics, and number of quests completed.
@@ -215,24 +249,59 @@ The structure of the avatar object.
 | name  | `string` | The name of the avatar        |
 | url   | `string` | The URL of the avatar's image |
 
+## Map data
+
+| Field   | Type                              | Description                   |
+| ------- | --------------------------------- | ----------------------------- |
+| name    | `string`                          | The name of the map           |
+| season  | [MAP_SEASON](API.md#map-season)   | The season the map belongs to |
+| variant | [MAP_VARIANT](API.md#map-variant) | The variant of map            |
+| image   | `string`                          | URL to an image of the map    |
+
+## Map season
+
+The season of the map.
+
+| Key                  | Value        |
+| -------------------- | ------------ |
+| MAP_SEASON.None      | `NO_SEASON`  |
+| MAP_SEASON.Winter    | `WINTERFEST` |
+| MAP_SEASON.Spring    | `SPRING`     |
+| MAP_SEASON.Summer    | `SUMMER`     |
+| MAP_SEASON.Halloween | `HALLOWEEN`  |
+| MAP_SEASON.Autumn    | `AUTUMN`     |
+
+## Map variant
+
+The variant of the map.
+
+| Key                 | Value     |
+| ------------------- | --------- |
+| MAP_VARIANT.Regular | `REGULAR` |
+| MAP_VARIANT.Duos    | `DUOS`    |
+| MAP_VARIANT.Trios   | `TRIOS`   |
+| MAP_VARIANT.Squads  | `SQUADS`  |
+| MAP_VARIANT.Mega    | `MEGA`    |
+| MAP_VARIANT.Royale  | `ROYALE`  |
+
 ## Player ranks
 
 All possible player ranks.
 
-| Value               | Description                                                     |
-| ------------------- | --------------------------------------------------------------- |
-| `REGULAR`           | A normal player, no extra ranks.                                |
-| `PLUS`              | Hive Plus rank.                                                 |
-| `YOUTUBER`          | YouTube [partner rank](https://support.playhive.com/partner/).  |
-| `STREAMER`          | Streamer [partner rank](https://support.playhive.com/partner/). |
-| `TIKTOK`            | TikTok [partner rank](https://support.playhive.com/partner/).   |
-| `VIP`               | Very Important Person rank.                                     |
-| `HELPER`            | Hive Helper.                                                    |
-| `MODERATOR`         | Hive Moderator.                                                 |
-| `HIVE_TEAM`         | Part of The Hive staff team.                                    |
-| `STAFF_MANAGER`     | Staff Manager for The Hive.                                     |
-| `COMMUNITY_MANAGER` | Community Manager for The Hive.                                 |
-| `OWNER`             | Owner of The Hive.                                              |
+| Key                   | Value               | Description                                                     |
+| --------------------- | ------------------- | --------------------------------------------------------------- |
+| RANK.Regular          | `REGULAR`           | A normal player, no extra ranks.                                |
+| RANK.Plus             | `PLUS`              | Hive Plus rank.                                                 |
+| RANK.Youtuber         | `YOUTUBER`          | YouTube [partner rank](https://support.playhive.com/partner/).  |
+| RANK.Streamer         | `STREAMER`          | Streamer [partner rank](https://support.playhive.com/partner/). |
+| RANK.Tiktok           | `TIKTOK`            | TikTok [partner rank](https://support.playhive.com/partner/).   |
+| RANK.VIP              | `VIP`               | Very Important Person rank.                                     |
+| RANK.Helper           | `HELPER`            | Hive Helper.                                                    |
+| RANK.Moderator        | `MODERATOR`         | Hive Moderator.                                                 |
+| RANK.Hive             | `HIVE_TEAM`         | Part of The Hive staff team.                                    |
+| RANK.StaffManager     | `STAFF_MANAGER`     | Staff Manager for The Hive.                                     |
+| RANK.CommunityManager | `COMMUNITY_MANAGER` | Community Manager for The Hive.                                 |
+| RANK.Owner            | `OWNER`             | Owner of The Hive.                                              |
 
 ## Game statistics types
 
@@ -592,21 +661,21 @@ Fields which are only present in _All-Time statistics_, _Monthly statistics_, or
 
 Each game, and its string ID
 
-| Key            | Value    |
-| -------------- | -------- |
-| HideAndSeek    | `hide`   |
-| DeathRun       | `dr`     |
-| TreasureWars   | `wars`   |
-| MurderMystery  | `murder` |
-| SurvivalGames  | `sg`     |
-| Skywars        | `sky`    |
-| CaptureTheFlag | `ctf`    |
-| BlockDrop      | `drop`   |
-| GroundWars     | `ground` |
-| JustBuild      | `build`  |
-| BlockParty     | `party`  |
-| TheBridge      | `bridge` |
-| Gravity        | `grav`   |
+| Key                 | Value    |
+| ------------------- | -------- |
+| GAME.HideAndSeek    | `hide`   |
+| GAME.DeathRun       | `dr`     |
+| GAME.TreasureWars   | `wars`   |
+| GAME.MurderMystery  | `murder` |
+| GAME.SurvivalGames  | `sg`     |
+| GAME.Skywars        | `sky`    |
+| GAME.CaptureTheFlag | `ctf`    |
+| GAME.BlockDrop      | `drop`   |
+| GAME.GroundWars     | `ground` |
+| GAME.JustBuild      | `build`  |
+| GAME.BlockParty     | `party`  |
+| GAME.TheBridge      | `bridge` |
+| GAME.Gravity        | `grav`   |
 
 ## Game info
 
