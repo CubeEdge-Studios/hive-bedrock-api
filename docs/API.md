@@ -171,11 +171,18 @@ Returns a Promise which resolves to the following object:
 | data  | [MapData](API.md#map-data)[] `\| null` | The response data |
 | error | `{ message: string } \| null`          | Error data        |
 
-Invalid games (games which have only one map):
+Allowed games (games with only one map don't work):
 
-- BlockParty
-- JustBuild
-- TheBridge
+- BlockDrop
+- CaptureTheFlag
+- DeathRun
+- Gravity
+- GroundWars
+- HideAndSeek
+- MurderMystery
+- Skywars
+- SurvivalGames
+- TreasureWars
 
 ### Usage
 
