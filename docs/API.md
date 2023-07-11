@@ -29,8 +29,8 @@ import { getMonthlyStats, GAME } from "hive-bedrock-api";
 
 // Get GAMERTAG's Treasure Wars stats from June 2023
 const { data, error } = await getMonthlyStats("GAMERTAG", GAME.TreasureWars, {
-  year: 2023,
-  month: 6,
+    year: 2023,
+    month: 6,
 });
 ```
 
@@ -65,8 +65,8 @@ import { getMonthlyLeaderboard, GAME } from "hive-bedrock-api";
 // Get the top three Skywars players from this month
 const now = new Date();
 const { data, error } = await getMonthlyLeaderboard(GAME.SkyWars, {
-  amount: 3,
-  date: now,
+    amount: 3,
+    date: now,
 });
 ```
 
@@ -173,16 +173,16 @@ Returns a Promise which resolves to the following object:
 
 Allowed games (games with only one map don't work):
 
-- BlockDrop
-- CaptureTheFlag
-- DeathRun
-- Gravity
-- GroundWars
-- HideAndSeek
-- MurderMystery
-- Skywars
-- SurvivalGames
-- TreasureWars
+-   BlockDrop
+-   CaptureTheFlag
+-   DeathRun
+-   Gravity
+-   GroundWars
+-   HideAndSeek
+-   MurderMystery
+-   Skywars
+-   SurvivalGames
+-   TreasureWars
 
 ### Usage
 
@@ -246,6 +246,9 @@ PlayerInfo object structure
 | equipped_avatar            | `AVATAR \| null` | The player's currently equipped [avatar](API.md#avatar) |
 | quest_count                | `number`         | How many quests the player has ever completed           |
 | paid_ranks                 | `RANK[]`         | All of the player's paid [ranks](API.md#player-ranks)   |
+| pets                       | `string[]`       | All of the player's owned pets' names                   |
+| mounts                     | `string[]`       | All of the player's owned mounts' names                 |
+| hats                       | `string[]`       | All of the player's owned hats' names                   |
 
 ## Avatar
 
