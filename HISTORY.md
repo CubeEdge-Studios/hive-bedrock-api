@@ -1,3 +1,8 @@
+# Release 1.0.4
+
+- Add types for hats, pets and mounts to player info
+- Fix types for fetchOptions in getAllTimeStats()
+
 # Release 1.0.3
 
 - Implement getMaps() - @UCDFiddes
