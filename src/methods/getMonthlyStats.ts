@@ -18,19 +18,14 @@ interface OptionsType extends Options {
 }
 
 export default async function getMonthlyStats(
-    playerIdentifier: string
+    playerIdentifier: string,
+    options?: Options
 ): Promise<MethodResponse<Omit<REQUEST_MONTHLY, "main">>>;
 
 export default async function getMonthlyStats<G extends GAME>(
     playerIdentifier: string,
-    game?: G,
-    options?: Options
-): Promise<MethodResponse<GAME_STATS<BASE_GAME_MONTHLY>[G]>>;
-
-export default async function getMonthlyStats<G extends GAME>(
-    playerIdentifier: string,
     game: G,
-    options: OptionsType
+    options?: OptionsType
 ): Promise<MethodResponse<GAME_STATS<BASE_GAME_MONTHLY>[G]>>;
 
 export default async function getMonthlyStats<G extends GAME>(
@@ -41,7 +36,7 @@ export default async function getMonthlyStats<G extends GAME>(
 
 export default async function getMonthlyStats<G extends GAME>(
     playerIdentifier: string,
-    game?: G | G[],
+    game?: G | G[] | OptionsType,
     options?: OptionsType
 ): Promise<
     MethodResponse<
@@ -50,6 +45,11 @@ export default async function getMonthlyStats<G extends GAME>(
         | { [M in G]: GAME_STATS_MONTHLY<M> }
     >
 > {
+    if (typeof game === "object" && !(game instanceof Array)) {
+        options = game;
+        game = undefined;
+    }
+
     if (!game) {
         try {
             const { data, error } = await fetchData(

@@ -12,12 +12,13 @@ import { MethodResponse } from "../types/METHODS";
 import fetchData from "./fetchData";
 
 export default async function getAllTimeStats(
-    playerIdentifier: string
+    playerIdentifier: string,
+    options?: Options
 ): Promise<MethodResponse<Omit<REQUEST_ALL, "main">> & { player: USER_MAIN }>;
 
 export default async function getAllTimeStats<G extends GAME>(
     playerIdentifier: string,
-    game?: G,
+    game: G,
     options?: Options
 ): Promise<MethodResponse<GAME_STATS<BASE_GAME_ALL>[G]>>;
 
@@ -31,7 +32,7 @@ export default async function getAllTimeStats<G extends GAME>(
 
 export default async function getAllTimeStats<G extends GAME>(
     playerIdentifier: string,
-    game?: G | G[],
+    game?: G | G[] | Options,
     options?: Options
 ): Promise<
     | MethodResponse<GAME_STATS<BASE_GAME_ALL>[G]>
@@ -39,6 +40,11 @@ export default async function getAllTimeStats<G extends GAME>(
           GAME_STATS<BASE_GAME_ALL> | { [M in G]: GAME_STATS_ALL<M> }
       > & { player: USER_MAIN })
 > {
+    if (typeof game === "object" && !(game instanceof Array)) {
+        options = game;
+        game = undefined;
+    }
+
     if (!game) {
         try {
             const { data, error } = await fetchData(
