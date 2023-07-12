@@ -23,7 +23,8 @@ export default async function getMonthlyStats(
 
 export default async function getMonthlyStats<G extends GAME>(
     playerIdentifier: string,
-    game: G
+    game?: G,
+    options?: Options
 ): Promise<MethodResponse<GAME_STATS<BASE_GAME_MONTHLY>[G]>>;
 
 export default async function getMonthlyStats<G extends GAME>(
@@ -34,7 +35,8 @@ export default async function getMonthlyStats<G extends GAME>(
 
 export default async function getMonthlyStats<G extends GAME>(
     playerIdentifier: string,
-    game: G[]
+    game: G[],
+    options?: Options
 ): Promise<MethodResponse<{ [M in G]: GAME_STATS_ALL<M> }>>;
 
 export default async function getMonthlyStats<G extends GAME>(
