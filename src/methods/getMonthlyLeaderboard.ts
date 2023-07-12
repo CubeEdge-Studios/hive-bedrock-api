@@ -15,12 +15,7 @@ interface OptionsType extends Options {
 
 export default async function getMonthlyLeaderboard<G extends GAME>(
     game: G,
-    options?: Options
-): Promise<MethodResponse<LB_STATS<G>[]>>;
-
-export default async function getMonthlyLeaderboard<G extends GAME>(
-    game: G,
-    options: OptionsType
+    options?: OptionsType
 ): Promise<MethodResponse<LB_STATS<G>[]>>;
 
 export default async function getMonthlyLeaderboard<G extends GAME>(

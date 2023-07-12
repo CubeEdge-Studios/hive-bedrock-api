@@ -17,7 +17,7 @@ export default async function getAllTimeStats(
 
 export default async function getAllTimeStats<G extends GAME>(
     playerIdentifier: string,
-    game: G,
+    game?: G,
     options?: Options
 ): Promise<MethodResponse<GAME_STATS<BASE_GAME_ALL>[G]>>;
 
