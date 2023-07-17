@@ -127,7 +127,7 @@ export type AVATAR = { url: string; name: string };
 
 export interface API_USER_MAIN {
     UUID: string;
-    xuid: string;
+    xuid: number;
 
     username: string;
     username_cc: string;
