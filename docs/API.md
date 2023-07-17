@@ -227,7 +227,7 @@ PlayerInfo object structure
 | Field                      | Type             | Description                                             |
 | -------------------------- | ---------------- | ------------------------------------------------------- |
 | UUID                       | `string`         | The player's UUID                                       |
-| xuid                       | `string`         | The player's XUID (Xbox User ID)                        |
+| xuid                       | `number`         | The player's XUID (Xbox User ID)                        |
 | username                   | `string`         | The player's username                                   |
 | username_cc                | `string`         | The player's correctly capitalised username             |
 | rank                       | `RANK`           | The player's [rank](API.md#player-ranks)                |
