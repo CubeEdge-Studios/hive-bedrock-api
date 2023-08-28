@@ -39,7 +39,7 @@ export const GAME_INFO: { [key in GAME]: GAME_INFO_TYPE } = {
     },
     [GAME.HideAndSeek]: {
         id: GAME.HideAndSeek,
-        maxLevel: 50,
+        maxLevel: 75,
         increment: 100,
         incrementCap: null,
         prestige: false,
