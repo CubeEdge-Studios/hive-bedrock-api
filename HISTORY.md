@@ -1,3 +1,7 @@
+# Release 1.0.6
+
+-   Increase hide and seek max level to 75
+
 # Release 1.0.5
 
 -   Make 'xuid' a number type instead of a string
