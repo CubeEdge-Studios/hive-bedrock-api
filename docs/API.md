@@ -183,6 +183,7 @@ Allowed games (games with only one map don't work):
 -   Skywars
 -   SurvivalGames
 -   TreasureWars
+-   TheBridge
 
 ### Usage
 

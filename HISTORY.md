@@ -1,3 +1,7 @@
+# Release 1.0.7
+
+-   Expose TheBridge to the getMaps method
+
 # Release 1.0.6
 
 -   Increase hide and seek max level to 75
