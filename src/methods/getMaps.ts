@@ -14,6 +14,7 @@ const VALID_GAMES = [
     GAME.Skywars,
     GAME.SurvivalGames,
     GAME.TreasureWars,
+    GAME.TheBridge,
 ];
 
 export default async function getMaps(
