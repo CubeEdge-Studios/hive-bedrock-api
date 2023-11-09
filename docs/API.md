@@ -194,6 +194,36 @@ import { getMaps, GAME } from "hive-bedrock-api";
 const { data, error } = await getMaps(GAME.Skywars);
 ```
 
+## getGameMetadata(game[, options])
+
+**Currently Ground Wars has does not work with this endpoint.**
+
+Fetch metadata about a specific game.
+This includes level and prestige infomation.
+
+| Parameter             | Type                        | Required     | Description                                     |
+| --------------------- | --------------------------- | ------------ | ----------------------------------------------- |
+| game                  | `GAME`                      | **Required** | The game identifier - see [GAME](API.md#games)  |
+| options               | `object`                    | _optional_   | Options is an object with the fields below:     |
+| options.fetch         | `object`                    | _optional_   | Fetch options:                                  |
+| options.fetch.headers | `{ [key: string]: string }` | _optional_   | Any custom headers to apply to the fetch method |
+
+Returns a Promise which resolves to the following object:
+
+| Field | Type                                             | Description       |
+| ----- | ------------------------------------------------ | ----------------- |
+| data  | [GameMetadata](API.md#game-metadata)[] `\| null` | The response data |
+| error | `{ message: string } \| null`                    | Error data        |
+
+### Usage
+
+```ts
+import { getMaps, GAME } from "hive-bedrock-api";
+
+// Get metadata about skywars levels and prestige
+const { data, error } = await getGameMetadata(GAME.Skywars);
+```
+
 ## getPlayerInfo(playerIdentifier[, options])
 
 Get a player's information, such as current/longest login streak, currently equipped and all unlocked cosmetics, and number of quests completed.
@@ -259,6 +289,19 @@ The structure of the avatar object.
 | ----- | -------- | ----------------------------- |
 | name  | `string` | The name of the avatar        |
 | url   | `string` | The URL of the avatar's image |
+
+## Game Metadata
+
+Infomation about level and prestige data.
+
+| Field             | Type                       | Description                                                |
+| ----------------- | -------------------------- | ---------------------------------------------------------- |
+| name              | `string`                   | The full name of the game                                  |
+| shortName         | `string`                   | The short name of the game                                 |
+| maxLevel          | `number`                   | The maximum level in the game                              |
+| allowPrestiging   | `boolean`                  | Wether player can prestige in the game                     |
+| maxPrestige       | `number`                   | The largest prestige the player can reach                  |
+| experienceToLevel | `{ [xp: string]: number }` | An object listing the amount of xp required for each level |
 
 ## Map data
 

@@ -32,6 +32,7 @@ export type GAME_LB_SPECIFIC_MONTHLY_ENDPOINT<
 
 export type GLOBAL_STATISTICS_ENDPOINT = `/global/statistics`;
 export type GAME_MAPS_ENDPOINT<G extends GAME> = `/game/map/${G}`;
+export type GAME_METADATA_ENDPOINT<G extends GAME> = `/game/meta/${G}`;
 
 export type ENDPOINTS<G extends GAME> =
     | PLAYER_ALLTIME_ENDPOINT<"all", string>
@@ -50,4 +51,5 @@ export type ENDPOINTS<G extends GAME> =
       >
     | GAME_LB_SPECIFIC_MONTHLY_ENDPOINT<GAME, number, number, number, number>
     | GLOBAL_STATISTICS_ENDPOINT
-    | GAME_MAPS_ENDPOINT<G>;
+    | GAME_MAPS_ENDPOINT<G>
+    | GAME_METADATA_ENDPOINT<G>;

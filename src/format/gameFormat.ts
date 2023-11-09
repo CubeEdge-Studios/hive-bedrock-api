@@ -1,6 +1,4 @@
 import calculateLevel from "../methods/calculateLevel";
-import { API_USER_MAIN } from "../types/API";
-import { USER_MAIN } from "../types/GAMES";
 import { GAME } from "../types/GAME_INFO";
 
 interface SingleGameFormat {
@@ -12,9 +10,6 @@ interface GameFormat {
 
 export const formats = {
     main: (player: SingleGameFormat) => {
-        if ("first_played" in player)
-            player.first_played = new Date(player.first_played * 1000);
-
         return player;
     },
     default: (gameType: GAME, game: SingleGameFormat | null) => {
@@ -26,9 +21,6 @@ export const formats = {
                 game.level = calculateLevel(game.xp, gameType);
             } else return null;
         }
-
-        if ("first_played" in game)
-            game.first_played = new Date(game.first_played * 1000);
 
         if ("played" in game && "victories" in game) {
             game.losses = (game.played ?? 0) - (game.victories ?? 0);
