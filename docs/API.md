@@ -196,7 +196,7 @@ const { data, error } = await getMaps(GAME.Skywars);
 
 ## getGameMetadata(game[, options])
 
-**Currently Ground Wars has does not work with this endpoint.**
+**Currently Ground Wars does not work with this endpoint.**
 
 Fetch metadata about a specific game.
 This includes level and prestige infomation.
