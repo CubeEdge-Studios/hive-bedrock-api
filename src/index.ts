@@ -5,6 +5,7 @@ import getAllTimeLeaderboard from "./methods/getAllTimeLeaderboard";
 import getGlobalStatistics from "./methods/getGlobalStatistics";
 import getPlayerInfo from "./methods/getPlayerInfo";
 import getMaps from "./methods/getMaps";
+import getGameMetadata from "./methods/getGameMetadata";
 import { AVATAR, RANK, MAP_SEASON, MAP_VARIANT } from "./types/API";
 
 export {
@@ -15,6 +16,7 @@ export {
     getGlobalStatistics,
     getPlayerInfo,
     getMaps,
+    getGameMetadata,
     AVATAR,
     RANK,
     MAP_SEASON,

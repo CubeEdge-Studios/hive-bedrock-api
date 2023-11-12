@@ -106,6 +106,17 @@ export interface API_MAP {
     image: string;
 }
 
+export interface API_METADATA {
+    name: string;
+    shortName: string;
+    maxLevel: number;
+    allowPrestiging: boolean;
+    maxPrestige: number;
+    experienceToLevel: {
+        [xp: string]: number;
+    };
+}
+
 export interface API_BASE_GAME_ALL {
     UUID: string;
     xp: number;
