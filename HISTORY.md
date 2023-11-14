@@ -1,3 +1,7 @@
+# Release 1.0.8
+
+-   Add the getGameMetadata method
+
 # Release 1.0.7
 
 -   Expose TheBridge to the getMaps method
