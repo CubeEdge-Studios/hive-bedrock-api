@@ -61,7 +61,7 @@ export interface BASE_GAME_ALL extends Omit<API_BASE_GAME_ALL, "first_played"> {
     id: GAME;
     level: number;
     losses: number;
-    first_played: Date;
+    first_played: number;
     win_percentage: number;
 }
 export interface BASE_GAME_MONTHLY extends API_BASE_GAME_MONTHLY {
@@ -71,7 +71,7 @@ export interface BASE_GAME_MONTHLY extends API_BASE_GAME_MONTHLY {
     win_percentage: number;
 }
 export interface USER_MAIN extends Omit<API_USER_MAIN, "first_played"> {
-    first_played: Date;
+    first_played: number;
 }
 
 export interface GAME_HIDE extends API_GAME_HIDE {}
