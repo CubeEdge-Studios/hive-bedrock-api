@@ -88,7 +88,7 @@ export const GAME_INFO: { [key in GAME]: GAME_INFO_TYPE } = {
     },
     [GAME.CaptureTheFlag]: {
         id: GAME.CaptureTheFlag,
-        maxLevel: 20,
+        maxLevel: 50,
         increment: 150,
         incrementCap: null,
         prestige: false,
