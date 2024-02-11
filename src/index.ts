@@ -1,5 +1,8 @@
 import getAllTimeLeaderboard from "./methods/getAllTimeLeaderboard";
 import getAllTimeStatistics from "./methods/getAllTimeStatistics";
+import getGlobalStatistics from "./methods/getGlobalStatistics";
+import getMaps from "./methods/getMaps";
+import getMetdata from "./methods/getMetadata";
 import getMonthlyLeaderboard from "./methods/getMonthlyLeaderboard";
 import getMonthlyStatistics from "./methods/getMonthlyStatistics";
 
@@ -9,4 +12,7 @@ export {
     getMonthlyLeaderboard,
     getAllTimeStatistics,
     getMonthlyStatistics,
+    getGlobalStatistics,
+    getMaps,
+    getMetdata,
 };

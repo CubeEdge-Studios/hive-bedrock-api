@@ -65,9 +65,7 @@ export default async function getAllTimeStatistics<G extends Game>(
                 }
 
                 processors.statistics.all[g as Game].forEach((processor) =>
-                    processor(
-                        stats as StatisticsResponse<Game, Timeframe.AllTime>
-                    )
+                    processor(stats as any)
                 );
                 output[g as Game] = stats;
             }
@@ -96,7 +94,7 @@ export default async function getAllTimeStatistics<G extends Game>(
         };
 
     processors.statistics.all[game_id].forEach((processor) =>
-        processor(response_data as StatisticsResponse<G, Timeframe.AllTime>)
+        processor(response_data as any)
     );
 
     return {

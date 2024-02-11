@@ -71,10 +71,8 @@ export default async function getMonthlyStatistics<G extends Game>(
                     continue;
                 }
 
-                processors.statistics.all[g as Game].forEach((processor) =>
-                    processor(
-                        stats as StatisticsResponse<Game, Timeframe.Monthly>
-                    )
+                processors.statistics[Timeframe.Monthly][g as Game].forEach(
+                    (processor) => processor(stats as any)
                 );
                 output[g as Game] = stats;
             }
@@ -99,8 +97,8 @@ export default async function getMonthlyStatistics<G extends Game>(
             error: { code: 404, message: "Not Found" },
         };
 
-    processors.statistics.all[game_id].forEach((processor) =>
-        processor(response_data as StatisticsResponse<G, Timeframe.Monthly>)
+    processors.statistics[Timeframe.Monthly][game_id].forEach((processor) =>
+        processor(response_data as any)
     );
 
     return {
