@@ -1,35 +1,44 @@
-import { gameFormatArray } from "../format/gameFormat";
-import { Options } from "../types/API";
-import { LB_STATS, REQUEST_LB } from "../types/GAMES";
-import { GAME } from "../types/GAME_INFO";
-import { MethodResponse } from "../types/METHODS";
-import fetchData from "./fetchData";
+import { Game, Timeframe } from "hive-bedrock-data";
+import { APIResponse, Options } from "../types/types";
+import fetchEndpoint from "../helpers/fetchEndpoint";
+import isGame from "../helpers/isGame";
+import { LeaderboardResponse } from "../types/output";
+import processors from "../processors";
 
-export default async function getAllTimeLeaderboard<G extends GAME>(
-    game: G,
+export default function getAllTimeLeaderboard<G extends Game>(
+    game_id: G,
     options?: Options
-): Promise<MethodResponse<LB_STATS<G>[]>>;
+): Promise<APIResponse<LeaderboardResponse<G, Timeframe.AllTime>>>;
 
-export default async function getAllTimeLeaderboard<G extends GAME>(
-    game: G,
+export default async function getAllTimeLeaderboard<G extends Game>(
+    game_id: G,
     options?: Options
-): Promise<MethodResponse<REQUEST_LB<G>>> {
-    try {
-        const { data, error } = await fetchData(
-            `/game/all/${game}`,
-            options?.fetch
-        );
-        if (error || !data)
-            return {
-                data: null,
-                error: { message: "Failed to fetch data.", ...error },
-            };
+): Promise<APIResponse<LeaderboardResponse<G, Timeframe.AllTime>>> {
+    if (!isGame(game_id))
+        return {
+            status: 404,
+            error: {
+                code: 404,
+                message: "Game not found.",
+            },
+            data: null,
+        };
 
-        const gameData = gameFormatArray(game, data) as REQUEST_LB<G>;
+    let response = await fetchEndpoint(`/game/all/${game_id}`, options?.init);
+    if (response.error) return response;
 
-        return { data: gameData, error: null };
-    } catch (err) {
-        console.error(err);
-        return { data: null, error: { message: "Failed to fetch data." } };
-    }
+    processors.leaderboard[Timeframe.AllTime][game_id].forEach((processor) =>
+        processor(response.data)
+    );
+
+    let data = response.data as unknown as LeaderboardResponse<
+        G,
+        Timeframe.AllTime
+    >;
+
+    return {
+        ...response,
+        data,
+        error: null,
+    };
 }

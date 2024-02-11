@@ -10,7 +10,9 @@
     },
     "license": "MIT",
     "author": "Cubeedge Studios",
-    "dependencies": {},
+    "dependencies": {
+        "hive-bedrock-data": "^1.1.1"
+    },
     "scripts": {
         "build": "tsc",
         "test": "jest"
