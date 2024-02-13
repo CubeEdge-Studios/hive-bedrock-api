@@ -1,3 +1,9 @@
+# Release 2.0.0
+
+-   Rename multiple methods to their full names
+-   Update the methods the API data is processed
+-   Move some functions and types to hive-bedrock-data
+
 # Release 1.0.8
 
 -   Add the getGameMetadata method
