@@ -66,7 +66,7 @@ export default async function getAllTimeStatistics<G extends Game>(
             }
         }
 
-        let player = games.find(([g]) => g === "main")?.at(1) as PlayerMetadata;
+        let player = games.find(([g]) => g === "main")?.[1] as PlayerMetadata;
 
         let processors = getPlayerProcessors();
         processors.forEach((processor) => processor(player));
