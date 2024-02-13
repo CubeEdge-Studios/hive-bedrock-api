@@ -8,6 +8,7 @@ import {
 import isGame from "../helpers/isGame";
 import fetchEndpoint from "../helpers/fetchEndpoint";
 import processors from "../processors";
+import getProcessors from "../processors";
 
 interface MonthlyOptions extends Options {
     month: number;
@@ -71,9 +72,8 @@ export default async function getMonthlyStatistics<G extends Game>(
                     continue;
                 }
 
-                processors.statistics[Timeframe.Monthly][g as Game].forEach(
-                    (processor) => processor(stats as any)
-                );
+                const processors = getProcessors(g as Game, Timeframe.Monthly);
+                processors.forEach((processor) => processor(stats));
                 output[g as Game] = stats;
             }
         }
@@ -97,9 +97,8 @@ export default async function getMonthlyStatistics<G extends Game>(
             error: { code: 404, message: "Not Found" },
         };
 
-    processors.statistics[Timeframe.Monthly][game_id].forEach((processor) =>
-        processor(response_data as any)
-    );
+    let processors = getProcessors(game_id, Timeframe.Monthly);
+    processors.forEach((processor) => processor(response_data));
 
     return {
         ...response,

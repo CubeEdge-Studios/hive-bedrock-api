@@ -5,6 +5,7 @@ import getMaps from "./methods/getMaps";
 import getMetdata from "./methods/getMetadata";
 import getMonthlyLeaderboard from "./methods/getMonthlyLeaderboard";
 import getMonthlyStatistics from "./methods/getMonthlyStatistics";
+import getPlayerInfomation from "./methods/getPlayerInfomation";
 
 export const API_SERVER = "https://api.playhive.com/v0";
 export {
@@ -15,4 +16,5 @@ export {
     getGlobalStatistics,
     getMaps,
     getMetdata,
+    getPlayerInfomation,
 };

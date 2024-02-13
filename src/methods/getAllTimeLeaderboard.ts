@@ -1,9 +1,9 @@
-import { Game, Timeframe } from "hive-bedrock-data";
+import { Game, Leaderboards, Timeframe } from "hive-bedrock-data";
 import { APIResponse, Options } from "../types/types";
 import fetchEndpoint from "../helpers/fetchEndpoint";
 import isGame from "../helpers/isGame";
 import { LeaderboardResponse } from "../types/output";
-import processors from "../processors";
+import getProcessors from "../processors";
 
 export default function getAllTimeLeaderboard<G extends Game>(
     game_id: G,
@@ -26,19 +26,22 @@ export default async function getAllTimeLeaderboard<G extends Game>(
 
     let response = await fetchEndpoint(`/game/all/${game_id}`, options?.init);
     if (response.error) return response;
-
-    processors.leaderboard[Timeframe.AllTime][game_id].forEach((processor) =>
-        processor(response.data)
-    );
-
-    let data = response.data as unknown as LeaderboardResponse<
+    let response_data = response.data as unknown as Leaderboards<
         G,
         Timeframe.AllTime
-    >;
+    >[];
+
+    let processors = getProcessors(game_id, Timeframe.AllTime);
+    response_data.forEach((statistics) =>
+        processors.forEach((processor) => processor(statistics))
+    );
 
     return {
         ...response,
-        data,
+        data: response_data as unknown as LeaderboardResponse<
+            G,
+            Timeframe.AllTime
+        >,
         error: null,
     };
 }

@@ -4,6 +4,7 @@ import fetchEndpoint from "../helpers/fetchEndpoint";
 import isGame from "../helpers/isGame";
 import processors from "../processors";
 import { LeaderboardResponse } from "../types/output";
+import getProcessors from "../processors";
 
 interface MonthlyOptions extends Options {
     month: number;
@@ -39,20 +40,16 @@ export default async function getMonthlyLeaderboard<G extends Game>(
 
     let response = await fetchEndpoint(endpoint, options?.init);
     if (response.error) return response;
-    response.data = Object.values(response.data) as Routes<typeof endpoint>;
+    let response_data = Object.values(response.data);
 
-    processors.leaderboard[Timeframe.Monthly][game_id].forEach((processor) =>
-        processor(response.data)
+    let processors = getProcessors(game_id, Timeframe.Monthly);
+    response_data.forEach((statistics) =>
+        processors.forEach((processor) => processor(statistics))
     );
-
-    let data = response.data as unknown as LeaderboardResponse<
-        G,
-        Timeframe.Monthly
-    >;
 
     return {
         ...response,
-        data,
+        data: response_data,
         error: null,
     };
 }

@@ -1,13 +1,9 @@
 import { Game, PlayerMetadata, Statistics, Timeframe } from "hive-bedrock-data";
 import { APIResponse, Options } from "../types/types";
-import {
-    AllGameStatistics,
-    AllStatistics,
-    StatisticsResponse,
-} from "../types/output";
+import { AllGameStatistics, StatisticsResponse } from "../types/output";
 import isGame from "../helpers/isGame";
 import fetchEndpoint from "../helpers/fetchEndpoint";
-import processors from "../processors";
+import getProcessors from "../processors";
 
 type AllGameStatisticsPlayer = AllGameStatistics<Timeframe.AllTime> & {
     player: PlayerMetadata;
@@ -64,9 +60,8 @@ export default async function getAllTimeStatistics<G extends Game>(
                     continue;
                 }
 
-                processors.statistics.all[g as Game].forEach((processor) =>
-                    processor(stats as any)
-                );
+                let processors = getProcessors(g as Game, Timeframe.AllTime);
+                processors.forEach((processor) => processor(stats));
                 output[g as Game] = stats;
             }
         }
@@ -93,9 +88,8 @@ export default async function getAllTimeStatistics<G extends Game>(
             error: { code: 404, message: "Not Found" },
         };
 
-    processors.statistics.all[game_id].forEach((processor) =>
-        processor(response_data as any)
-    );
+    let processors = getProcessors(game_id, Timeframe.AllTime);
+    processors.forEach((processor) => processor(response_data));
 
     return {
         ...response,
