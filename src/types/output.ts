@@ -42,7 +42,9 @@ export interface AllStatistics<T extends Timeframe> {
     [Game.Gravity]: BaseStatistics<Game.Gravity, T>;
     [Game.GroundWars]: BaseStatistics<Game.GroundWars, T> & PvPAdditions;
     [Game.HideAndSeek]: BaseStatistics<Game.HideAndSeek, T>;
-    [Game.JustBuild]: BaseStatistics<Game.JustBuild, T>;
+    [Game.JustBuild]: BaseStatistics<Game.JustBuild, T> & {
+        total_ratings: number;
+    };
     [Game.MurderMystery]: BaseStatistics<Game.MurderMystery, T>;
     [Game.Skywars]: BaseStatistics<Game.Skywars, T> & PvPAdditions;
     [Game.SurvivalGames]: BaseStatistics<Game.SurvivalGames, T> & PvPAdditions;
@@ -72,7 +74,9 @@ export interface AllLeaderboards<T extends Timeframe> {
     [Game.Gravity]: BaseLeaderboard<Game.Gravity, T>[];
     [Game.GroundWars]: BaseLeaderboard<Game.GroundWars, T>[];
     [Game.HideAndSeek]: BaseLeaderboard<Game.HideAndSeek, T>[];
-    [Game.JustBuild]: BaseLeaderboard<Game.JustBuild, T>[];
+    [Game.JustBuild]: (BaseLeaderboard<Game.JustBuild, T> & {
+        total_ratings: number;
+    })[];
     [Game.MurderMystery]: BaseLeaderboard<Game.MurderMystery, T>[];
     [Game.Skywars]: BaseLeaderboard<Game.Skywars, T>[];
     [Game.SurvivalGames]: BaseLeaderboard<Game.SurvivalGames, T>[];
