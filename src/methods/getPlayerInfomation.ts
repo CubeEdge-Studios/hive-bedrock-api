@@ -1,6 +1,7 @@
 import { MapMetadata, PlayerMetadata } from "hive-bedrock-data";
 import { APIResponse, Options } from "../types/types";
 import fetchEndpoint from "../helpers/fetchEndpoint";
+import { getPlayerProcessors } from "../processors";
 
 export default function getPlayerInfomation(
     identifier: string,
@@ -17,8 +18,13 @@ export default async function getPlayerInfomation(
     );
     if (response.error) return response;
 
+    let player = response.data.main;
+
+    let processors = getPlayerProcessors();
+    processors.forEach((processor) => processor(player));
+
     return {
         ...response,
-        data: response.data.main,
+        data: player,
     };
 }

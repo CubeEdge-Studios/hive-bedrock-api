@@ -3,7 +3,7 @@ import { APIResponse, Options } from "../types/types";
 import { AllGameStatistics, StatisticsResponse } from "../types/output";
 import isGame from "../helpers/isGame";
 import fetchEndpoint from "../helpers/fetchEndpoint";
-import getProcessors from "../processors";
+import getProcessors, { getPlayerProcessors } from "../processors";
 
 type AllGameStatisticsPlayer = AllGameStatistics<Timeframe.AllTime> & {
     player: PlayerMetadata;
@@ -66,11 +66,16 @@ export default async function getAllTimeStatistics<G extends Game>(
             }
         }
 
+        let player = games.find(([g]) => g === "main")?.at(1) as PlayerMetadata;
+
+        let processors = getPlayerProcessors();
+        processors.forEach((processor) => processor(player));
+
         return {
             ...response,
             data: {
                 ...output,
-                player: games.find(([g]) => g === "main")?.at(1),
+                player,
             },
         };
     }

@@ -75,3 +75,20 @@ export default function getProcessors(
             ),
     ];
 }
+
+export function getPlayerProcessors(): ((player: {
+    [key: string]: any;
+}) => void)[] {
+    return [
+        (p) => (p.daily_login_streak ??= 0),
+        (p) => (p.longest_daily_login_streak ??= 0),
+        (p) => (p.quest_count ??= 0),
+        (p) => (p.friend_count ??= 0),
+        (p) => (p.hub_title_unlocked ??= []),
+        (p) => (p.avatar_unlocked ??= []),
+        (p) => (p.costume_unlocked ??= []),
+        (p) => (p.equipped_hub_title ??= null),
+        (p) => (p.equipped_avatar ??= null),
+        (p) => (p.equipped_costume ??= null),
+    ];
+}
