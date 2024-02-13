@@ -18,3 +18,5 @@ export {
     getMetdata,
     getPlayerInfomation,
 };
+
+export { Game } from "hive-bedrock-data";
