@@ -14,6 +14,7 @@
         "hive-bedrock-data": "^1.1.2"
     },
     "scripts": {
+        "prepack": "yarn build",
         "prepare": "npm run build",
         "build": "tsc"
     },
