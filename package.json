@@ -14,7 +14,7 @@
         "hive-bedrock-data": "^1.1.2"
     },
     "scripts": {
-        "prepare": "npm run tsc",
+        "prepare": "npm run build",
         "build": "tsc"
     },
     "files": [
