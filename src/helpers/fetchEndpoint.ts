@@ -1,6 +1,5 @@
-import { API_SERVER } from "..";
 import { APIResponse } from "../types/types";
-import { Routes } from "hive-bedrock-data";
+import { API_BASE_ENDPOINT, Routes } from "hive-bedrock-data";
 
 export default async function fetchEndpoint<T extends string>(
     endpoint: T,
@@ -13,7 +12,7 @@ export default async function fetchEndpoint<T extends string>(
 ): Promise<APIResponse<Routes<T>>> {
     try {
         let time_start = performance.now();
-        let request = await fetch(API_SERVER + endpoint, init);
+        let request = await fetch(API_BASE_ENDPOINT + endpoint, init);
         let time_end = performance.now();
         let duration = Math.round(time_end - time_start);
 

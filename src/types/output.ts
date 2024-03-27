@@ -1,10 +1,4 @@
-import {
-    Game,
-    Leaderboards,
-    PlayerMetadata,
-    Statistics,
-    Timeframe,
-} from "hive-bedrock-data";
+import { Game, Leaderboards, Statistics, Timeframe } from "hive-bedrock-data";
 
 type Processor = (stats: any) => void;
 export type GameProcessors = {

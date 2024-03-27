@@ -27,9 +27,9 @@ Returns a Promise which resolves to the following object:
 ```ts
 import { getMonthlyStatsistics, Game } from "hive-bedrock-api";
 
-// Get GAMERTAG's Treasure Wars stats from June 2023
+// Get player's Treasure Wars stats from June 2023
 const { data, error } = await getMonthlyStatsistics(
-    "GAMERTAG",
+    "player",
     Game.TreasureWars,
     {
         year: 2023,
@@ -97,11 +97,8 @@ Returns a Promise which resolves to the following object:
 ```ts
 import { getAllTimeStatistics, Game } from "hive-bedrock-api";
 
-// Get GAMERTAG's all-time Hide and Seek stats
-const { data, error } = await getAllTimeStatistics(
-    "GAMERTAG",
-    Game.HideAndSeek
-);
+// Get player's all-time Hide and Seek stats
+const { data, error } = await getAllTimeStatistics("player", Game.HideAndSeek);
 ```
 
 ## getAllTimeLeaderboard(game[, options])
@@ -219,7 +216,7 @@ Returns a Promise which resolves to the following object:
 
 | Field    | Type                                        | Description                      |
 | -------- | ------------------------------------------- | -------------------------------- |
-| data     | [Response](API.md#map-data) `\| null`       | The response data                |
+| data     | [Response](API.md#game-metadata) `\| null`  | The response data                |
 | error    | `{ code: number, message: string } \| null` | Error data                       |
 | status   | `number`                                    | The http status returned         |
 | duration | `number \| undefined`                       | The duration of the http request |
@@ -257,8 +254,8 @@ Returns a Promise which resolves to the following object
 ```ts
 import { getPlayerInformation } from "hive-bedrock-api";
 
-// Get GAMERTAG's player info.
-const { data, error } = await getPlayerInformation("GAMERTAG");
+// Get player's player info.
+const { data, error } = await getPlayerInformation("player");
 ```
 
 ## PlayerInfo

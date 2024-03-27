@@ -99,7 +99,7 @@ const { data, error } = await getMaps(Game.TreasureWars);
 ### Fetch Metadata
 
 ```ts
-import { getMaps, Game } from "hive-bedrock-api";
+import { getMetadata, Game } from "hive-bedrock-api";
 
 // Returns data for a specific game's currently active maps
 const { data, error } = await getMetadata(Game.TreasureWars);

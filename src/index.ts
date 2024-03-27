@@ -6,8 +6,8 @@ import getMetdata from "./methods/getMetadata";
 import getMonthlyLeaderboard from "./methods/getMonthlyLeaderboard";
 import getMonthlyStatistics from "./methods/getMonthlyStatistics";
 import getPlayerInfomation from "./methods/getPlayerInfomation";
+import type { AllStatistics, AllLeaderboards } from "./types/output";
 
-export const API_SERVER = "https://api.playhive.com/v0";
 export {
     getAllTimeLeaderboard,
     getMonthlyLeaderboard,
@@ -18,5 +18,7 @@ export {
     getMetdata,
     getPlayerInfomation,
 };
+
+export type { AllStatistics, AllLeaderboards };
 
 export { Game } from "hive-bedrock-data";

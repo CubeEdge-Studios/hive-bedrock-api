@@ -35,6 +35,11 @@ export default async function getMonthlyStatistics<G extends Game>(
     let method_options: MonthlyOptions | undefined =
         game_or_options as MonthlyOptions;
 
+    if (typeof game_or_options === "string") {
+        game_id = game_or_options as G;
+        method_options = options;
+    }
+
     if (!isGame(game_id as G) && game_id !== "all")
         return {
             status: 404,
@@ -44,11 +49,6 @@ export default async function getMonthlyStatistics<G extends Game>(
             },
             data: null,
         };
-
-    if (isGame(game_or_options as G)) {
-        game_id = game_or_options as G;
-        method_options = options;
-    }
 
     let current_date = new Date();
     let endpoint = `/game/monthly/player/${game_id}/${identifier}/${

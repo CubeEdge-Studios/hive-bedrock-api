@@ -28,6 +28,11 @@ export default async function getAllTimeStatistics<G extends Game>(
     let game_id: G | "all" = "all";
     let method_options: Options | undefined = game_or_options as Options;
 
+    if (typeof game_or_options === "string") {
+        game_id = game_or_options as G;
+        method_options = options;
+    }
+
     if (!isGame(game_id as G) && game_id !== "all")
         return {
             status: 404,
@@ -37,11 +42,6 @@ export default async function getAllTimeStatistics<G extends Game>(
             },
             data: null,
         };
-
-    if (isGame(game_or_options as G)) {
-        game_id = game_or_options as G;
-        method_options = options;
-    }
 
     let response = await fetchEndpoint(
         `/game/all/${game_id}/${identifier}`,
