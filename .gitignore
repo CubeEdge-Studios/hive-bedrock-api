@@ -136,3 +136,5 @@ yarn.lock
 # Custom
 /lib
 index.js
+test.ts
+test.js

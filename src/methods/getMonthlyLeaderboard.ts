@@ -1,82 +1,55 @@
-import { gameFormatArray } from "../format/gameFormat";
-import { Options } from "../types/API";
-import { LB_STATS, REQUEST_LB } from "../types/GAMES";
-import { GAME } from "../types/GAME_INFO";
-import { MethodResponse } from "../types/METHODS";
-import fetchData from "./fetchData";
+import { Game, Routes, Timeframe } from "hive-bedrock-data";
+import { APIResponse, Options } from "../types/types";
+import fetchEndpoint from "../helpers/fetchEndpoint";
+import isGame from "../helpers/isGame";
+import processors from "../processors";
+import { LeaderboardResponse } from "../types/output";
+import getProcessors from "../processors";
 
-interface OptionsType extends Options {
-    year?: number;
-    month?: number;
-    date?: Date;
-    skip?: number;
-    amount?: number;
+interface MonthlyOptions extends Options {
+    month: number;
+    year: number;
+    amount: number;
+    skip: number;
 }
+export default function getMonthlyLeaderboard<G extends Game>(
+    game_id: G,
+    options?: Partial<MonthlyOptions>
+): Promise<APIResponse<LeaderboardResponse<G, Timeframe.Monthly>>>;
 
-export default async function getMonthlyLeaderboard<G extends GAME>(
-    game: G,
-    options?: OptionsType
-): Promise<MethodResponse<LB_STATS<G>[]>>;
+export default async function getMonthlyLeaderboard<G extends Game>(
+    game_id: G,
+    options?: Partial<MonthlyOptions>
+): Promise<APIResponse<LeaderboardResponse<G, Timeframe.Monthly>>> {
+    if (!isGame(game_id))
+        return {
+            status: 404,
+            error: {
+                code: 404,
+                message: "Game not found.",
+            },
+            data: null,
+        };
 
-export default async function getMonthlyLeaderboard<G extends GAME>(
-    game: G,
-    options?: OptionsType
-): Promise<MethodResponse<REQUEST_LB<G>>> {
-    if (
-        !options?.year &&
-        !options?.amount &&
-        !options?.month &&
-        !options?.skip &&
-        !options?.date
-    ) {
-        try {
-            const { data, error } = await fetchData(
-                `/game/monthly/${game}`,
-                options?.fetch
-            );
-            if (error || !data)
-                return {
-                    data: null,
-                    error: { message: "Failed to fetch data.", ...error },
-                };
+    let current_date = new Date();
+    let endpoint = `/game/monthly/${game_id}/${
+        options?.year ?? current_date.getFullYear()
+    }/${options?.month ?? current_date.getMonth() + 1}/${
+        options?.amount ?? 100
+    }/${options?.skip ?? 0}` as const;
 
-            const gameData = gameFormatArray(game, data) as REQUEST_LB<G>;
+    let response = await fetchEndpoint(endpoint, options?.init);
+    if (response.error) return response;
+    let response_data = Object.values(response.data);
 
-            return { data: gameData, error: null };
-        } catch (err) {
-            console.error(err);
-            return { data: null, error: { message: "Failed to fetch data." } };
-        }
-    } else {
-        let year = options.year ?? new Date().getFullYear();
-        let month = options.month ?? new Date().getMonth() + 1;
-        let amount = options.amount ?? 100;
-        let skip = options.skip ?? 0;
+    let processors = getProcessors(game_id, Timeframe.Monthly);
+    response_data.forEach((statistics) =>
+        processors.forEach((processor) => processor(statistics))
+    );
 
-        if (options.date) {
-            year = options.date.getFullYear();
-            month = options.date.getMonth() + 1;
-        }
-
-        try {
-            let { data, error } = await fetchData(
-                `/game/monthly/${game}/${year}/${month}/${amount}/${skip}`,
-                options?.fetch
-            );
-            if (error || !data)
-                return {
-                    data: null,
-                    error: { message: "Failed to fetch data.", ...error },
-                };
-
-            if (!Array.isArray(data)) data = Object.values(data);
-
-            const gameData = gameFormatArray(game, data) as REQUEST_LB<G>;
-
-            return { data: gameData, error: null };
-        } catch (err) {
-            console.error(err);
-            return { data: null, error: { message: "Failed to fetch data." } };
-        }
-    }
+    return {
+        ...response,
+        data: response_data,
+        error: null,
+    };
 }

@@ -16,7 +16,7 @@ Fields which are only present in _All-Time statistics_, _Monthly statistics_, or
 | xp                 | `number` | Total XP of the player                                                                          |
 | level              | `number` | Current level (calculated by the wrapper)                                                       |
 | played             | `number` | How many times the player has played this game                                                  |
-| first_played       | `Date`   | _Only when getting all-time stats_ - The time the player first played this game                 |
+| first_played       | `number` | _Only when getting all-time stats_ - The unix timestamp the player first played this game       |
 | victories          | `number` | The number of times the player has won this game                                                |
 | losses             | `number` | The number of times the player has lost this game                                               |
 | win_percentage     | `number` | The percentage of wins to total amount of games played                                          |
@@ -39,7 +39,7 @@ Fields which are only present in _All-Time statistics_, _Monthly statistics_, or
 | xp             | `number` | Total XP of the player                                                                          |
 | level          | `number` | Current level (calculated by the wrapper)                                                       |
 | played         | `number` | How many times the player has played this game                                                  |
-| first_played   | `Date`   | _Only when getting all-time stats_ - The time the player first played this game                 |
+| first_played   | `number` | _Only when getting all-time stats_ - The unix timestamp the player first played this game       |
 | victories      | `number` | The number of times the player has won this game                                                |
 | losses         | `number` | The number of times the player has lost this game                                               |
 | win_percentage | `number` | The percentage of wins to total amount of games played                                          |
@@ -61,13 +61,14 @@ Fields which are only present in _All-Time statistics_, _Monthly statistics_, or
 | xp             | `number` | Total XP of the player                                                                          |
 | level          | `number` | Current level (calculated by the wrapper)                                                       |
 | played         | `number` | How many times the player has played this game                                                  |
-| first_played   | `Date`   | _Only when getting all-time stats_ - The time the player first played this game                 |
+| first_played   | `number` | _Only when getting all-time stats_ - The unix timestamp the player first played this game       |
 | victories      | `number` | The number of times the player has won this game                                                |
 | losses         | `number` | The number of times the player has lost this game                                               |
 | win_percentage | `number` | The percentage of wins to total amount of games played                                          |
 | deaths         | `number` | How many times the player has died in this game                                                 |
 | hider_kills    | `number` | The number of hiders the player has killed (as a seeker)                                        |
 | seeker_kills   | `number` | The number of seekers the player has killed (as a hider)                                        |
+| kdr            | `number` | Ratio of kills to deaths                                                                        |
 
 ## Murder Mystery
 
@@ -81,7 +82,7 @@ Fields which are only present in _All-Time statistics_, _Monthly statistics_, or
 | xp                    | `number` | Total XP of the player                                                                          |
 | level                 | `number` | Current level (calculated by the wrapper)                                                       |
 | played                | `number` | How many times the player has played this game                                                  |
-| first_played          | `Date`   | _Only when getting all-time stats_ - The time the player first played this game                 |
+| first_played          | `number` | _Only when getting all-time stats_ - The unix timestamp the player first played this game       |
 | victories             | `number` | The number of times the player has won this game                                                |
 | losses                | `number` | The number of times the player has lost this game                                               |
 | win_percentage        | `number` | The percentage of wins to total amount of games played                                          |
@@ -104,7 +105,7 @@ Fields which are only present in _All-Time statistics_, _Monthly statistics_, or
 | xp             | `number` | Total XP of the player                                                                          |
 | level          | `number` | Current level (calculated by the wrapper)                                                       |
 | played         | `number` | How many times the player has played this game                                                  |
-| first_played   | `Date`   | _Only when getting all-time stats_ - The time the player first played this game                 |
+| first_played   | `number` | _Only when getting all-time stats_ - The unix timestamp the player first played this game       |
 | victories      | `number` | The number of times the player has won this game                                                |
 | losses         | `number` | The number of times the player has lost this game                                               |
 | win_percentage | `number` | The percentage of wins to total amount of games played                                          |
@@ -127,7 +128,7 @@ Fields which are only present in _All-Time statistics_, _Monthly statistics_, or
 | xp                       | `number` | Total XP of the player                                                                          |
 | level                    | `number` | Current level (calculated by the wrapper)                                                       |
 | played                   | `number` | How many times the player has played this game                                                  |
-| first_played             | `Date`   | _Only when getting all-time stats_ - The time the player first played this game                 |
+| first_played             | `number` | _Only when getting all-time stats_ - The unix timestamp the player first played this game       |
 | victories                | `number` | The number of times the player has won this game                                                |
 | losses                   | `number` | The number of times the player has lost this game                                               |
 | win_percentage           | `number` | The percentage of wins to total amount of games played                                          |
@@ -150,7 +151,7 @@ Fields which are only present in _All-Time statistics_, _Monthly statistics_, or
 | xp                    | `number` | Total XP of the player                                                                          |
 | level                 | `number` | Current level (calculated by the wrapper)                                                       |
 | played                | `number` | How many times the player has played this game                                                  |
-| first_played          | `Date`   | _Only when getting all-time stats_ - The time the player first played this game                 |
+| first_played          | `number` | _Only when getting all-time stats_ - The unix timestamp the player first played this game       |
 | victories             | `number` | The number of times the player has won this game                                                |
 | losses                | `number` | The number of times the player has lost this game                                               |
 | win_percentage        | `number` | The percentage of wins to total amount of games played                                          |
@@ -159,6 +160,7 @@ Fields which are only present in _All-Time statistics_, _Monthly statistics_, or
 | rating_meh_received   | `number` | How many mystery chests the player has opened                                                   |
 | rating_okay_raceived  | `number` | How many ores the player has mined                                                              |
 | rating_great_received | `number` | How many spells the player has used                                                             |
+| total_ratings         | `number` | The sum of all the players ratings                                                              |
 
 ## Ground Wars
 
@@ -172,7 +174,7 @@ Fields which are only present in _All-Time statistics_, _Monthly statistics_, or
 | xp                | `number` | Total XP of the player                                                                          |
 | level             | `number` | Current level (calculated by the wrapper)                                                       |
 | played            | `number` | How many times the player has played this game                                                  |
-| first_played      | `Date`   | _Only when getting all-time stats_ - The time the player first played this game                 |
+| first_played      | `number` | _Only when getting all-time stats_ - The unix timestamp the player first played this game       |
 | victories         | `number` | The number of times the player has won this game                                                |
 | losses            | `number` | The number of times the player has lost this game                                               |
 | win_percentage    | `number` | The percentage of wins to total amount of games played                                          |
@@ -195,7 +197,7 @@ Fields which are only present in _All-Time statistics_, _Monthly statistics_, or
 | xp                 | `number` | Total XP of the player                                                                          |
 | level              | `number` | Current level (calculated by the wrapper)                                                       |
 | played             | `number` | How many times the player has played this game                                                  |
-| first_played       | `Date`   | _Only when getting all-time stats_ - The time the player first played this game                 |
+| first_played       | `number` | _Only when getting all-time stats_ - The unix timestamp the player first played this game       |
 | victories          | `number` | The number of times the player has won this game                                                |
 | losses             | `number` | The number of times the player has lost this game                                               |
 | win_percentage     | `number` | The percentage of wins to total amount of games played                                          |
@@ -216,7 +218,7 @@ Fields which are only present in _All-Time statistics_, _Monthly statistics_, or
 | xp             | `number` | Total XP of the player                                                                          |
 | level          | `number` | Current level (calculated by the wrapper)                                                       |
 | played         | `number` | How many times the player has played this game                                                  |
-| first_played   | `Date`   | _Only when getting all-time stats_ - The time the player first played this game                 |
+| first_played   | `number` | _Only when getting all-time stats_ - The unix timestamp the player first played this game       |
 | victories      | `number` | The number of times the player has won this game                                                |
 | losses         | `number` | The number of times the player has lost this game                                               |
 | win_percentage | `number` | The percentage of wins to total amount of games played                                          |
@@ -239,7 +241,7 @@ Fields which are only present in _All-Time statistics_, _Monthly statistics_, or
 | xp                 | `number` | Total XP of the player                                                                          |
 | level              | `number` | Current level (calculated by the wrapper)                                                       |
 | played             | `number` | How many times the player has played this game                                                  |
-| first_played       | `Date`   | _Only when getting all-time stats_ - The time the player first played this game                 |
+| first_played       | `number` | _Only when getting all-time stats_ - The unix timestamp the player first played this game       |
 | victories          | `number` | The number of times the player has won this game                                                |
 | losses             | `number` | The number of times the player has lost this game                                               |
 | win_percentage     | `number` | The percentage of wins to total amount of games played                                          |
@@ -258,7 +260,7 @@ Fields which are only present in _All-Time statistics_, _Monthly statistics_, or
 | xp             | `number` | Total XP of the player                                                                          |
 | level          | `number` | Current level (calculated by the wrapper)                                                       |
 | played         | `number` | How many times the player has played this game                                                  |
-| first_played   | `Date`   | _Only when getting all-time stats_ - The time the player first played this game                 |
+| first_played   | `number` | _Only when getting all-time stats_ - The unix timestamp the player first played this game       |
 | victories      | `number` | The number of times the player has won this game                                                |
 | losses         | `number` | The number of times the player has lost this game                                               |
 | win_percentage | `number` | The percentage of wins to total amount of games played                                          |
@@ -279,7 +281,7 @@ Fields which are only present in _All-Time statistics_, _Monthly statistics_, or
 | xp                           | `number` | Total XP of the player                                                                          |
 | level                        | `number` | Current level (calculated by the wrapper)                                                       |
 | played                       | `number` | How many times the player has played this game                                                  |
-| first_played                 | `Date`   | _Only when getting all-time stats_ - The time the player first played this game                 |
+| first_played                 | `number` | _Only when getting all-time stats_ - The unix timestamp the player first played this game       |
 | victories                    | `number` | The number of times the player has won this game                                                |
 | losses                       | `number` | The number of times the player has lost this game                                               |
 | win_percentage               | `number` | The percentage of wins to total amount of games played                                          |

@@ -1,147 +1,151 @@
 # Documentation
 
-## getMonthlyStats(playerIdentifier[, game, options])
+## getMonthlyStatistics(identifier[, game, options])
 
 Get a player's monthly statistics.
 
-| Parameter             | Type                        | Required     | Description                                                                                                                                                                       |
-| --------------------- | --------------------------- | ------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| playerIdentifier      | `string`                    | **Required** | The player's gamertag or UUID of which to get stats for                                                                                                                           |
-| game                  | `GAME \| GAME[]`            | _optional_   | The game identifier - see [GAME](API.md#games). When specifying multiple games in an array, will return array of results for each game. When not specified, will return all games |
-| options               | `object`                    | _optional_   | Options is an object with the fields below:                                                                                                                                       |
-| options.year          | `number`                    | _optional_   | The year from which to get stats                                                                                                                                                  |
-| options.month         | `number`                    | _optional_   | The month from which to get stats                                                                                                                                                 |
-| options.date          | `Date`                      | _optional_   | An instance of `Date` from which to get stats (can be used interchangably with `year` + `month`)                                                                                  |
-| options.fetch         | `object`                    | _optional_   | Fetch options:                                                                                                                                                                    |
-| options.fetch.headers | `{ [key: string]: string }` | _optional_   | Any custom headers to apply to the fetch method                                                                                                                                   |
+| Parameter     | Type          | Required     | Description                                                                               |
+| ------------- | ------------- | ------------ | ----------------------------------------------------------------------------------------- |
+| identifier    | `string`      | **Required** | The player's gamertag or UUID of which to get stats for                                   |
+| game          | `Game`        | _optional_   | The game identifier - see [Game](API.md#games). When not specified, will return all games |
+| options       | `object`      | _optional_   | Options is an object with the fields below:                                               |
+| options.year  | `number`      | _optional_   | The year from which to get stats                                                          |
+| options.month | `number`      | _optional_   | The month from which to get stats                                                         |
+| options.init  | `RequestInit` | _optional_   | Used in the api request to add custom headers and more                                    |
 
 Returns a Promise which resolves to the following object:
 
-| Field | Type                           | Description       |
-| ----- | ------------------------------ | ----------------- |
-| data  | [Response](GAMES.md) `\| null` | The response data |
-| error | `{ message: string } \| null`  | Error data        |
+| Field    | Type                                        | Description                      |
+| -------- | ------------------------------------------- | -------------------------------- |
+| data     | [Response](GAMES.md) `\| null`              | The response data                |
+| error    | `{ code: number, message: string } \| null` | Error data                       |
+| status   | `number`                                    | The http status returned         |
+| duration | `number \| undefined`                       | The duration of the http request |
 
 ### Usage
 
 ```ts
-import { getMonthlyStats, GAME } from "hive-bedrock-api";
+import { getMonthlyStatsistics, Game } from "hive-bedrock-api";
 
-// Get GAMERTAG's Treasure Wars stats from June 2023
-const { data, error } = await getMonthlyStats("GAMERTAG", GAME.TreasureWars, {
-    year: 2023,
-    month: 6,
-});
+// Get player's Treasure Wars stats from June 2023
+const { data, error } = await getMonthlyStatsistics(
+    "player",
+    Game.TreasureWars,
+    {
+        year: 2023,
+        month: 6,
+    }
+);
 ```
 
 ## getMonthlyLeaderboard(game[, options])
 
 Get the monthly leaderboard for a specific month.
 
-| Parameter             | Type                        | Required     | Description                                                                                                                                                              |
-| --------------------- | --------------------------- | ------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| game                  | `GAME \| GAME[]`            | **Required** | The game identifier - see [GAME](API.md#games). When specifying multiple games in an array, will return array of results for each game                                   |
-| options               | `object`                    | _optional_   | Options is an object with the fields below:                                                                                                                              |
-| options.year          | `number`                    | _optional_   | The year from which to get the leaderboard                                                                                                                               |
-| options.month         | `number`                    | _optional_   | The month from which to get the leaderboard                                                                                                                              |
-| options.date          | `Date`                      | _optional_   | An instance of `Date` from which to get the leaderboard (can be used interchangably with `year` + `month`; if both are present, `date` will override `year` and `month`) |
-| options.skip          | `number`                    | _optional_   | How many players to skip in the leaderboard                                                                                                                              |
-| options.amount        | `number`                    | _optional_   | How many players to return in the leaderboard                                                                                                                            |
-| options.fetch         | `object`                    | _optional_   | Fetch options:                                                                                                                                                           |
-| options.fetch.headers | `{ [key: string]: string }` | _optional_   | Any custom headers to apply to the fetch method                                                                                                                          |
+| Parameter      | Type          | Required     | Description                                            |
+| -------------- | ------------- | ------------ | ------------------------------------------------------ |
+| game           | `Game`        | **Required** | The game identifier - see [Game](API.md#games).        |
+| options        | `object`      | _optional_   | Options is an object with the fields below:            |
+| options.year   | `number`      | _optional_   | The year from which to get the leaderboard             |
+| options.month  | `number`      | _optional_   | The month from which to get the leaderboard            |
+| options.skip   | `number`      | _optional_   | How many players to skip in the leaderboard            |
+| options.amount | `number`      | _optional_   | How many players to return in the leaderboard          |
+| options.init   | `RequestInit` | _optional_   | Used in the api request to add custom headers and more |
 
 Returns a Promise which resolves to the following object:
 
-| Field | Type                             | Description       |
-| ----- | -------------------------------- | ----------------- |
-| data  | [Response](GAMES.md)[] `\| null` | The response data |
-| error | `{ message: string } \| null`    | Error data        |
+| Field    | Type                                        | Description                      |
+| -------- | ------------------------------------------- | -------------------------------- |
+| data     | [Response](GAMES.md) `\| null`              | The response data                |
+| error    | `{ code: number, message: string } \| null` | Error data                       |
+| status   | `number`                                    | The http status returned         |
+| duration | `number \| undefined`                       | The duration of the http request |
 
 ### Usage
 
 ```ts
-import { getMonthlyLeaderboard, GAME } from "hive-bedrock-api";
+import { getMonthlyLeaderboard, Game } from "hive-bedrock-api";
 
 // Get the top three Skywars players from this month
-const now = new Date();
-const { data, error } = await getMonthlyLeaderboard(GAME.SkyWars, {
+const { data, error } = await getMonthlyLeaderboard(Game.SkyWars, {
     amount: 3,
-    date: now,
 });
 ```
 
-## getAllTimeStats(playerIdentifier[, game, options])
+## getAllTimeStatistics(identifier[, game, options])
 
 Get a player's all-time statistics.
 
-| Parameter             | Type                        | Required     | Description                                                                                                                                                                       |
-| --------------------- | --------------------------- | ------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| playerIdentifier      | `string`                    | **Required** | The player's gamertag or UUID of which to get stats for                                                                                                                           |
-| game                  | `GAME \| GAME[]`            | _optional_   | The game identifier - see [GAME](API.md#games). When specifying multiple games in an array, will return array of results for each game. When not specified, will return all games |
-| options               | `object`                    | _optional_   | Options is an object with the fields below:                                                                                                                                       |
-| options.fetch         | `object`                    | _optional_   | Fetch options:                                                                                                                                                                    |
-| options.fetch.headers | `{ [key: string]: string }` | _optional_   | Any custom headers to apply to the fetch method                                                                                                                                   |
+| Parameter    | Type          | Required     | Description                                                                               |
+| ------------ | ------------- | ------------ | ----------------------------------------------------------------------------------------- |
+| identifier   | `string`      | **Required** | The player's gamertag or UUID of which to get stats for                                   |
+| game         | `Game`        | _optional_   | The game identifier - see [GAME](API.md#games). When not specified, will return all games |
+| options      | `object`      | _optional_   | Options is an object with the fields below:                                               |
+| options.init | `RequestInit` | _optional_   | Used in the api request to add custom headers and more                                    |
 
 Returns a Promise which resolves to the following object:
 
-| Field  | Type                            | Description            |
-| ------ | ------------------------------- | ---------------------- |
-| data   | [Response](GAMES.md) `\| null`  | The response data      |
-| error  | `{ message: string } \| null`   | Error data             |
-| player | [PlayerInfo](API.md#playerinfo) | Additional player info |
+| Field    | Type                                        | Description                                                           |
+| -------- | ------------------------------------------- | --------------------------------------------------------------------- |
+| data     | [Response](GAMES.md) `\| null`              | The response data including player infomation if requesting all games |
+| error    | `{ code: number, message: string } \| null` | Error data                                                            |
+| status   | `number`                                    | The http status returned                                              |
+| duration | `number \| undefined`                       | The duration of the http request                                      |
 
 ### Usage
 
 ```ts
-import { getAllTimeStats, GAME } from "hive-bedrock-api";
+import { getAllTimeStatistics, Game } from "hive-bedrock-api";
 
-// Get GAMERTAG's all-time Hide and Seek stats
-const { data, error } = await getAllTimeStats("GAMERTAG", GAME.HideAndSeek);
+// Get player's all-time Hide and Seek stats
+const { data, error } = await getAllTimeStatistics("player", Game.HideAndSeek);
 ```
 
 ## getAllTimeLeaderboard(game[, options])
 
 Get the all-time leaderboard for a game or games.
 
-| Parameter             | Type                        | Required     | Description                                                                                                                            |
-| --------------------- | --------------------------- | ------------ | -------------------------------------------------------------------------------------------------------------------------------------- |
-| game                  | `GAME \| GAME[]`            | **Required** | The game identifier - see [GAME](API.md#games). When specifying multiple games in an array, will return array of results for each game |
-| options               | `object`                    | _optional_   | Options is an object with the fields below:                                                                                            |
-| options.fetch         | `object`                    | _optional_   | Fetch options:                                                                                                                         |
-| options.fetch.headers | `{ [key: string]: string }` | _optional_   | Any custom headers to apply to the fetch method                                                                                        |
+| Parameter    | Type          | Required     | Description                                            |
+| ------------ | ------------- | ------------ | ------------------------------------------------------ |
+| game         | `Game`        | **Required** | The game identifier - see [GAME](API.md#games).        |
+| options      | `object`      | _optional_   | Options is an object with the fields below:            |
+| options.init | `RequestInit` | _optional_   | Used in the api request to add custom headers and more |
 
 Returns a Promise which resolves to the following object:
 
-| Field | Type                             | Description       |
-| ----- | -------------------------------- | ----------------- |
-| data  | [Response](GAMES.md)[] `\| null` | The response data |
-| error | `{ message: string } \| null`    | Error data        |
+| Field    | Type                                        | Description                      |
+| -------- | ------------------------------------------- | -------------------------------- |
+| data     | [Response](GAMES.md) `\| null`              | The response data                |
+| error    | `{ code: number, message: string } \| null` | Error data                       |
+| status   | `number`                                    | The http status returned         |
+| duration | `number \| undefined`                       | The duration of the http request |
 
 ### Usage
 
 ```ts
-import { getAllTimeLeaderboard, GAME } from "hive-bedrock-api";
+import { getAllTimeLeaderboard, Game } from "hive-bedrock-api";
 
 // Get the all-time leaderboard for Survival Games
-const { data, error } = await getAllTimeLeaderboard(GAME.SurvivalGames);
+const { data, error } = await getAllTimeLeaderboard(Game.SurvivalGames);
 ```
 
 ## getGlobalStatistics([options])
 
 Get special data such as each game's all-time player count.
 
-| Parameter             | Type                        | Required   | Description                                     |
-| --------------------- | --------------------------- | ---------- | ----------------------------------------------- |
-| options               | `object`                    | _optional_ | Options is an object with the fields below:     |
-| options.fetch         | `object`                    | _optional_ | Fetch options:                                  |
-| options.fetch.headers | `{ [key: string]: string }` | _optional_ | Any custom headers to apply to the fetch method |
+| Parameter    | Type          | Required   | Description                                            |
+| ------------ | ------------- | ---------- | ------------------------------------------------------ |
+| options      | `object`      | _optional_ | Options is an object with the fields below:            |
+| options.init | `RequestInit` | _optional_ | Used in the api request to add custom headers and more |
 
 Returns a Promise which resolves to the following object:
 
-| Field | Type                                             | Description       |
-| ----- | ------------------------------------------------ | ----------------- |
-| data  | [Response](API.md#global-statistics)[] `\| null` | The response data |
-| error | `{ message: string } \| null`                    | Error data        |
+| Field    | Type                                           | Description                      |
+| -------- | ---------------------------------------------- | -------------------------------- |
+| data     | [Response](API.md#global-statistics) `\| null` | The response data                |
+| error    | `{ code: number, message: string } \| null`    | Error data                       |
+| status   | `number`                                       | The http status returned         |
+| duration | `number \| undefined`                          | The duration of the http request |
 
 ### Usage
 
@@ -157,19 +161,20 @@ const { data, error } = await getGlobalStatistics();
 Fetch data about a specific game's currently active maps.
 If the game has got only one map, returned data will be null and the error message will say so.
 
-| Parameter             | Type                        | Required     | Description                                     |
-| --------------------- | --------------------------- | ------------ | ----------------------------------------------- |
-| game                  | `GAME`                      | **Required** | The game identifier - see [GAME](API.md#games)  |
-| options               | `object`                    | _optional_   | Options is an object with the fields below:     |
-| options.fetch         | `object`                    | _optional_   | Fetch options:                                  |
-| options.fetch.headers | `{ [key: string]: string }` | _optional_   | Any custom headers to apply to the fetch method |
+| Parameter    | Type          | Required     | Description                                            |
+| ------------ | ------------- | ------------ | ------------------------------------------------------ |
+| game         | `GAME`        | **Required** | The game identifier - see [GAME](API.md#games)         |
+| options      | `object`      | _optional_   | Options is an object with the fields below:            |
+| options.init | `RequestInit` | _optional_   | Used in the api request to add custom headers and more |
 
 Returns a Promise which resolves to the following object:
 
-| Field | Type                                   | Description       |
-| ----- | -------------------------------------- | ----------------- |
-| data  | [MapData](API.md#map-data)[] `\| null` | The response data |
-| error | `{ message: string } \| null`          | Error data        |
+| Field    | Type                                        | Description                      |
+| -------- | ------------------------------------------- | -------------------------------- |
+| data     | [Response](API.md#map-data) `\| null`       | The response data                |
+| error    | `{ code: number, message: string } \| null` | Error data                       |
+| status   | `number`                                    | The http status returned         |
+| duration | `number \| undefined`                       | The duration of the http request |
 
 Allowed games (games with only one map don't work):
 
@@ -188,98 +193,101 @@ Allowed games (games with only one map don't work):
 ### Usage
 
 ```ts
-import { getMaps, GAME } from "hive-bedrock-api";
+import { getMaps, Game } from "hive-bedrock-api";
 
 // Get all currently active Skywars maps' data.
-const { data, error } = await getMaps(GAME.Skywars);
+const { data, error } = await getMaps(Game.Skywars);
 ```
 
-## getGameMetadata(game[, options])
+## getMetadata(game[, options])
 
 **Currently Ground Wars does not work with this endpoint.**
 
 Fetch metadata about a specific game.
 This includes level and prestige infomation.
 
-| Parameter             | Type                        | Required     | Description                                     |
-| --------------------- | --------------------------- | ------------ | ----------------------------------------------- |
-| game                  | `GAME`                      | **Required** | The game identifier - see [GAME](API.md#games)  |
-| options               | `object`                    | _optional_   | Options is an object with the fields below:     |
-| options.fetch         | `object`                    | _optional_   | Fetch options:                                  |
-| options.fetch.headers | `{ [key: string]: string }` | _optional_   | Any custom headers to apply to the fetch method |
+| Parameter    | Type          | Required     | Description                                            |
+| ------------ | ------------- | ------------ | ------------------------------------------------------ |
+| game         | `Game`        | **Required** | The game identifier - see [GAME](API.md#games)         |
+| options      | `object`      | _optional_   | Options is an object with the fields below:            |
+| options.init | `RequestInit` | _optional_   | Used in the api request to add custom headers and more |
 
 Returns a Promise which resolves to the following object:
 
-| Field | Type                                             | Description       |
-| ----- | ------------------------------------------------ | ----------------- |
-| data  | [GameMetadata](API.md#game-metadata)[] `\| null` | The response data |
-| error | `{ message: string } \| null`                    | Error data        |
+| Field    | Type                                        | Description                      |
+| -------- | ------------------------------------------- | -------------------------------- |
+| data     | [Response](API.md#game-metadata) `\| null`  | The response data                |
+| error    | `{ code: number, message: string } \| null` | Error data                       |
+| status   | `number`                                    | The http status returned         |
+| duration | `number \| undefined`                       | The duration of the http request |
 
 ### Usage
 
 ```ts
-import { getMaps, GAME } from "hive-bedrock-api";
+import { getMetadata, Game } from "hive-bedrock-api";
 
 // Get metadata about skywars levels and prestige
-const { data, error } = await getGameMetadata(GAME.Skywars);
+const { data, error } = await getMetadata(Game.Skywars);
 ```
 
-## getPlayerInfo(playerIdentifier[, options])
+## getPlayerInformation(identifier[, options])
 
 Get a player's information, such as current/longest login streak, currently equipped and all unlocked cosmetics, and number of quests completed.
 
-| Parameter             | Type                        | Required     | Description                                        |
-| --------------------- | --------------------------- | ------------ | -------------------------------------------------- |
-| playerIdentifier      | `string`                    | **Required** | The player's gamertag or UUID of which to get info |
-| options               | `object`                    | _optional_   | Options is an object with the fields below:        |
-| options.fetch         | `object`                    | _optional_   | Fetch options:                                     |
-| options.fetch.headers | `{ [key: string]: string }` | _optional_   | Any custom headers to apply to the fetch method    |
+| Parameter    | Type          | Required     | Description                                            |
+| ------------ | ------------- | ------------ | ------------------------------------------------------ |
+| identifier   | `string`      | **Required** | The player's gamertag or UUID of which to get info     |
+| options      | `object`      | _optional_   | Options is an object with the fields below:            |
+| options.init | `RequestInit` | _optional_   | Used in the api request to add custom headers and more |
 
 Returns a Promise which resolves to the following object
 
-| Field | Type                                      | Description       |
-| ----- | ----------------------------------------- | ----------------- |
-| data  | [PlayerInfo](API.md#playerinfo) `\| null` | The response data |
-| error | `{ message: string } \| null`             | Error data        |
+| Field    | Type                                        | Description                      |
+| -------- | ------------------------------------------- | -------------------------------- |
+| data     | [Response](API.md#playerinfo) `\| null`     | The response data                |
+| error    | `{ code: number, message: string } \| null` | Error data                       |
+| status   | `number`                                    | The http status returned         |
+| duration | `number \| undefined`                       | The duration of the http request |
 
 ### Usage
 
 ```ts
-import { getPlayerInfo } from "hive-bedrock-api";
+import { getPlayerInformation } from "hive-bedrock-api";
 
-// Get GAMERTAG's player info.
-const { data, error } = await getPlayerInfo("GAMERTAG");
+// Get player's player info.
+const { data, error } = await getPlayerInformation("player");
 ```
 
 ## PlayerInfo
 
 PlayerInfo object structure
 
-| Field                      | Type             | Description                                             |
-| -------------------------- | ---------------- | ------------------------------------------------------- |
-| UUID                       | `string`         | The player's UUID                                       |
-| xuid                       | `number`         | The player's XUID (Xbox User ID)                        |
-| username                   | `string`         | The player's username                                   |
-| username_cc                | `string`         | The player's correctly capitalised username             |
-| rank                       | `RANK`           | The player's [rank](API.md#player-ranks)                |
-| first_played               | `Date`           | The date when the player first played on The Hive       |
-| daily_login_streak         | `number`         | The player's current daily login streak                 |
-| longest_daily_login_streak | `number`         | The player's longest daily login streak                 |
-| hub_title_count            | `number`         | How many hub titles the player currently owns           |
-| hub_title_unlocked         | `string[]`       | All of the player's owned hub titles                    |
-| costume_count              | `number`         | How many costumes the player currently owns             |
-| costume_unlocked           | `string[]`       | All of the player's owned costumes' names               |
-| avatar_count               | `number`         | How many avatars the player currently owns              |
-| avatar_unlocked            | `AVATAR[]`       | All of the player's owned [avatars](API.md#avatar)      |
-| friend_count               | `number`         | How many friends the player has got on the server       |
-| equipped_hub_title         | `string \| null` | The player's currently equipped hub title               |
-| equipped_costume           | `string \| null` | The player's currently equipped costume's name          |
-| equipped_avatar            | `AVATAR \| null` | The player's currently equipped [avatar](API.md#avatar) |
-| quest_count                | `number`         | How many quests the player has ever completed           |
-| paid_ranks                 | `RANK[]`         | All of the player's paid [ranks](API.md#player-ranks)   |
-| pets                       | `string[]`       | All of the player's owned pets' names                   |
-| mounts                     | `string[]`       | All of the player's owned mounts' names                 |
-| hats                       | `string[]`       | All of the player's owned hats' names                   |
+| Field                      | Type             | Description                                                 |
+| -------------------------- | ---------------- | ----------------------------------------------------------- |
+| UUID                       | `string`         | The player's UUID                                           |
+| xuid                       | `number`         | The player's XUID (Xbox User ID)                            |
+| username                   | `string`         | The player's username                                       |
+| username_cc                | `string`         | The player's correctly capitalised username                 |
+| rank                       | `Rank`           | The player's [rank](API.md#player-ranks)                    |
+| first_played               | `number`         | The unix timestamp when the player first played on The Hive |
+| daily_login_streak         | `number`         | The player's current daily login streak                     |
+| longest_daily_login_streak | `number`         | The player's longest daily login streak                     |
+| hub_title_count            | `number`         | How many hub titles the player currently owns               |
+| hub_title_unlocked         | `string[]`       | All of the player's owned hub titles                        |
+| costume_count              | `number`         | How many costumes the player currently owns                 |
+| costume_unlocked           | `string[]`       | All of the player's owned costumes' names                   |
+| avatar_count               | `number`         | How many avatars the player currently owns                  |
+| avatar_unlocked            | `Avatar[]`       | All of the player's owned [avatars](API.md#avatar)          |
+| friend_count               | `number`         | How many friends the player has got on the server           |
+| equipped_hub_title         | `string \| null` | The player's currently equipped hub title                   |
+| equipped_costume           | `string \| null` | The player's currently equipped costume's name              |
+| equipped_avatar            | `AVATAR \| null` | The player's currently equipped [avatar](API.md#avatar)     |
+| quest_count                | `number`         | How many quests the player has ever completed               |
+| paid_ranks                 | `Avatar[]`       | All of the player's paid [ranks](API.md#player-ranks)       |
+| pets                       | `string[]`       | All of the player's owned pets' names                       |
+| mounts                     | `string[]`       | All of the player's owned mounts' names                     |
+| hats                       | `string[]`       | All of the player's owned hats' names                       |
+| backblings                 | `string[]`       | All of the player's owned backblings' names                 |
 
 ## Avatar
 
@@ -376,18 +384,6 @@ Each game, and its string ID
 | GAME.BlockParty     | `party`  |
 | GAME.TheBridge      | `bridge` |
 | GAME.Gravity        | `grav`   |
-
-## Game info
-
-Constant with [GAME](API.md#games) as keys, and `GAME_INFO_TYPE` as properties:
-
-| Key          | Type             | Description                                                   |
-| ------------ | ---------------- | ------------------------------------------------------------- |
-| id           | `string`         | The ID of the game, as in [GAME](API.md#games).               |
-| maxLevel     | `number`         | The maximum level you can reach in this game.                 |
-| increment    | `number`         | How much the XP requirement increases with each level gained. |
-| incrementCap | `number \| null` | The level above which the increment no longer applies.        |
-| prestige     | `boolean`        | Wether or not this game supports prestigeing.                 |
 
 ## Global statistics
 

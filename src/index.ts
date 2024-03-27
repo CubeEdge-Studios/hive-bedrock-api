@@ -1,26 +1,24 @@
-import getMonthlyStats from "./methods/getMonthlyStats";
-import getMonthlyLeaderboard from "./methods/getMonthlyLeaderboard";
-import getAllTimeStats from "./methods/getAllTimeStats";
 import getAllTimeLeaderboard from "./methods/getAllTimeLeaderboard";
+import getAllTimeStatistics from "./methods/getAllTimeStatistics";
 import getGlobalStatistics from "./methods/getGlobalStatistics";
-import getPlayerInfo from "./methods/getPlayerInfo";
 import getMaps from "./methods/getMaps";
-import getGameMetadata from "./methods/getGameMetadata";
-import { AVATAR, RANK, MAP_SEASON, MAP_VARIANT } from "./types/API";
+import getMetdata from "./methods/getMetadata";
+import getMonthlyLeaderboard from "./methods/getMonthlyLeaderboard";
+import getMonthlyStatistics from "./methods/getMonthlyStatistics";
+import getPlayerInfomation from "./methods/getPlayerInfomation";
+import type { AllStatistics, AllLeaderboards } from "./types/output";
 
 export {
-    getAllTimeStats,
     getAllTimeLeaderboard,
-    getMonthlyStats,
     getMonthlyLeaderboard,
+    getAllTimeStatistics,
+    getMonthlyStatistics,
     getGlobalStatistics,
-    getPlayerInfo,
     getMaps,
-    getGameMetadata,
-    AVATAR,
-    RANK,
-    MAP_SEASON,
-    MAP_VARIANT,
+    getMetdata,
+    getPlayerInfomation,
 };
-export * from "./types/GAME_INFO";
-export * from "./types/GAMES";
+
+export type { AllStatistics, AllLeaderboards };
+
+export { Game } from "hive-bedrock-data";
