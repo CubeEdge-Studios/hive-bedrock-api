@@ -260,6 +260,8 @@ const { data, error } = await getPlayerInformation("player");
 
 ## PlayerInfo
 
+<span style="color:red">The have has changed Player Infomation recently, so the below infomation may be out of date.</span>
+
 PlayerInfo object structure
 
 | Field                      | Type             | Description                                                 |
