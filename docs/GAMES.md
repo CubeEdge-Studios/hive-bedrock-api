@@ -27,6 +27,28 @@ Fields which are only present in _All-Time statistics_, _Monthly statistics_, or
 | treasure_destroyed | `number` | How many treasures the player has destroyed                                                     |
 | prestige           | `number` | The prestige of the player                                                                      |
 
+## BedWars
+
+| Field          | Type     | Description                                                                                     |
+| -------------- | -------- | ----------------------------------------------------------------------------------------------- |
+| UUID           | `string` | _Only when getting all-time stats or leaderboards_ - The UUID of the player                     |
+| index          | `number` | _Only when getting monthly stats or leaderboards_ - The index                                   |
+| human_index    | `number` | _Only when getting monthly stats or leaderboards_ - The human index                             |
+| username       | `string` | _Only when getting monthly stats or leaderboards_ - The player's correctly capitalised username |
+| id             | `string` | The ID of the game (`bed` in this case)                                                         |
+| xp             | `number` | Total XP of the player                                                                          |
+| level          | `number` | Current level (calculated by the wrapper)                                                       |
+| played         | `number` | How many times the player has played this game                                                  |
+| first_played   | `number` | _Only when getting all-time stats_ - The unix timestamp the player first played this game       |
+| victories      | `number` | The number of times the player has won this game                                                |
+| losses         | `number` | The number of times the player has lost this game                                               |
+| win_percentage | `number` | The percentage of wins to total amount of games played                                          |
+| kdr            | `number` | Ratio of kills to deaths                                                                        |
+| deaths         | `number` | How many times the player has died in this game                                                 |
+| kills          | `number` | How many other players the player has killed in this game                                       |
+| final_kills    | `number` | How many other players the player has final killed in this game                                 |
+| beds_destroyed | `number` | How many beds the player has destroyed                                                          |
+
 ## Deathrun
 
 | Field          | Type     | Description                                                                                     |

@@ -1,4 +1,4 @@
-import { MapMetadata, PlayerMetadata } from "hive-bedrock-data";
+import { PlayerMetadata } from "hive-bedrock-data";
 import { APIResponse, Options } from "../types/types";
 import fetchEndpoint from "../helpers/fetchEndpoint";
 import { getPlayerProcessors } from "../processors";
