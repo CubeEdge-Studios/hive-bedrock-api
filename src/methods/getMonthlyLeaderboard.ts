@@ -1,8 +1,7 @@
-import { Game, Routes, Timeframe } from "hive-bedrock-data";
+import { Game, Timeframe } from "hive-bedrock-data";
 import { APIResponse, Options } from "../types/types";
 import fetchEndpoint from "../helpers/fetchEndpoint";
 import isGame from "../helpers/isGame";
-import processors from "../processors";
 import { LeaderboardResponse } from "../types/output";
 import getProcessors from "../processors";
 
@@ -49,7 +48,10 @@ export default async function getMonthlyLeaderboard<G extends Game>(
 
     return {
         ...response,
-        data: response_data,
+        data: response_data as unknown as LeaderboardResponse<
+            G,
+            Timeframe.Monthly
+        >,
         error: null,
     };
 }

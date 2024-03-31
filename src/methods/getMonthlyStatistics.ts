@@ -1,13 +1,8 @@
-import { Game, PlayerMetadata, Statistics, Timeframe } from "hive-bedrock-data";
+import { Game, Statistics, Timeframe } from "hive-bedrock-data";
 import { APIResponse, Options } from "../types/types";
-import {
-    AllGameStatistics,
-    AllStatistics,
-    StatisticsResponse,
-} from "../types/output";
+import { AllGameStatistics, StatisticsResponse } from "../types/output";
 import isGame from "../helpers/isGame";
 import fetchEndpoint from "../helpers/fetchEndpoint";
-import processors from "../processors";
 import getProcessors from "../processors";
 
 interface MonthlyOptions extends Options {
