@@ -1,6 +1,6 @@
 {
     "name": "hive-bedrock-api",
-    "version": "2.0.2",
+    "version": "2.0.3",
     "description": "An API wrapper for the Hive Minecraft Bedrock Edition server.",
     "main": "lib/index.js",
     "types": "lib/index.d.ts",
@@ -11,7 +11,7 @@
     "license": "MIT",
     "author": "Cubeedge Studios",
     "dependencies": {
-        "hive-bedrock-data": "1.1.9"
+        "hive-bedrock-data": "^1.1.12"
     },
     "scripts": {
         "prepack": "yarn build",

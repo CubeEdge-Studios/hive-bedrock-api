@@ -117,26 +117,29 @@ Fields which are only present in _All-Time statistics_, _Monthly statistics_, or
 
 ## Survival Games
 
-| Field          | Type     | Description                                                                                     |
-| -------------- | -------- | ----------------------------------------------------------------------------------------------- |
-| UUID           | `string` | _Only when getting all-time stats or leaderboards_ - The UUID of the player                     |
-| index          | `number` | _Only when getting monthly stats or leaderboards_ - The index                                   |
-| human_index    | `number` | _Only when getting monthly stats or leaderboards_ - The human index                             |
-| username       | `string` | _Only when getting monthly stats or leaderboards_ - The player's correctly capitalised username |
-| id             | `string` | The ID of the game (`sg` in this case)                                                          |
-| xp             | `number` | Total XP of the player                                                                          |
-| level          | `number` | Current level (calculated by the wrapper)                                                       |
-| played         | `number` | How many times the player has played this game                                                  |
-| first_played   | `number` | _Only when getting all-time stats_ - The unix timestamp the player first played this game       |
-| victories      | `number` | The number of times the player has won this game                                                |
-| losses         | `number` | The number of times the player has lost this game                                               |
-| win_percentage | `number` | The percentage of wins to total amount of games played                                          |
-| kdr            | `number` | Ratio of kills to deaths                                                                        |
-| deaths         | `number` | How many times the player has died in this game                                                 |
-| kills          | `number` | How many other players the player has killed in this game                                       |
-| crates         | `number` | How many crates the player has opened                                                           |
-| deathmatches   | `number` | How many deathmatches the player has reached                                                    |
-| cows           | `number` | How many cache cows the player has found                                                        |
+| Field            | Type     | Description                                                                                     |
+| ---------------- | -------- | ----------------------------------------------------------------------------------------------- |
+| UUID             | `string` | _Only when getting all-time stats or leaderboards_ - The UUID of the player                     |
+| index            | `number` | _Only when getting monthly stats or leaderboards_ - The index                                   |
+| human_index      | `number` | _Only when getting monthly stats or leaderboards_ - The human index                             |
+| username         | `string` | _Only when getting monthly stats or leaderboards_ - The player's correctly capitalised username |
+| id               | `string` | The ID of the game (`sg` in this case)                                                          |
+| xp               | `number` | Total XP of the player                                                                          |
+| level            | `number` | Current level (calculated by the wrapper)                                                       |
+| played           | `number` | How many times the player has played this game                                                  |
+| first_played     | `number` | _Only when getting all-time stats_ - The unix timestamp the player first played this game       |
+| victories        | `number` | The number of times the player has won this game                                                |
+| losses           | `number` | The number of times the player has lost this game                                               |
+| win_percentage   | `number` | The percentage of wins to total amount of games played                                          |
+| kdr              | `number` | Ratio of kills to deaths                                                                        |
+| deaths           | `number` | How many times the player has died in this game                                                 |
+| kills            | `number` | How many other players the player has killed in this game                                       |
+| crates           | `number` | How many crates the player has opened                                                           |
+| deathmatches     | `number` | How many deathmatches the player has reached                                                    |
+| cows             | `number` | How many cache cows the player has found                                                        |
+| teleporters_used | `number` | How many teleporters the player has used                                                        |
+| flares_used      | `number` | How many flares the player has used                                                             |
+| launchpads_used  | `number` | How many launchpads the player has used                                                         |
 
 ## Skywars
 

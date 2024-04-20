@@ -264,32 +264,36 @@ const { data, error } = await getPlayerInformation("player");
 
 PlayerInfo object structure
 
-| Field                      | Type             | Description                                                 |
-| -------------------------- | ---------------- | ----------------------------------------------------------- |
-| UUID                       | `string`         | The player's UUID                                           |
-| xuid                       | `number`         | The player's XUID (Xbox User ID)                            |
-| username                   | `string`         | The player's username                                       |
-| username_cc                | `string`         | The player's correctly capitalised username                 |
-| rank                       | `Rank`           | The player's [rank](API.md#player-ranks)                    |
-| first_played               | `number`         | The unix timestamp when the player first played on The Hive |
-| daily_login_streak         | `number`         | The player's current daily login streak                     |
-| longest_daily_login_streak | `number`         | The player's longest daily login streak                     |
-| hub_title_count            | `number`         | How many hub titles the player currently owns               |
-| hub_title_unlocked         | `string[]`       | All of the player's owned hub titles                        |
-| costume_count              | `number`         | How many costumes the player currently owns                 |
-| costume_unlocked           | `string[]`       | All of the player's owned costumes' names                   |
-| avatar_count               | `number`         | How many avatars the player currently owns                  |
-| avatar_unlocked            | `Avatar[]`       | All of the player's owned [avatars](API.md#avatar)          |
-| friend_count               | `number`         | How many friends the player has got on the server           |
-| equipped_hub_title         | `string \| null` | The player's currently equipped hub title                   |
-| equipped_costume           | `string \| null` | The player's currently equipped costume's name              |
-| equipped_avatar            | `AVATAR \| null` | The player's currently equipped [avatar](API.md#avatar)     |
-| quest_count                | `number`         | How many quests the player has ever completed               |
-| paid_ranks                 | `Avatar[]`       | All of the player's paid [ranks](API.md#player-ranks)       |
-| pets                       | `string[]`       | All of the player's owned pets' names                       |
-| mounts                     | `string[]`       | All of the player's owned mounts' names                     |
-| hats                       | `string[]`       | All of the player's owned hats' names                       |
-| backblings                 | `string[]`       | All of the player's owned backblings' names                 |
+| Field                      | Type                  | Description                                                   |
+| -------------------------- | --------------------- | ------------------------------------------------------------- |
+| UUID                       | `string`              | The player's UUID                                             |
+| xuid                       | `number`              | The player's XUID (Xbox User ID)                              |
+| username                   | `string`              | The player's username                                         |
+| username_cc                | `string`              | The player's correctly capitalised username                   |
+| rank                       | `Rank`                | The player's [rank](API.md#player-ranks)                      |
+| first_played               | `number`              | The unix timestamp when the player first played on The Hive   |
+| daily_login_streak         | `number`              | The player's current daily login streak                       |
+| longest_daily_login_streak | `number`              | The player's longest daily login streak                       |
+| friend_count               | `number`              | How many friends the player has got on the server             |
+| quest_count                | `number`              | How many quests the player has ever completed                 |
+| paid_ranks                 | `Avatar[]`            | All of the player's paid [ranks](API.md#player-ranks)         |
+| pets                       | `string[]`            | All of the player's owned pets' names                         |
+| mounts                     | `string[]`            | All of the player's owned mounts' names                       |
+| hub_title_count            | `number`              | How many hub titles the player currently owns                 |
+| hub_title_unlocked         | `string[]`            | All of the player's owned hub titles                          |
+| equipped_hub_title         | `string \| null`      | The player's currently equipped hub title                     |
+| costume_count              | `number`              | How many costumes the player currently owns                   |
+| costume_unlocked           | `string[]`            | All of the player's owned costumes' names                     |
+| equipped_costume           | `string \| null`      | The player's currently equipped costume's name                |
+| avatar_count               | `number`              | How many avatars the player currently owns                    |
+| avatar_unlocked            | `Avatar[]`            | All of the player's owned [avatars](API.md#avatar)            |
+| equipped_avatar            | `Avatar \| null`      | The player's currently equipped [avatar](API.md#avatar)       |
+| hat_count                  | `number`              | How many hats the player currently owns                       |
+| hat_unlocked               | `Hat[] \| null`       | All of the player's owned [hats](API.md#hat)                  |
+| equipped_hat               | `Hat \| null`         | The player's currently equipped [hat](API.md#hat)             |
+| backbling_count            | `number`              | How many backblings the player currently owns                 |
+| cosmetic.backbling         | `Backbling[] \| null` | All of the player's owned [backblings](API.md#backbling)      |
+| equipped_backbling         | `Backbling \| null`   | The player's currently equipped [backbling](API.md#backbling) |
 
 ## Avatar
 
@@ -299,6 +303,26 @@ The structure of the avatar object.
 | ----- | -------- | ----------------------------- |
 | name  | `string` | The name of the avatar        |
 | url   | `string` | The URL of the avatar's image |
+
+## Backbling
+
+The structure of the backbling object.
+
+| Field  | Type     | Description                      |
+| ------ | -------- | -------------------------------- |
+| name   | `string` | The name of the backbling        |
+| icon   | `string` | The URL of the backbling's image |
+| rarity | `string` | The URL of the backbling's image |
+
+## Hat
+
+The structure of the hat object.
+
+| Field  | Type     | Description                |
+| ------ | -------- | -------------------------- |
+| name   | `string` | The name of the hat        |
+| icon   | `string` | The URL of the hat's image |
+| rarity | `string` | The URL of the hat's image |
 
 ## Game Metadata
 
