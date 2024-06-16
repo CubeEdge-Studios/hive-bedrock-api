@@ -41,7 +41,7 @@ export interface AllStatistics<T extends Timeframe> {
     [Game.TheBridge]: BaseStatistics<Game.TheBridge, T> & PvPAdditions;
     [Game.TreasureWars]: BaseStatistics<Game.TreasureWars, T> & PvPAdditions;
     [Game.BedWars]: BaseStatistics<Game.BedWars, T> & PvPAdditions;
-    [Game.ParkourWorlds]: BaseStatistics<Game.ParkourWorlds, T>;
+    [Game.ParkourWorlds]: Statistics<Game.ParkourWorlds, T> & { id: Game };
 }
 
 interface CommonLeaderboard {
@@ -72,7 +72,7 @@ export interface AllLeaderboards<T extends Timeframe> {
     [Game.TheBridge]: BaseLeaderboard<Game.TheBridge, T>[];
     [Game.TreasureWars]: BaseLeaderboard<Game.TreasureWars, T>[];
     [Game.BedWars]: BaseLeaderboard<Game.BedWars, T>[];
-    [Game.ParkourWorlds]: unknown;
+    [Game.ParkourWorlds]: never;
 }
 
 export type AllGameStatistics<T extends Timeframe> = {
