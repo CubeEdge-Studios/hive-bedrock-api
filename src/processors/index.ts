@@ -49,24 +49,27 @@ export default function getProcessors(
             game === Game.JustBuild
                 ? Object.keys(s)
                       .filter((key) => key.startsWith("rating_"))
-                      .forEach(
-                          (key) =>
-                              (s.total_ratings =
-                                  (s.total_ratings ?? 0) + s[key])
-                      )
+                      .forEach((key) => (s.total_ratings = (s.total_ratings ?? 0) + s[key]))
                 : null,
 
         // Append losses
-        (s) =>
-            "played" in s && "victories" in s
-                ? (s.losses = s.played - s.victories)
-                : null,
+        (s) => ("played" in s && "victories" in s ? (s.losses = s.played - s.victories) : null),
 
         // Calculate win percentage
         (s) =>
             "played" in s && "victories" in s
                 ? (s.win_percentage = s.played > 0 ? s.victories / s.played : 0)
                 : null,
+
+        // remove empty parkour world stats
+        (s) => {
+            if (game === Game.ParkourWorlds && typeof s.parkours !== "object") {
+                for (let key of Object.keys(s)) {
+                    delete s[key];
+                }
+            }
+            return null;
+        },
 
         // Remove NaN
         (s) =>
@@ -76,9 +79,7 @@ export default function getProcessors(
     ];
 }
 
-export function getPlayerProcessors(): ((player: {
-    [key: string]: any;
-}) => void)[] {
+export function getPlayerProcessors(): ((player: { [key: string]: any }) => void)[] {
     return [
         (p) => (p.daily_login_streak ??= 0),
         (p) => (p.longest_daily_login_streak ??= 0),

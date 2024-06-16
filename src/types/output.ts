@@ -23,15 +23,11 @@ interface CommonStatistics {
 type BaseStatistics<G extends Game, T extends Timeframe> = Statistics<G, T> &
     CommonStatistics &
     (T extends Timeframe.AllTime ? AllTimeAdditions : unknown);
-export type StatisticsResponse<
-    G extends Game,
-    T extends Timeframe
-> = AllStatistics<T>[G];
+export type StatisticsResponse<G extends Game, T extends Timeframe> = AllStatistics<T>[G];
 export interface AllStatistics<T extends Timeframe> {
     [Game.BlockDrop]: BaseStatistics<Game.BlockDrop, T>;
     [Game.BlockParty]: BaseStatistics<Game.BlockParty, T>;
-    [Game.CaptureTheFlag]: BaseStatistics<Game.CaptureTheFlag, T> &
-        PvPAdditions;
+    [Game.CaptureTheFlag]: BaseStatistics<Game.CaptureTheFlag, T> & PvPAdditions;
     [Game.DeathRun]: BaseStatistics<Game.DeathRun, T>;
     [Game.Gravity]: BaseStatistics<Game.Gravity, T>;
     [Game.GroundWars]: BaseStatistics<Game.GroundWars, T> & PvPAdditions;
@@ -45,6 +41,7 @@ export interface AllStatistics<T extends Timeframe> {
     [Game.TheBridge]: BaseStatistics<Game.TheBridge, T> & PvPAdditions;
     [Game.TreasureWars]: BaseStatistics<Game.TreasureWars, T> & PvPAdditions;
     [Game.BedWars]: BaseStatistics<Game.BedWars, T> & PvPAdditions;
+    [Game.ParkourWorlds]: BaseStatistics<Game.ParkourWorlds, T>;
 }
 
 interface CommonLeaderboard {
@@ -57,10 +54,7 @@ interface CommonLeaderboard {
 type BaseLeaderboard<G extends Game, T extends Timeframe> = Leaderboards<G, T> &
     CommonLeaderboard &
     (T extends Timeframe.AllTime ? AllTimeAdditions : unknown);
-export type LeaderboardResponse<
-    G extends Game,
-    T extends Timeframe
-> = AllLeaderboards<T>[G];
+export type LeaderboardResponse<G extends Game, T extends Timeframe> = AllLeaderboards<T>[G];
 export interface AllLeaderboards<T extends Timeframe> {
     [Game.BlockDrop]: BaseLeaderboard<Game.BlockDrop, T>[];
     [Game.BlockParty]: BaseLeaderboard<Game.BlockParty, T>[];
@@ -78,6 +72,7 @@ export interface AllLeaderboards<T extends Timeframe> {
     [Game.TheBridge]: BaseLeaderboard<Game.TheBridge, T>[];
     [Game.TreasureWars]: BaseLeaderboard<Game.TreasureWars, T>[];
     [Game.BedWars]: BaseLeaderboard<Game.BedWars, T>[];
+    [Game.ParkourWorlds]: unknown;
 }
 
 export type AllGameStatistics<T extends Timeframe> = {

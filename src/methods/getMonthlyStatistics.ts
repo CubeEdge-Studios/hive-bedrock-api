@@ -27,8 +27,7 @@ export default async function getMonthlyStatistics<G extends Game>(
     options?: MonthlyOptions
 ) {
     let game_id: G | "all" = "all";
-    let method_options: MonthlyOptions | undefined =
-        game_or_options as MonthlyOptions;
+    let method_options: MonthlyOptions | undefined = game_or_options as MonthlyOptions;
 
     if (typeof game_or_options === "string") {
         game_id = game_or_options as G;
@@ -54,22 +53,19 @@ export default async function getMonthlyStatistics<G extends Game>(
     if (response.error) return response;
 
     if (game_id === "all") {
-        let games = Object.entries(response.data);
+        let games = Object.entries(response.data as [string, { [key: string]: any }][]);
         let output: Partial<AllGameStatistics<Timeframe.Monthly>> = {};
 
         for (let [g, stats] of games) {
             if (isGame(g as Game)) {
-                if (
-                    Array.isArray(stats) ||
-                    typeof stats.played === "undefined"
-                ) {
+                if (Array.isArray(stats) || typeof stats["played"] === "undefined") {
                     output[g as Game] = null;
                     continue;
                 }
 
                 const processors = getProcessors(g as Game, Timeframe.Monthly);
                 processors.forEach((processor) => processor(stats));
-                output[g as Game] = stats;
+                output[g as Game] = Object.keys(stats).length > 0 ? stats : null;
             }
         }
 
@@ -79,9 +75,9 @@ export default async function getMonthlyStatistics<G extends Game>(
         };
     }
 
-    let response_data = response.data as unknown as Statistics<
-        G,
-        Timeframe.Monthly
+    let response_data = response.data as unknown as Omit<
+        Statistics<G, Timeframe.Monthly>,
+        "parkour"
     >;
 
     if (Array.isArray(response_data))
@@ -97,7 +93,7 @@ export default async function getMonthlyStatistics<G extends Game>(
 
     return {
         ...response,
-        data: response_data,
+        data: Object.keys(response_data).length > 0 ? response_data : null,
         error: null,
     };
 }

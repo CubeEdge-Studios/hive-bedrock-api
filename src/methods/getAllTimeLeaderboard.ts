@@ -26,22 +26,16 @@ export default async function getAllTimeLeaderboard<G extends Game>(
 
     let response = await fetchEndpoint(`/game/all/${game_id}`, options?.init);
     if (response.error) return response;
-    let response_data = response.data as unknown as Leaderboards<
-        G,
-        Timeframe.AllTime
-    >[];
+    let response_data = response.data as unknown as Leaderboards<G, Timeframe.AllTime>[];
 
     let processors = getProcessors(game_id, Timeframe.AllTime);
     response_data.forEach((statistics) =>
-        processors.forEach((processor) => processor(statistics))
+        processors.forEach((processor) => processor(statistics as { [key: string]: number }))
     );
 
     return {
         ...response,
-        data: response_data as unknown as LeaderboardResponse<
-            G,
-            Timeframe.AllTime
-        >,
+        data: response_data as unknown as LeaderboardResponse<G, Timeframe.AllTime>,
         error: null,
     };
 }
