@@ -53,7 +53,7 @@ export default async function getMonthlyStatistics<G extends Game>(
     if (response.error) return response;
 
     if (game_id === "all") {
-        let games = Object.entries(response.data as [string, { [key: string]: any }][]);
+        let games = Object.entries(response.data);
         let output: Partial<AllGameStatistics<Timeframe.Monthly>> = {};
 
         for (let [g, stats] of games) {

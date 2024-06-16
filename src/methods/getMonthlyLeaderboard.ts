@@ -40,9 +40,7 @@ export default async function getMonthlyLeaderboard<G extends Game>(
     let response_data = Object.values(response.data as LeaderboardResponse<G, Timeframe.Monthly>[]);
 
     let processors = getProcessors(game_id, Timeframe.Monthly);
-    response_data.forEach((statistics) =>
-        processors.forEach((processor) => processor(statistics as { [key: string]: number }))
-    );
+    response_data.forEach((statistics) => processors.forEach((processor) => processor(statistics)));
 
     return {
         ...response,

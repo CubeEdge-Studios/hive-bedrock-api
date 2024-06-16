@@ -29,9 +29,7 @@ export default async function getAllTimeLeaderboard<G extends Game>(
     let response_data = response.data as unknown as Leaderboards<G, Timeframe.AllTime>[];
 
     let processors = getProcessors(game_id, Timeframe.AllTime);
-    response_data.forEach((statistics) =>
-        processors.forEach((processor) => processor(statistics as { [key: string]: number }))
-    );
+    response_data.forEach((statistics) => processors.forEach((processor) => processor(statistics)));
 
     return {
         ...response,
