@@ -31,27 +31,22 @@ export default async function getMonthlyLeaderboard<G extends Game>(
         };
 
     let current_date = new Date();
-    let endpoint = `/game/monthly/${game_id}/${
-        options?.year ?? current_date.getFullYear()
-    }/${options?.month ?? current_date.getMonth() + 1}/${
-        options?.amount ?? 100
-    }/${options?.skip ?? 0}` as const;
+    let endpoint = `/game/monthly/${game_id}/${options?.year ?? current_date.getFullYear()}/${
+        options?.month ?? current_date.getMonth() + 1
+    }/${options?.amount ?? 100}/${options?.skip ?? 0}` as const;
 
     let response = await fetchEndpoint(endpoint, options?.init);
     if (response.error) return response;
-    let response_data = Object.values(response.data);
+    let response_data = Object.values(response.data as LeaderboardResponse<G, Timeframe.Monthly>[]);
 
     let processors = getProcessors(game_id, Timeframe.Monthly);
     response_data.forEach((statistics) =>
-        processors.forEach((processor) => processor(statistics))
+        processors.forEach((processor) => processor(statistics as { [key: string]: number }))
     );
 
     return {
         ...response,
-        data: response_data as unknown as LeaderboardResponse<
-            G,
-            Timeframe.Monthly
-        >,
+        data: response_data as unknown as LeaderboardResponse<G, Timeframe.Monthly>,
         error: null,
     };
 }

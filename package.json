@@ -11,11 +11,9 @@
     "license": "MIT",
     "author": "Cubeedge Studios",
     "dependencies": {
-        "hive-bedrock-data": "^1.1.12"
+        "hive-bedrock-data": "^1.1.16"
     },
     "scripts": {
-        "prepack": "yarn build",
-        "prepare": "npm run build",
         "build": "tsc"
     },
     "files": [

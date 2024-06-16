@@ -313,3 +313,21 @@ Fields which are only present in _All-Time statistics_, _Monthly statistics_, or
 | deaths                       | `number` | How many times the player has died in this game                                                 |
 | maps_completed               | `number` | How many maps/rounds the player has completed                                                   |
 | maps_completed_without_dying | `number` | How many maps/rounds the player has completed without dying                                     |
+
+## Parkour Worlds
+
+Only avaliable for all time player statistics.
+
+| Field                                                          | Type             | Description                                                    |
+| -------------------------------------------------------------- | ---------------- | -------------------------------------------------------------- |
+| UUID                                                           | `string`         | The UUID of the player                                         |
+| id                                                             | `string`         | The ID of the game (`parkour` in this case)                    |
+| parkours                                                       | `object`         | A collection of the different worlds that parkours can be in.  |
+| parkours.total_stars                                           | `number`         | Total amount of stars the player has collected.                |
+| parkours[world: string]                                        | `object`         | A parkour world that the player has statistics for.            |
+| parkours[world: string].parkour_stars                          | `number`         | Total amount of stars the player has collected in that world.  |
+| parkours[world: string][parkour: string]                       | `object`         | A single parkour that the player has statistics for.           |
+| parkours[world: string][parkour: string].course_stars          | `number`         | The amount of stars that have been collected on said parkour.  |
+| parkours[world: string][parkour: string].best_run_time         | `number or null` | Time in ticks of the players best run for said parkour.        |
+| parkours[world: string][parkour: string].best_checkpoint_times | `object`         | Positions of each checkpoint with the best time to reach them. |
+| parkours[world: string][parkour: string].collected_stars       | `string[]`       | Positions of each star the player has collected.               |

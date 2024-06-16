@@ -43,14 +43,11 @@ export default async function getAllTimeStatistics<G extends Game>(
             data: null,
         };
 
-    let response = await fetchEndpoint(
-        `/game/all/${game_id}/${identifier}`,
-        method_options?.init
-    );
+    let response = await fetchEndpoint(`/game/all/${game_id}/${identifier}`, method_options?.init);
     if (response.error) return response;
 
     if (game_id === "all") {
-        let games = Object.entries(response.data);
+        let games = Object.entries(response.data as [string, { [key: string]: any }][]);
         let output: Partial<AllGameStatisticsPlayer> = {};
 
         for (let [g, stats] of games) {
@@ -62,11 +59,20 @@ export default async function getAllTimeStatistics<G extends Game>(
 
                 let processors = getProcessors(g as Game, Timeframe.AllTime);
                 processors.forEach((processor) => processor(stats));
-                output[g as Game] = stats;
+                output[g as Game] = Object.keys(stats).length > 0 ? stats : null;
             }
         }
 
-        let player = games.find(([g]) => g === "main")?.[1] as PlayerMetadata;
+        let player = games.find(([g]) => g === "main")?.[1] as PlayerMetadata | undefined;
+        if (!player)
+            return {
+                status: 500,
+                error: {
+                    code: 500,
+                    message: "Player statistics not returned",
+                },
+                data: null,
+            };
 
         let processors = getPlayerProcessors();
         processors.forEach((processor) => processor(player));
@@ -80,10 +86,7 @@ export default async function getAllTimeStatistics<G extends Game>(
         };
     }
 
-    let response_data = response.data as unknown as Statistics<
-        G,
-        Timeframe.AllTime
-    >;
+    let response_data = response.data as unknown as Statistics<G, Timeframe.AllTime>;
 
     if (Array.isArray(response_data))
         return {
@@ -98,7 +101,7 @@ export default async function getAllTimeStatistics<G extends Game>(
 
     return {
         ...response,
-        data: response_data,
+        data: Object.keys(response_data).length > 0 ? response_data : null,
         error: null,
     };
 }

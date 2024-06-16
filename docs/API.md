@@ -28,14 +28,10 @@ Returns a Promise which resolves to the following object:
 import { getMonthlyStatsistics, Game } from "hive-bedrock-api";
 
 // Get player's Treasure Wars stats from June 2023
-const { data, error } = await getMonthlyStatsistics(
-    "player",
-    Game.TreasureWars,
-    {
-        year: 2023,
-        month: 6,
-    }
-);
+const { data, error } = await getMonthlyStatsistics("player", Game.TreasureWars, {
+    year: 2023,
+    month: 6,
+});
 ```
 
 ## getMonthlyLeaderboard(game[, options])
@@ -395,21 +391,22 @@ All possible player ranks.
 
 Each game, and its string ID
 
-| Key                 | Value    |
-| ------------------- | -------- |
-| GAME.HideAndSeek    | `hide`   |
-| GAME.DeathRun       | `dr`     |
-| GAME.TreasureWars   | `wars`   |
-| GAME.MurderMystery  | `murder` |
-| GAME.SurvivalGames  | `sg`     |
-| GAME.Skywars        | `sky`    |
-| GAME.CaptureTheFlag | `ctf`    |
-| GAME.BlockDrop      | `drop`   |
-| GAME.GroundWars     | `ground` |
-| GAME.JustBuild      | `build`  |
-| GAME.BlockParty     | `party`  |
-| GAME.TheBridge      | `bridge` |
-| GAME.Gravity        | `grav`   |
+| Key                 | Value     |
+| ------------------- | --------- |
+| GAME.HideAndSeek    | `hide`    |
+| GAME.DeathRun       | `dr`      |
+| GAME.TreasureWars   | `wars`    |
+| GAME.MurderMystery  | `murder`  |
+| GAME.SurvivalGames  | `sg`      |
+| GAME.Skywars        | `sky`     |
+| GAME.CaptureTheFlag | `ctf`     |
+| GAME.BlockDrop      | `drop`    |
+| GAME.GroundWars     | `ground`  |
+| GAME.JustBuild      | `build`   |
+| GAME.BlockParty     | `party`   |
+| GAME.TheBridge      | `bridge`  |
+| GAME.Gravity        | `grav`    |
+| GAME.ParkourWorlds  | `parkour` |
 
 ## Global statistics
 
