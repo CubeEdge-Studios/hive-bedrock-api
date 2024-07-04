@@ -6,7 +6,8 @@ import getMetdata from "./methods/getMetadata";
 import getMonthlyLeaderboard from "./methods/getMonthlyLeaderboard";
 import getMonthlyStatistics from "./methods/getMonthlyStatistics";
 import getPlayerInfomation from "./methods/getPlayerInfomation";
-import type { AllStatistics, AllLeaderboards } from "./types/output";
+import getSeasonLeaderboard from "./methods/getSeasonLeaderboard";
+import getSeasonStatistics from "./methods/getSeasonStatistics";
 
 export {
     getAllTimeLeaderboard,
@@ -17,8 +18,10 @@ export {
     getMaps,
     getMetdata,
     getPlayerInfomation,
+    getSeasonLeaderboard,
+    getSeasonStatistics,
 };
-
-export type { AllStatistics, AllLeaderboards };
-
 export { Game } from "hive-bedrock-data";
+
+export type * from "./types/output";
+export * from "./processors/index";

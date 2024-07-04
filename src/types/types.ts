@@ -1,3 +1,5 @@
+import { Game, Statistics, Timeframe } from "hive-bedrock-data";
+
 interface APIResponse_Base {
     duration?: number;
     status: number;
@@ -20,3 +22,8 @@ export type APIResponse<T> = APIResponse_Success<T> | APIResponse_Failure;
 export interface Options {
     init: RequestInit;
 }
+
+export type OmittedSpecialStatistics<G extends Game, T extends Timeframe> = Omit<
+    Statistics<G, T>,
+    "first_played"
+>;

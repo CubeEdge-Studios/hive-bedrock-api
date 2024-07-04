@@ -1,9 +1,9 @@
 import { Game, Statistics, Timeframe } from "hive-bedrock-data";
 import { APIResponse, Options } from "../types/types";
-import { AllGameStatistics, StatisticsResponse } from "../types/output";
 import isGame from "../helpers/isGame";
 import fetchEndpoint from "../helpers/fetchEndpoint";
-import getProcessors from "../processors";
+import { MonthlyProcessedStatistics } from "../types/output";
+import { MonthlyProcessors } from "../processors";
 
 interface MonthlyOptions extends Options {
     month: number;
@@ -13,13 +13,13 @@ interface MonthlyOptions extends Options {
 export default async function getMonthlyStatistics(
     identifier: string,
     options?: MonthlyOptions
-): Promise<APIResponse<AllGameStatistics<Timeframe.Monthly>>>;
+): Promise<APIResponse<MonthlyProcessedStatistics>>;
 
 export default async function getMonthlyStatistics<G extends Game>(
     identifier: string,
     game_id: G,
     options?: MonthlyOptions
-): Promise<APIResponse<StatisticsResponse<G, Timeframe.Monthly>>>;
+): Promise<APIResponse<MonthlyProcessedStatistics[G]>>;
 
 export default async function getMonthlyStatistics<G extends Game>(
     identifier: string,
@@ -53,33 +53,27 @@ export default async function getMonthlyStatistics<G extends Game>(
     if (response.error) return response;
 
     if (game_id === "all") {
-        let games = Object.entries(response.data);
-        let output: Partial<AllGameStatistics<Timeframe.Monthly>> = {};
+        let response_data = Object.entries(response.data);
+        let processed_data: Partial<MonthlyProcessedStatistics> = Object.fromEntries(
+            response_data.map(([id, statistics]) => {
+                if (!statistics || !isGame(id as Game) || Array.isArray(statistics))
+                    return [id, null];
 
-        for (let [g, stats] of games) {
-            if (isGame(g as Game)) {
-                if (Array.isArray(stats) || typeof stats["played"] === "undefined") {
-                    output[g as Game] = null;
-                    continue;
-                }
+                let e = MonthlyProcessors[Game.ParkourWorlds];
 
-                const processors = getProcessors(g as Game, Timeframe.Monthly);
-                processors.forEach((processor) => processor(stats));
-                output[g as Game] = Object.keys(stats).length > 0 ? stats : null;
-            }
-        }
+                return [
+                    id,
+                    typeof MonthlyProcessors[id as Game] === "function"
+                        ? MonthlyProcessors[id as Game](statistics)
+                        : null,
+                ];
+            })
+        );
 
-        return {
-            ...response,
-            data: output,
-        };
+        return { ...response, data: processed_data };
     }
 
-    let response_data = response.data as unknown as Omit<
-        Statistics<G, Timeframe.Monthly>,
-        "parkour"
-    >;
-
+    let response_data = response.data as Statistics<G, Timeframe.Monthly>;
     if (Array.isArray(response_data))
         return {
             ...response,
@@ -88,12 +82,11 @@ export default async function getMonthlyStatistics<G extends Game>(
             error: { code: 404, message: "Not Found" },
         };
 
-    let processors = getProcessors(game_id, Timeframe.Monthly);
-    processors.forEach((processor) => processor(response_data));
+    let processed_data = MonthlyProcessors[game_id](response_data as any);
 
     return {
         ...response,
-        data: Object.keys(response_data).length > 0 ? response_data : null,
+        data: processed_data,
         error: null,
     };
 }

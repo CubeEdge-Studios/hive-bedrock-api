@@ -1,24 +1,23 @@
-import { Game, Leaderboards, Statistics, Timeframe } from "hive-bedrock-data";
+import { Game, Leaderboards, Timeframe } from "hive-bedrock-data";
 import { APIResponse, Options } from "../types/types";
 import fetchEndpoint from "../helpers/fetchEndpoint";
 import isGame from "../helpers/isGame";
 import { MonthlyProcessedLeaderboard } from "../types/output";
 import { LeaderboardProcessors } from "../processors";
 
-interface MonthlyOptions extends Options {
-    month: number;
-    year: number;
+interface SeasonOptions extends Options {
+    season: number;
     amount: number;
     skip: number;
 }
-export default function getMonthlyLeaderboard<G extends Game>(
+export default function getSeasonLeaderboard<G extends Game>(
     game_id: G,
-    options?: Partial<MonthlyOptions>
+    options?: Partial<SeasonOptions>
 ): Promise<APIResponse<MonthlyProcessedLeaderboard<G>>>;
 
-export default async function getMonthlyLeaderboard<G extends Game>(
+export default async function getSeasonLeaderboard<G extends Game>(
     game_id: G,
-    options?: Partial<MonthlyOptions>
+    options?: Partial<SeasonOptions>
 ) {
     if (!isGame(game_id))
         return {
@@ -30,10 +29,9 @@ export default async function getMonthlyLeaderboard<G extends Game>(
             data: null,
         };
 
-    let current_date = new Date();
-    let endpoint = `/game/monthly/${game_id}/${options?.year ?? current_date.getFullYear()}/${
-        options?.month ?? current_date.getMonth() + 1
-    }/${options?.amount ?? 100}/${options?.skip ?? 0}` as const;
+    let endpoint = `/game/season/${game_id}/${options?.season ?? 1}/${options?.amount ?? 100}/${
+        options?.skip ?? 0
+    }` as const;
 
     let response = await fetchEndpoint(endpoint, options?.init);
     if (response.error) return response;

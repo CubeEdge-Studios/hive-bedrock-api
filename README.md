@@ -34,6 +34,15 @@ const { data, error } = await getAllTimeStats("player");
 const { data, error } = await getAllTimeStats("player", Game.HideAndSeek);
 ```
 
+### Fetch Season Player Statistics
+
+```ts
+import { getSeasonStatistics, Game } from "hive-bedrock-api";
+
+// Returns a game statistics
+const { data, error } = await getSeasonStatistics("player", Game.BedWars);
+```
+
 ### Fetch Monthly Player Statistics
 
 ```ts
@@ -59,6 +68,15 @@ import { getAllTimeLeaderboard, Game } from "hive-bedrock-api";
 
 // Returns a single game
 const { data, error } = await getAllTimeLeaderboard(Game.TreasureWars);
+```
+
+### Fetch Season Leaderboard
+
+```ts
+import { getSeasonLeaderboard, Game } from "hive-bedrock-api";
+
+// Returns a single game
+const { data, error } = await getSeasonLeaderboard(Game.BedWars);
 ```
 
 ### Fetch Monthly Leaderboard

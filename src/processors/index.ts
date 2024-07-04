@@ -1,95 +1,80 @@
-import { Game, Timeframe, calculateLevelFromXP } from "hive-bedrock-data";
-import toPoint from "../helpers/toPoint";
+import { Game, Timeframe } from "hive-bedrock-data";
+import { PlayerProcessorType, Processor } from "../types/output";
+import { processAllTime_BED, processMonthly_BED } from "./bed";
+import { processAllTime_DROP, processMonthly_DROP } from "./drop";
+import { processAllTime_PARTY, processMonthly_PARTY } from "./party";
+import { processAllTime_CTF, processMonthly_CTF } from "./ctf";
+import { processAllTime_DR, processMonthly_DR } from "./dr";
+import { processAllTime_GRAV, processMonthly_GRAV } from "./grav";
+import { processAllTime_GROUND, processMonthly_GROUND } from "./ground";
+import { processAllTime_HIDE, processMonthly_HIDE } from "./hide";
+import { processAllTime_BUILD, processMonthly_BUILD } from "./build";
+import { processAllTime_MURDER, processMonthly_MURDER } from "./murder";
+import { processAllTime_PARKOUR } from "./parkour";
+import { processAllTime_SKY, processMonthly_SKY } from "./sky";
+import { processAllTime_SG, processMonthly_SG } from "./sg";
+import { processAllTime_BRIDGE, processMonthly_BRIDGE } from "./bridge";
+import { processAllTime_WARS, processMonthly_WARS } from "./wars";
+import { process_PLAYER } from "./player";
 
-export default function getProcessors(
-    game: Game,
-    timeframe: Timeframe
-): ((stats: { [key: string]: any }) => void)[] {
-    return [
-        // Append game id
-        (s) => (s.id = game),
+export const AllTimeProcessors: {
+    [G in Game]: Processor<G, Timeframe.AllTime>;
+} = {
+    [Game.BedWars]: processAllTime_BED,
+    [Game.BlockDrop]: processAllTime_DROP,
+    [Game.BlockParty]: processAllTime_PARTY,
+    [Game.CaptureTheFlag]: processAllTime_CTF,
+    [Game.DeathRun]: processAllTime_DR,
+    [Game.Gravity]: processAllTime_GRAV,
+    [Game.GroundWars]: processAllTime_GROUND,
+    [Game.HideAndSeek]: processAllTime_HIDE,
+    [Game.JustBuild]: processAllTime_BUILD,
+    [Game.MurderMystery]: processAllTime_MURDER,
+    [Game.ParkourWorlds]: processAllTime_PARKOUR,
+    [Game.Skywars]: processAllTime_SKY,
+    [Game.SurvivalGames]: processAllTime_SG,
+    [Game.TheBridge]: processAllTime_BRIDGE,
+    [Game.TreasureWars]: processAllTime_WARS,
+};
 
-        // Fix inconsistant bridge keys
-        (s) =>
-            game === Game.TheBridge && timeframe === Timeframe.Monthly
-                ? Object.keys(s)
-                      .filter((key) => key.startsWith("m_solo_"))
-                      .forEach((key) => {
-                          s[key.replace(/m_solo_/, "")] = s[key];
-                          delete s[key];
-                      })
-                : null,
+export const MonthlyProcessors: {
+    [G in Game]: G extends Game.ParkourWorlds ? never : Processor<G, Timeframe.Monthly>;
+} = {
+    [Game.BedWars]: processMonthly_BED,
+    [Game.BlockDrop]: processMonthly_DROP,
+    [Game.BlockParty]: processMonthly_PARTY,
+    [Game.CaptureTheFlag]: processMonthly_CTF,
+    [Game.DeathRun]: processMonthly_DR,
+    [Game.Gravity]: processMonthly_GRAV,
+    [Game.GroundWars]: processMonthly_GROUND,
+    [Game.HideAndSeek]: processMonthly_HIDE,
+    [Game.JustBuild]: processMonthly_BUILD,
+    [Game.MurderMystery]: processMonthly_MURDER,
+    [Game.Skywars]: processMonthly_SKY,
+    [Game.SurvivalGames]: processMonthly_SG,
+    [Game.TheBridge]: processMonthly_BRIDGE,
+    [Game.TreasureWars]: processMonthly_WARS,
+    [Game.ParkourWorlds]: null as never,
+};
 
-        // Calculate current level
-        (s) =>
-            "xp" in s && timeframe === Timeframe.AllTime
-                ? (s.level = calculateLevelFromXP(s.xp, game) ?? 0)
-                : null,
+export const LeaderboardProcessors: {
+    [G in Game]: G extends Game.ParkourWorlds ? never : Processor<G, Timeframe.Monthly>;
+} = {
+    [Game.BedWars]: processMonthly_BED,
+    [Game.BlockDrop]: processMonthly_DROP,
+    [Game.BlockParty]: processMonthly_PARTY,
+    [Game.CaptureTheFlag]: processMonthly_CTF,
+    [Game.DeathRun]: processMonthly_DR,
+    [Game.Gravity]: processMonthly_GRAV,
+    [Game.GroundWars]: processMonthly_GROUND,
+    [Game.HideAndSeek]: processMonthly_HIDE,
+    [Game.JustBuild]: processMonthly_BUILD,
+    [Game.MurderMystery]: processMonthly_MURDER,
+    [Game.Skywars]: processMonthly_SKY,
+    [Game.SurvivalGames]: processMonthly_SG,
+    [Game.TheBridge]: processMonthly_BRIDGE,
+    [Game.TreasureWars]: processMonthly_WARS,
+    [Game.ParkourWorlds]: null as never,
+};
 
-        // Calculate kill/death ratio
-        (s) =>
-            "kills" in s && "deaths" in s
-                ? (s.kdr = toPoint((s.kills ?? 0) / (s.deaths ?? 0), 2))
-                : null,
-
-        // Calculate kill/death ratio - hide
-        (s) =>
-            "hider_kills" in s && "deaths" in s
-                ? (s.kdr = toPoint((s.hider_kills ?? 0) / (s.deaths ?? 0), 2))
-                : null,
-
-        // Calculate kill/death ratio - murder
-        (s) =>
-            "murders" in s && "deaths" in s
-                ? (s.kdr = toPoint((s.murders ?? 0) / (s.deaths ?? 0), 2))
-                : null,
-
-        // Total ratings for build
-        (s) =>
-            game === Game.JustBuild
-                ? Object.keys(s)
-                      .filter((key) => key.startsWith("rating_"))
-                      .forEach((key) => (s.total_ratings = (s.total_ratings ?? 0) + s[key]))
-                : null,
-
-        // Append losses
-        (s) => ("played" in s && "victories" in s ? (s.losses = s.played - s.victories) : null),
-
-        // Calculate win percentage
-        (s) =>
-            "played" in s && "victories" in s
-                ? (s.win_percentage = s.played > 0 ? s.victories / s.played : 0)
-                : null,
-
-        // remove empty parkour world stats
-        (s) => {
-            if (game === Game.ParkourWorlds && typeof s.parkours !== "object") {
-                for (let key of Object.keys(s)) {
-                    delete s[key];
-                }
-            }
-            return null;
-        },
-
-        // Remove NaN
-        (s) =>
-            Object.entries(s).forEach(([key, value]) =>
-                isNaN(value) && typeof value === "number" ? delete s[key] : null
-            ),
-    ];
-}
-
-export function getPlayerProcessors(): ((player: { [key: string]: any }) => void)[] {
-    return [
-        (p) => (p.daily_login_streak ??= 0),
-        (p) => (p.longest_daily_login_streak ??= 0),
-        (p) => (p.quest_count ??= 0),
-        (p) => (p.friend_count ??= 0),
-        (p) => (p.hub_title_unlocked ??= []),
-        (p) => (p.avatar_unlocked ??= []),
-        (p) => (p.costume_unlocked ??= []),
-        (p) => (p.equipped_hub_title ??= null),
-        (p) => (p.equipped_avatar ??= null),
-        (p) => (p.equipped_costume ??= null),
-    ];
-}
+export const PlayerProcessor: PlayerProcessorType = process_PLAYER;
