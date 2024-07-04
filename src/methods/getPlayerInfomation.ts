@@ -1,30 +1,22 @@
-import { PlayerMetadata } from "hive-bedrock-data";
 import { APIResponse, Options } from "../types/types";
 import fetchEndpoint from "../helpers/fetchEndpoint";
-import { getPlayerProcessors } from "../processors";
+import { PlayerProcessor } from "../processors";
+import { Processed_Player_Statistics } from "../processors/player";
 
 export default function getPlayerInfomation(
     identifier: string,
     options?: Options
-): Promise<APIResponse<PlayerMetadata>>;
+): Promise<APIResponse<Processed_Player_Statistics>>;
 
-export default async function getPlayerInfomation(
-    identifier: string,
-    options?: Options
-): Promise<APIResponse<PlayerMetadata>> {
-    let response = await fetchEndpoint(
-        `/game/all/main/${identifier}`,
-        options?.init
-    );
+export default async function getPlayerInfomation(identifier: string, options?: Options) {
+    let response = await fetchEndpoint(`/game/all/main/${identifier}`, options?.init);
     if (response.error) return response;
 
-    let player = response.data.main;
-
-    let processors = getPlayerProcessors();
-    processors.forEach((processor) => processor(player));
+    let response_data = response.data.main;
+    let processed_data = PlayerProcessor(response_data);
 
     return {
         ...response,
-        data: player,
+        data: processed_data,
     };
 }

@@ -1,12 +1,13 @@
 import { Game, PlayerMetadata, Statistics, Timeframe } from "hive-bedrock-data";
 import { APIResponse, Options } from "../types/types";
-import { AllGameStatistics, StatisticsResponse } from "../types/output";
 import isGame from "../helpers/isGame";
 import fetchEndpoint from "../helpers/fetchEndpoint";
-import getProcessors, { getPlayerProcessors } from "../processors";
+import { AllTimeProcessedStatistics } from "../types/output";
+import { AllTimeProcessors, PlayerProcessor } from "../processors";
+import { Processed_Player_Statistics } from "../processors/player";
 
-type AllGameStatisticsPlayer = AllGameStatistics<Timeframe.AllTime> & {
-    player: PlayerMetadata;
+type AllGameStatisticsPlayer = AllTimeProcessedStatistics & {
+    player: Processed_Player_Statistics;
 };
 
 export default async function getAllTimeStatistics(
@@ -18,7 +19,7 @@ export default async function getAllTimeStatistics<G extends Game>(
     identifier: string,
     game_id: G,
     options?: Options
-): Promise<APIResponse<StatisticsResponse<G, Timeframe.AllTime>>>;
+): Promise<APIResponse<AllTimeProcessedStatistics[G]>>;
 
 export default async function getAllTimeStatistics<G extends Game>(
     identifier: string,
@@ -47,47 +48,27 @@ export default async function getAllTimeStatistics<G extends Game>(
     if (response.error) return response;
 
     if (game_id === "all") {
-        let games = Object.entries(response.data);
-        let output: Partial<AllGameStatisticsPlayer> = {};
+        let response_data = Object.entries(response.data);
+        let processed_data: Partial<AllGameStatisticsPlayer> = Object.fromEntries(
+            response_data.map(([id, statistics]) => {
+                if (!statistics || !isGame(id as Game) || Array.isArray(statistics))
+                    return [id, null];
 
-        for (let [g, stats] of games) {
-            if (isGame(g as Game)) {
-                if (Array.isArray(stats)) {
-                    output[g as Game] = null;
-                    continue;
-                }
+                if (id === "main") return ["player", PlayerProcessor(statistics)];
 
-                let processors = getProcessors(g as Game, Timeframe.AllTime);
-                processors.forEach((processor) => processor(stats));
-                output[g as Game] = Object.keys(stats).length > 0 ? stats : null;
-            }
-        }
+                return [
+                    id,
+                    typeof AllTimeProcessors[id as Game] === "function"
+                        ? AllTimeProcessors[id as Game](statistics)
+                        : null,
+                ];
+            })
+        );
 
-        let player = games.find(([g]) => g === "main")?.[1] as PlayerMetadata | undefined;
-        if (!player)
-            return {
-                status: 500,
-                error: {
-                    code: 500,
-                    message: "Player statistics not returned",
-                },
-                data: null,
-            };
-
-        let processors = getPlayerProcessors();
-        processors.forEach((processor) => processor(player));
-
-        return {
-            ...response,
-            data: {
-                ...output,
-                player,
-            },
-        };
+        return { ...response, data: processed_data };
     }
 
-    let response_data = response.data as unknown as Statistics<G, Timeframe.AllTime>;
-
+    let response_data = response.data as Statistics<G, Timeframe.AllTime>;
     if (Array.isArray(response_data))
         return {
             ...response,
@@ -96,12 +77,11 @@ export default async function getAllTimeStatistics<G extends Game>(
             error: { code: 404, message: "Not Found" },
         };
 
-    let processors = getProcessors(game_id, Timeframe.AllTime);
-    processors.forEach((processor) => processor(response_data));
+    let processed_data = AllTimeProcessors[game_id](response_data);
 
     return {
         ...response,
-        data: Object.keys(response_data).length > 0 ? response_data : null,
+        data: processed_data,
         error: null,
     };
 }

@@ -97,6 +97,36 @@ import { getAllTimeStatistics, Game } from "hive-bedrock-api";
 const { data, error } = await getAllTimeStatistics("player", Game.HideAndSeek);
 ```
 
+## getSeasonStatistics(identifier, game, options)
+
+Get a player's season statistics.
+
+| Parameter      | Type          | Required     | Description                                             |
+| -------------- | ------------- | ------------ | ------------------------------------------------------- |
+| identifier     | `string`      | **Required** | The player's gamertag or UUID of which to get stats for |
+| game           | `Game`        | **Required** | The game identifier - see [GAME](API.md#games).         |
+| options        | `object`      | _optional_   | Options is an object with the fields below:             |
+| options.init   | `RequestInit` | _optional_   | Used in the api request to add custom headers and more  |
+| options.season | `number`      | _optional_   | The season to request the leaderboard for               |
+
+Returns a Promise which resolves to the following object:
+
+| Field    | Type                                        | Description                      |
+| -------- | ------------------------------------------- | -------------------------------- |
+| data     | [Response](GAMES.md) `\| null`              | The response data                |
+| error    | `{ code: number, message: string } \| null` | Error data                       |
+| status   | `number`                                    | The http status returned         |
+| duration | `number \| undefined`                       | The duration of the http request |
+
+### Usage
+
+```ts
+import { getSeasonStatistics, Game } from "hive-bedrock-api";
+
+// Get player's season stats
+const { data, error } = await getSeasonStatistics("player", Game.BedWars, { season: 1 });
+```
+
 ## getAllTimeLeaderboard(game[, options])
 
 Get the all-time leaderboard for a game or games.
@@ -123,6 +153,35 @@ import { getAllTimeLeaderboard, Game } from "hive-bedrock-api";
 
 // Get the all-time leaderboard for Survival Games
 const { data, error } = await getAllTimeLeaderboard(Game.SurvivalGames);
+```
+
+## getSeasonLeaderboard(game, options)
+
+Get the season leaderboard for a game.
+
+| Parameter      | Type          | Required     | Description                                            |
+| -------------- | ------------- | ------------ | ------------------------------------------------------ |
+| game           | `Game`        | **Required** | The game identifier - see [GAME](API.md#games).        |
+| options        | `object`      | _optional_   | Options is an object with the fields below:            |
+| options.init   | `RequestInit` | _optional_   | Used in the api request to add custom headers and more |
+| options.season | `number`      | _optional_   | The season to request the leaderboard for              |
+
+Returns a Promise which resolves to the following object:
+
+| Field    | Type                                        | Description                      |
+| -------- | ------------------------------------------- | -------------------------------- |
+| data     | [Response](GAMES.md) `\| null`              | The response data                |
+| error    | `{ code: number, message: string } \| null` | Error data                       |
+| status   | `number`                                    | The http status returned         |
+| duration | `number \| undefined`                       | The duration of the http request |
+
+### Usage
+
+```ts
+import { getSeasonLeaderboard, Game } from "hive-bedrock-api";
+
+// Get the season leaderboard for BedWars
+const { data, error } = await getSeasonLeaderboard(Game.BedWars, { season: 1 });
 ```
 
 ## getGlobalStatistics([options])

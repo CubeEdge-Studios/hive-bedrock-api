@@ -1,19 +1,16 @@
-import { Game, Leaderboards, Timeframe } from "hive-bedrock-data";
+import { Game, Leaderboards, Statistics, Timeframe } from "hive-bedrock-data";
 import { APIResponse, Options } from "../types/types";
 import fetchEndpoint from "../helpers/fetchEndpoint";
 import isGame from "../helpers/isGame";
-import { LeaderboardResponse } from "../types/output";
-import getProcessors from "../processors";
+import { AllTimeProcessedLeaderboard } from "../types/output";
+import { LeaderboardProcessors } from "../processors";
 
 export default function getAllTimeLeaderboard<G extends Game>(
     game_id: G,
     options?: Options
-): Promise<APIResponse<LeaderboardResponse<G, Timeframe.AllTime>>>;
+): Promise<APIResponse<AllTimeProcessedLeaderboard<G>>>;
 
-export default async function getAllTimeLeaderboard<G extends Game>(
-    game_id: G,
-    options?: Options
-): Promise<APIResponse<LeaderboardResponse<G, Timeframe.AllTime>>> {
+export default async function getAllTimeLeaderboard<G extends Game>(game_id: G, options?: Options) {
     if (!isGame(game_id))
         return {
             status: 404,
@@ -26,14 +23,15 @@ export default async function getAllTimeLeaderboard<G extends Game>(
 
     let response = await fetchEndpoint(`/game/all/${game_id}`, options?.init);
     if (response.error) return response;
-    let response_data = response.data as unknown as Leaderboards<G, Timeframe.AllTime>[];
 
-    let processors = getProcessors(game_id, Timeframe.AllTime);
-    response_data.forEach((statistics) => processors.forEach((processor) => processor(statistics)));
+    let response_data = response.data as Leaderboards<G, Timeframe.AllTime>[];
+    let processed_data = Array.from(response_data).map((statistics) =>
+        LeaderboardProcessors[game_id](statistics as any)
+    );
 
     return {
         ...response,
-        data: response_data as unknown as LeaderboardResponse<G, Timeframe.AllTime>,
+        data: processed_data,
         error: null,
     };
 }
