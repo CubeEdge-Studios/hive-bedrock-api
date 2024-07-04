@@ -6,48 +6,54 @@ export interface Processed_ParkourWorlds_AllTimeStatistics
 }
 
 type Parkours = Statistics<Game.ParkourWorlds, Timeframe.AllTime>["parkours"];
-type ParkourWorld = Statistics<Game.ParkourWorlds, Timeframe.AllTime>["parkours"][string];
+type ParkourWorld = Parkours[string];
 type ParkourCourse = ParkourWorld[string];
+
+function processParkourWorld(world: ParkourWorld): ParkourWorld {
+    const processedCourses: [string, ParkourCourse][] = [];
+
+    for (const [name, course] of Object.entries(world)) {
+        if (typeof course !== "object") continue;
+
+        const processedCourse: ParkourCourse = {
+            best_run_time: course.best_run_time ?? 0,
+            best_checkpoint_times: course.best_checkpoint_times ?? [],
+            collected_stars: course.collected_stars ?? [],
+            course_stars: course.course_stars ?? [],
+        };
+
+        processedCourses.push([name, processedCourse]);
+    }
+
+    return {
+        parkour_stars: world.parkour_stars,
+        ...Object.fromEntries(processedCourses),
+    } as ParkourWorld;
+}
 
 export function processAllTime_PARKOUR(
     statistics: Partial<Statistics<Game.ParkourWorlds, Timeframe.AllTime>>
 ): Processed_ParkourWorlds_AllTimeStatistics | null {
     if (!statistics || Array.isArray(statistics)) return null;
-    return {
+
+    const worlds = Object.entries(statistics.parkours ?? {});
+    const processedWorlds: [string, ParkourWorld][] = [];
+
+    for (const [worldName, world] of worlds) {
+        if (typeof world !== "object") continue;
+        processedWorlds.push([worldName, processParkourWorld(world)]);
+    }
+
+    const parkours = {
+        total_stars: statistics.parkours?.total_stars ?? 0,
+        ...Object.fromEntries(processedWorlds),
+    } as Parkours;
+
+    const parkourStatistics: Processed_ParkourWorlds_AllTimeStatistics = {
         UUID: statistics.UUID!,
         id: Game.ParkourWorlds,
-
-        parkours: {
-            total_stars: statistics.parkours?.total_stars ?? 0,
-
-            ...(Object.fromEntries(
-                (
-                    Object.entries(statistics.parkours as {}).filter(
-                        ([_, value]) => typeof value === "object"
-                    ) as [string, ParkourWorld][]
-                ).map(([world_name, world_data]) => [
-                    world_name,
-                    {
-                        parkour_stars: world_data.parkour_stars,
-
-                        ...Object.fromEntries(
-                            (
-                                Object.entries(world_data).filter(
-                                    ([_, value]) => typeof value === "object"
-                                ) as [string, ParkourCourse][]
-                            ).map(([course_name, course_data]) => [
-                                course_name,
-                                {
-                                    best_run_time: course_data.best_run_time ?? 0,
-                                    best_checkpoint_times: course_data.best_checkpoint_times ?? [],
-                                    collected_stars: course_data.collected_stars ?? [],
-                                    course_stars: course_data.course_stars ?? 0,
-                                },
-                            ])
-                        ),
-                    },
-                ])
-            ) as { [key: string]: ParkourWorld }),
-        } as Parkours,
+        parkours,
     };
+
+    return parkourStatistics;
 }
