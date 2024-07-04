@@ -44,26 +44,35 @@ export default async function getAllTimeStatistics<G extends Game>(
             data: null,
         };
 
-    let response = await fetchEndpoint(`/game/all/${game_id}/${identifier}`, method_options?.init);
+    let response = await fetchEndpoint(
+        `/game/all/${game_id}/${identifier}`,
+        method_options?.init
+    );
     if (response.error) return response;
 
     if (game_id === "all") {
         let response_data = Object.entries(response.data);
-        let processed_data: Partial<AllGameStatisticsPlayer> = Object.fromEntries(
-            response_data.map(([id, statistics]) => {
-                if (!statistics || !isGame(id as Game) || Array.isArray(statistics))
-                    return [id, null];
+        let processed_data: Partial<AllGameStatisticsPlayer> =
+            Object.fromEntries(
+                response_data.map(([id, statistics]) => {
+                    if (id === "main")
+                        return ["player", PlayerProcessor(statistics)];
 
-                if (id === "main") return ["player", PlayerProcessor(statistics)];
+                    if (
+                        !statistics ||
+                        !isGame(id as Game) ||
+                        Array.isArray(statistics)
+                    )
+                        return [id, null];
 
-                return [
-                    id,
-                    typeof AllTimeProcessors[id as Game] === "function"
-                        ? AllTimeProcessors[id as Game](statistics)
-                        : null,
-                ];
-            })
-        );
+                    return [
+                        id,
+                        typeof AllTimeProcessors[id as Game] === "function"
+                            ? AllTimeProcessors[id as Game](statistics)
+                            : null,
+                    ];
+                })
+            );
 
         return { ...response, data: processed_data };
     }
