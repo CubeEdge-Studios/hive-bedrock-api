@@ -87,12 +87,14 @@ export interface AllTimeProcessedStatistics {
     [Game.ParkourWorlds]: Processed_ParkourWorlds_AllTimeStatistics;
 }
 export type AllTimeProcessedLeaderboard<G extends Game> =
-    (AllTimeProcessedStatistics[G] & {
-        index: number;
-        human_index: number;
-        username: string;
-        UUID: string;
-    })[];
+    G extends Game.ParkourWorlds
+        ? never
+        : (AllTimeProcessedStatistics[G] & {
+              index: number;
+              human_index: number;
+              username: string;
+              UUID: string;
+          })[];
 
 export interface MonthlyProcessedStatistics {
     [Game.BedWars]: Processed_BedWars_MonthlyStatistics;
@@ -112,4 +114,6 @@ export interface MonthlyProcessedStatistics {
     [Game.ParkourWorlds]: never;
 }
 export type MonthlyProcessedLeaderboard<G extends Game> =
-    (MonthlyProcessedStatistics[G] & { UUID: string })[];
+    G extends Game.ParkourWorlds
+        ? never
+        : (MonthlyProcessedStatistics[G] & { UUID: string })[];
