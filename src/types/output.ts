@@ -61,7 +61,9 @@ import { Processed_Player_Statistics } from "../processors/player";
 export type Processor<G extends Game, T extends Timeframe> = (
     statistics: Statistics<G, T>
 ) =>
-    | (T extends Timeframe.AllTime ? AllTimeProcessedStatistics[G] : MonthlyProcessedStatistics[G])
+    | (T extends Timeframe.AllTime
+          ? AllTimeProcessedStatistics[G]
+          : MonthlyProcessedStatistics[G])
     | null;
 export type PlayerProcessorType = (
     statistics: PlayerMetadata
@@ -84,7 +86,13 @@ export interface AllTimeProcessedStatistics {
     [Game.TreasureWars]: Processed_TreasureWars_AllTimeStatistics;
     [Game.ParkourWorlds]: Processed_ParkourWorlds_AllTimeStatistics;
 }
-export type AllTimeProcessedLeaderboard<G extends Game> = AllTimeProcessedStatistics[G][];
+export type AllTimeProcessedLeaderboard<G extends Game> =
+    (AllTimeProcessedStatistics[G] & {
+        index: number;
+        human_index: number;
+        username: string;
+        UUID: string;
+    })[];
 
 export interface MonthlyProcessedStatistics {
     [Game.BedWars]: Processed_BedWars_MonthlyStatistics;
@@ -103,4 +111,5 @@ export interface MonthlyProcessedStatistics {
     [Game.TreasureWars]: Processed_TreasureWars_MonthlyStatistics;
     [Game.ParkourWorlds]: never;
 }
-export type MonthlyProcessedLeaderboard<G extends Game> = MonthlyProcessedStatistics[G][];
+export type MonthlyProcessedLeaderboard<G extends Game> =
+    (MonthlyProcessedStatistics[G] & { UUID: string })[];
