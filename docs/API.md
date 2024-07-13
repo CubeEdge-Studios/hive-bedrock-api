@@ -15,12 +15,13 @@ Get a player's monthly statistics.
 
 Returns a Promise which resolves to the following object:
 
-| Field    | Type                                        | Description                      |
-| -------- | ------------------------------------------- | -------------------------------- |
-| data     | [Response](GAMES.md) `\| null`              | The response data                |
-| error    | `{ code: number, message: string } \| null` | Error data                       |
-| status   | `number`                                    | The http status returned         |
-| duration | `number \| undefined`                       | The duration of the http request |
+| Field    | Type                                        | Description                       |
+| -------- | ------------------------------------------- | --------------------------------- |
+| data     | [Response](GAMES.md) `\| null`              | The response data                 |
+| error    | `{ code: number, message: string } \| null` | Error data                        |
+| status   | `number`                                    | The http status returned          |
+| duration | `number \| undefined`                       | The duration of the http request  |
+| headers  | `Headers \| undefined`                      | Response headers from the request |
 
 ### Usage
 
@@ -28,10 +29,14 @@ Returns a Promise which resolves to the following object:
 import { getMonthlyStatsistics, Game } from "hive-bedrock-api";
 
 // Get player's Treasure Wars stats from June 2023
-const { data, error } = await getMonthlyStatsistics("player", Game.TreasureWars, {
-    year: 2023,
-    month: 6,
-});
+const { data, error } = await getMonthlyStatsistics(
+    "player",
+    Game.TreasureWars,
+    {
+        year: 2023,
+        month: 6,
+    }
+);
 ```
 
 ## getMonthlyLeaderboard(game[, options])
@@ -50,12 +55,13 @@ Get the monthly leaderboard for a specific month.
 
 Returns a Promise which resolves to the following object:
 
-| Field    | Type                                        | Description                      |
-| -------- | ------------------------------------------- | -------------------------------- |
-| data     | [Response](GAMES.md) `\| null`              | The response data                |
-| error    | `{ code: number, message: string } \| null` | Error data                       |
-| status   | `number`                                    | The http status returned         |
-| duration | `number \| undefined`                       | The duration of the http request |
+| Field    | Type                                        | Description                       |
+| -------- | ------------------------------------------- | --------------------------------- |
+| data     | [Response](GAMES.md) `\| null`              | The response data                 |
+| error    | `{ code: number, message: string } \| null` | Error data                        |
+| status   | `number`                                    | The http status returned          |
+| duration | `number \| undefined`                       | The duration of the http request  |
+| headers  | `Headers \| undefined`                      | Response headers from the request |
 
 ### Usage
 
@@ -87,6 +93,7 @@ Returns a Promise which resolves to the following object:
 | error    | `{ code: number, message: string } \| null` | Error data                                                            |
 | status   | `number`                                    | The http status returned                                              |
 | duration | `number \| undefined`                       | The duration of the http request                                      |
+| headers  | `Headers \| undefined`                      | Response headers from the request                                     |
 
 ### Usage
 
@@ -111,12 +118,13 @@ Get a player's season statistics.
 
 Returns a Promise which resolves to the following object:
 
-| Field    | Type                                        | Description                      |
-| -------- | ------------------------------------------- | -------------------------------- |
-| data     | [Response](GAMES.md) `\| null`              | The response data                |
-| error    | `{ code: number, message: string } \| null` | Error data                       |
-| status   | `number`                                    | The http status returned         |
-| duration | `number \| undefined`                       | The duration of the http request |
+| Field    | Type                                        | Description                       |
+| -------- | ------------------------------------------- | --------------------------------- |
+| data     | [Response](GAMES.md) `\| null`              | The response data                 |
+| error    | `{ code: number, message: string } \| null` | Error data                        |
+| status   | `number`                                    | The http status returned          |
+| duration | `number \| undefined`                       | The duration of the http request  |
+| headers  | `Headers \| undefined`                      | Response headers from the request |
 
 ### Usage
 
@@ -124,7 +132,9 @@ Returns a Promise which resolves to the following object:
 import { getSeasonStatistics, Game } from "hive-bedrock-api";
 
 // Get player's season stats
-const { data, error } = await getSeasonStatistics("player", Game.BedWars, { season: 1 });
+const { data, error } = await getSeasonStatistics("player", Game.BedWars, {
+    season: 1,
+});
 ```
 
 ## getAllTimeLeaderboard(game[, options])
@@ -139,12 +149,13 @@ Get the all-time leaderboard for a game or games.
 
 Returns a Promise which resolves to the following object:
 
-| Field    | Type                                        | Description                      |
-| -------- | ------------------------------------------- | -------------------------------- |
-| data     | [Response](GAMES.md) `\| null`              | The response data                |
-| error    | `{ code: number, message: string } \| null` | Error data                       |
-| status   | `number`                                    | The http status returned         |
-| duration | `number \| undefined`                       | The duration of the http request |
+| Field    | Type                                        | Description                       |
+| -------- | ------------------------------------------- | --------------------------------- |
+| data     | [Response](GAMES.md) `\| null`              | The response data                 |
+| error    | `{ code: number, message: string } \| null` | Error data                        |
+| status   | `number`                                    | The http status returned          |
+| duration | `number \| undefined`                       | The duration of the http request  |
+| headers  | `Headers \| undefined`                      | Response headers from the request |
 
 ### Usage
 
@@ -168,12 +179,13 @@ Get the season leaderboard for a game.
 
 Returns a Promise which resolves to the following object:
 
-| Field    | Type                                        | Description                      |
-| -------- | ------------------------------------------- | -------------------------------- |
-| data     | [Response](GAMES.md) `\| null`              | The response data                |
-| error    | `{ code: number, message: string } \| null` | Error data                       |
-| status   | `number`                                    | The http status returned         |
-| duration | `number \| undefined`                       | The duration of the http request |
+| Field    | Type                                        | Description                       |
+| -------- | ------------------------------------------- | --------------------------------- |
+| data     | [Response](GAMES.md) `\| null`              | The response data                 |
+| error    | `{ code: number, message: string } \| null` | Error data                        |
+| status   | `number`                                    | The http status returned          |
+| duration | `number \| undefined`                       | The duration of the http request  |
+| headers  | `Headers \| undefined`                      | Response headers from the request |
 
 ### Usage
 
@@ -195,12 +207,13 @@ Get special data such as each game's all-time player count.
 
 Returns a Promise which resolves to the following object:
 
-| Field    | Type                                           | Description                      |
-| -------- | ---------------------------------------------- | -------------------------------- |
-| data     | [Response](API.md#global-statistics) `\| null` | The response data                |
-| error    | `{ code: number, message: string } \| null`    | Error data                       |
-| status   | `number`                                       | The http status returned         |
-| duration | `number \| undefined`                          | The duration of the http request |
+| Field    | Type                                           | Description                       |
+| -------- | ---------------------------------------------- | --------------------------------- |
+| data     | [Response](API.md#global-statistics) `\| null` | The response data                 |
+| error    | `{ code: number, message: string } \| null`    | Error data                        |
+| status   | `number`                                       | The http status returned          |
+| duration | `number \| undefined`                          | The duration of the http request  |
+| headers  | `Headers \| undefined`                         | Response headers from the request |
 
 ### Usage
 
@@ -224,12 +237,13 @@ If the game has got only one map, returned data will be null and the error messa
 
 Returns a Promise which resolves to the following object:
 
-| Field    | Type                                        | Description                      |
-| -------- | ------------------------------------------- | -------------------------------- |
-| data     | [Response](API.md#map-data) `\| null`       | The response data                |
-| error    | `{ code: number, message: string } \| null` | Error data                       |
-| status   | `number`                                    | The http status returned         |
-| duration | `number \| undefined`                       | The duration of the http request |
+| Field    | Type                                        | Description                       |
+| -------- | ------------------------------------------- | --------------------------------- |
+| data     | [Response](API.md#map-data) `\| null`       | The response data                 |
+| error    | `{ code: number, message: string } \| null` | Error data                        |
+| status   | `number`                                    | The http status returned          |
+| duration | `number \| undefined`                       | The duration of the http request  |
+| headers  | `Headers \| undefined`                      | Response headers from the request |
 
 Allowed games (games with only one map don't work):
 
@@ -269,12 +283,13 @@ This includes level and prestige infomation.
 
 Returns a Promise which resolves to the following object:
 
-| Field    | Type                                        | Description                      |
-| -------- | ------------------------------------------- | -------------------------------- |
-| data     | [Response](API.md#game-metadata) `\| null`  | The response data                |
-| error    | `{ code: number, message: string } \| null` | Error data                       |
-| status   | `number`                                    | The http status returned         |
-| duration | `number \| undefined`                       | The duration of the http request |
+| Field    | Type                                        | Description                       |
+| -------- | ------------------------------------------- | --------------------------------- |
+| data     | [Response](API.md#game-metadata) `\| null`  | The response data                 |
+| error    | `{ code: number, message: string } \| null` | Error data                        |
+| status   | `number`                                    | The http status returned          |
+| duration | `number \| undefined`                       | The duration of the http request  |
+| headers  | `Headers \| undefined`                      | Response headers from the request |
 
 ### Usage
 
@@ -297,12 +312,13 @@ Get a player's information, such as current/longest login streak, currently equi
 
 Returns a Promise which resolves to the following object
 
-| Field    | Type                                        | Description                      |
-| -------- | ------------------------------------------- | -------------------------------- |
-| data     | [Response](API.md#playerinfo) `\| null`     | The response data                |
-| error    | `{ code: number, message: string } \| null` | Error data                       |
-| status   | `number`                                    | The http status returned         |
-| duration | `number \| undefined`                       | The duration of the http request |
+| Field    | Type                                        | Description                       |
+| -------- | ------------------------------------------- | --------------------------------- |
+| data     | [Response](API.md#playerinfo) `\| null`     | The response data                 |
+| error    | `{ code: number, message: string } \| null` | Error data                        |
+| status   | `number`                                    | The http status returned          |
+| duration | `number \| undefined`                       | The duration of the http request  |
+| headers  | `Headers \| undefined`                      | Response headers from the request |
 
 ### Usage
 
