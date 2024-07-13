@@ -31,6 +31,7 @@ export default async function fetchEndpoint<T extends string>(
 
         return {
             status: request.status,
+            headers: request.headers,
             data: response,
             error: null,
             duration,
