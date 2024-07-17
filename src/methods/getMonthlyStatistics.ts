@@ -12,22 +12,23 @@ interface MonthlyOptions extends Options {
 
 export default async function getMonthlyStatistics(
     identifier: string,
-    options?: MonthlyOptions
+    options?: Partial<MonthlyOptions>
 ): Promise<APIResponse<MonthlyProcessedStatistics>>;
 
 export default async function getMonthlyStatistics<G extends Game>(
     identifier: string,
     game_id: G,
-    options?: MonthlyOptions
+    options?: Partial<MonthlyOptions>
 ): Promise<APIResponse<MonthlyProcessedStatistics[G]>>;
 
 export default async function getMonthlyStatistics<G extends Game>(
     identifier: string,
-    game_or_options?: G | MonthlyOptions,
-    options?: MonthlyOptions
+    game_or_options?: G | Partial<MonthlyOptions>,
+    options?: Partial<MonthlyOptions>
 ) {
     let game_id: G | "all" = "all";
-    let method_options: MonthlyOptions | undefined = game_or_options as MonthlyOptions;
+    let method_options: Partial<MonthlyOptions> | undefined =
+        game_or_options as MonthlyOptions;
 
     if (typeof game_or_options === "string") {
         game_id = game_or_options as G;
@@ -46,29 +47,41 @@ export default async function getMonthlyStatistics<G extends Game>(
 
     let current_date = new Date();
     let endpoint = `/game/monthly/player/${game_id}/${identifier}/${
-        options?.year ?? current_date.getFullYear()
-    }/${options?.month ?? current_date.getMonth() + 1}` as const;
+        typeof method_options?.year === "number"
+            ? method_options?.year
+            : current_date.getFullYear()
+    }/${
+        typeof method_options?.month === "number"
+            ? method_options?.month
+            : current_date.getMonth() + 1
+    }` as const;
+    console.log(endpoint);
 
     let response = await fetchEndpoint(endpoint, method_options?.init);
     if (response.error) return response;
 
     if (game_id === "all") {
         let response_data = Object.entries(response.data);
-        let processed_data: Partial<MonthlyProcessedStatistics> = Object.fromEntries(
-            response_data.map(([id, statistics]) => {
-                if (!statistics || !isGame(id as Game) || Array.isArray(statistics))
-                    return [id, null];
+        let processed_data: Partial<MonthlyProcessedStatistics> =
+            Object.fromEntries(
+                response_data.map(([id, statistics]) => {
+                    if (
+                        !statistics ||
+                        !isGame(id as Game) ||
+                        Array.isArray(statistics)
+                    )
+                        return [id, null];
 
-                let e = MonthlyProcessors[Game.ParkourWorlds];
+                    let e = MonthlyProcessors[Game.ParkourWorlds];
 
-                return [
-                    id,
-                    typeof MonthlyProcessors[id as Game] === "function"
-                        ? MonthlyProcessors[id as Game](statistics)
-                        : null,
-                ];
-            })
-        );
+                    return [
+                        id,
+                        typeof MonthlyProcessors[id as Game] === "function"
+                            ? MonthlyProcessors[id as Game](statistics)
+                            : null,
+                    ];
+                })
+            );
 
         return { ...response, data: processed_data };
     }

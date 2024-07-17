@@ -5,12 +5,12 @@ import isGame from "../helpers/isGame";
 
 export default function getMaps<G extends Game>(
     game_id: G,
-    options?: Options
+    options?: Partial<Options>
 ): Promise<APIResponse<MapMetadata[]>>;
 
 export default async function getMaps<G extends Game>(
     game_id: G,
-    options?: Options
+    options?: Partial<Options>
 ): Promise<APIResponse<MapMetadata[]>> {
     if (!isGame(game_id))
         return {

@@ -5,12 +5,12 @@ import isGame from "../helpers/isGame";
 
 export default function getMetdata<G extends Game>(
     game_id: G,
-    options?: Options
+    options?: Partial<Options>
 ): Promise<APIResponse<GameMetadata>>;
 
 export default async function getMetdata<G extends Game>(
     game_id: G,
-    options?: Options
+    options?: Partial<Options>
 ): Promise<APIResponse<GameMetadata>> {
     if (!isGame(game_id))
         return {

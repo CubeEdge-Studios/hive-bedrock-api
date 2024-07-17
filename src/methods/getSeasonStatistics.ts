@@ -14,13 +14,13 @@ interface SeasonOptions extends Options {
 export default async function getSeasonStatistics<G extends Game>(
     identifier: string,
     game_id: G,
-    options?: SeasonOptions
+    options?: Partial<SeasonOptions>
 ): Promise<APIResponse<MonthlyProcessedStatistics[G]>>;
 
 export default async function getSeasonStatistics<G extends Game>(
     identifier: string,
     game_id: G,
-    options?: SeasonOptions
+    options?: Partial<SeasonOptions>
 ) {
     if (!isGame(game_id as G))
         return {
@@ -32,7 +32,9 @@ export default async function getSeasonStatistics<G extends Game>(
             data: null,
         };
 
-    let endpoint = `/game/season/player/${game_id}/${identifier}/${options?.season ?? 1}`;
+    let endpoint = `/game/season/player/${game_id}/${identifier}/${
+        options?.season ?? 1
+    }`;
 
     let response = await fetchEndpoint(endpoint, options?.init);
     if (response.error) return response;

@@ -7,10 +7,13 @@ import { LeaderboardProcessors } from "../processors";
 
 export default function getAllTimeLeaderboard<G extends Game>(
     game_id: G,
-    options?: Options
+    options?: Partial<Options>
 ): Promise<APIResponse<AllTimeProcessedLeaderboard<G>>>;
 
-export default async function getAllTimeLeaderboard<G extends Game>(game_id: G, options?: Options) {
+export default async function getAllTimeLeaderboard<G extends Game>(
+    game_id: G,
+    options?: Partial<Options>
+) {
     if (!isGame(game_id))
         return {
             status: 404,

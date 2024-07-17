@@ -12,22 +12,23 @@ type AllGameStatisticsPlayer = AllTimeProcessedStatistics & {
 
 export default async function getAllTimeStatistics(
     identifier: string,
-    options?: Options
+    options?: Partial<Options>
 ): Promise<APIResponse<AllGameStatisticsPlayer>>;
 
 export default async function getAllTimeStatistics<G extends Game>(
     identifier: string,
     game_id: G,
-    options?: Options
+    options?: Partial<Options>
 ): Promise<APIResponse<AllTimeProcessedStatistics[G]>>;
 
 export default async function getAllTimeStatistics<G extends Game>(
     identifier: string,
-    game_or_options?: G | Options,
-    options?: Options
+    game_or_options?: G | Partial<Options>,
+    options?: Partial<Options>
 ) {
     let game_id: G | "all" = "all";
-    let method_options: Options | undefined = game_or_options as Options;
+    let method_options: Partial<Options> | undefined =
+        game_or_options as Options;
 
     if (typeof game_or_options === "string") {
         game_id = game_or_options as G;
