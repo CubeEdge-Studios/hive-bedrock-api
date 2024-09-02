@@ -11,7 +11,7 @@
     "license": "MIT",
     "author": "Cubeedge Studios",
     "dependencies": {
-        "hive-bedrock-data": "^1.2.4"
+        "hive-bedrock-data": "^1.2.5"
     },
     "scripts": {
         "build": "tsc"
