@@ -1,3 +1,6 @@
+> [!NOTE]
+> This package is now managed in a different repository. https://github.com/CubeEdge-Studios/hive-bedrock
+
 # Hive Bedrock API
 
 An API wrapper for the Hive Minecraft Bedrock Edition server. Which allows you to get stats for leaderboards, players, cosmetics, unique player counts, maps and metadata.
